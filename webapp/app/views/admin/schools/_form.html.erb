@@ -1,0 +1,50 @@
+<%= form_for([:admin, @school]) do |f| %>
+  <% if @school.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@school.errors.count, "error") %> prohibited this school from being saved:</h2>
+
+      <ul>
+      <% @school.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :kind %><br>
+    <%= f.text_field :kind %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br>
+    <%= f.text_field :note %>
+  </div>
+  <%= f.fields_for :address do |af| %>
+    <div class="field">
+      <%= af.label :post %><br>
+      <%= af.text_field :post %>
+    </div>
+    <div class="field">
+      <%= af.label :prefecture %><br>
+      <%= af.text_field :prefecture %>
+    </div>
+    <div class="field">
+      <%= af.label :city %><br>
+      <%= af.text_field :city %>
+    </div>
+    <div class="field">
+      <%= af.label :address1 %><br>
+      <%= af.text_field :address1 %>
+    </div>
+    <div class="field">
+      <%= af.label :address2 %><br>
+      <%= af.text_field :address2 %>
+    </div>
+  <% end %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
