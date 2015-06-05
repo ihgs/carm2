@@ -10,38 +10,46 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :class=>"form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :kind %><br>
-    <%= f.text_field :kind %>
+    <div class="row">
+      <div class="col-xs-2">
+        <%= f.select :kind, school_types(), {}, :class=>"form-control" %>
+      </div>
+    </div>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :note %><br>
-    <%= f.text_field :note %>
+    <%= f.text_area :note, :size=>"x10", :class=>"form-control" %>
   </div>
   <%= f.fields_for :address do |af| %>
-    <div class="field">
+    <div class="form-group">
       <%= af.label :post %><br>
       <%= af.text_field :post %>
     </div>
-    <div class="field">
+    <div class="form-group">
       <%= af.label :prefecture %><br>
-      <%= af.text_field :prefecture %>
+      <div class="row">
+        <div class="col-xs-2">
+        <%= af.select :prefecture, prefectures(), {}, :class=>"form-control" %>
+        </div>
+      </div>
     </div>
-    <div class="field">
+    <div class="form-group">
       <%= af.label :city %><br>
       <%= af.text_field :city %>
     </div>
-    <div class="field">
+    <div class="form-group">
       <%= af.label :address1 %><br>
-      <%= af.text_field :address1 %>
+      <%= af.text_field :address1, :class=>"form-control"%>
     </div>
-    <div class="field">
+    <div class="form-group">
       <%= af.label :address2 %><br>
-      <%= af.text_field :address2 %>
+      <%= af.text_field :address2, :class=>"form-control" %>
     </div>
   <% end %>
   <div class="actions">
