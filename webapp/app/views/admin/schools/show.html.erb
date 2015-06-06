@@ -1,24 +1,27 @@
+<% provide(:title, 'School Detail') %>
+
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @school.name %>
-</p>
+<div class="table-responsive">
 
-<p>
-  <strong>Kind:</strong>
-  <%= @school.kind %>
-</p>
-
-<p>
-  <strong>Note:</strong>
-  <%= @school.note %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @school.address %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong>Name:</strong></dt>
+  <dd><%= @school.name %></dd>
+  <dt><strong>Kind:</strong></dt>
+  <dd><%= @school.kind %></dd>
+  <dt><strong>Note:</strong></dt>
+  <dd><%= @school.note %></dd>
+  <dt><strong>Address:</strong></dt>
+  <dd>
+    <%= @school.address.post %><br>
+    <%= @school.address.prefecture %>
+    <%= @school.address.city %>
+    <%= @school.address.address1 %><br>
+    <%= @school.address.address2 %>
+  </dd>
+</dl>
 
 <%= link_to 'Edit', [:edit, :admin, @school] %> |
 <%= link_to 'Back', admin_schools_path %>
+</div>
