@@ -16,20 +16,18 @@ class Admin::SchoolsController < ApplicationController
   # GET /schools/new
   def new
     @school = School.new
-    @school.build_address
   end
 
   # GET /schools/1/edit
   def edit
-    @school.build_address unless @school.address
   end
 
   # POST /schools
   # POST /schools.json
   def create
     @school = School.new(school_params)
-    if @school.address.prefecture == "--都道府県--"
-      @school.address.prefecture = ""
+    if @school.address[:prefecture] == "--都道府県--"
+      @school.address[:prefecture] = ""
     end
     respond_to do |format|
       if @school.save
@@ -45,9 +43,12 @@ class Admin::SchoolsController < ApplicationController
   # PATCH/PUT /schools/1
   # PATCH/PUT /schools/1.json
   def update
-    address = Address.new(school_params["address_attributes"])
+    param = school_params
+    if param[:address][:prefecture] == "--都道府県--"
+      param[:address][:prefecture] = ""
+    end
     respond_to do |format|
-      if @school.update(school_params)
+      if @school.update(param)
         format.html { redirect_to [:admin, @school], notice: 'School was successfully updated.' }
         format.json { render :show, status: :ok, location: [:admin, @school] }
       else
@@ -76,7 +77,7 @@ class Admin::SchoolsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def school_params
       params.require(:school).permit(:name, :kind, :note,
-        address_attributes: [:id, :post, :prefecture, :city, :address1, :address2])
+        address: [:id, :post, :prefecture, :city, :address1, :address2])
     end
 
 end

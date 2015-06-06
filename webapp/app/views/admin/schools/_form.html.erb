@@ -26,10 +26,10 @@
     <%= f.label :note %><br>
     <%= f.text_area :note, :size=>"x10", :class=>"form-control" %>
   </div>
-  <%= f.fields_for :address do |af| %>
+  <%= f.fields_for :address, OpenStruct.new(@school.address) do |af| %>
     <div class="form-group">
       <%= af.label :post %><br>
-      <%= af.text_field :post %>
+      <%= af.text_field "post" %>
     </div>
     <div class="form-group">
       <%= af.label :prefecture %><br>

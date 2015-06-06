@@ -14,11 +14,11 @@
   <dd><%= @school.note %></dd>
   <dt><strong>Address:</strong></dt>
   <dd>
-    <%= @school.address.post %><br>
-    <%= @school.address.prefecture %>
-    <%= @school.address.city %>
-    <%= @school.address.address1 %><br>
-    <%= @school.address.address2 %>
+    <%= @school.address[:post] %><br>
+    <%= @school.address[:prefecture] %>
+    <%= @school.address[:city] %>
+    <%= @school.address[:address1] %><br>
+    <%= @school.address[:address2] %>
   </dd>
 </dl>
 

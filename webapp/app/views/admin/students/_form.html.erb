@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-  <%= f.fields_for :name do |n| %>
+  <%= f.fields_for :name,  OpenStruct.new(@student.name) do |n| %>
     <div class="form-inline">
       <div class="form-group">
           <%= n.label :family_name %><br>
