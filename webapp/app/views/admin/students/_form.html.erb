@@ -1,0 +1,47 @@
+<%= form_for([:admin, @student]) do |f| %>
+  <% if @student.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@student.errors.count, "error") %> prohibited this admin_student from being saved:</h2>
+
+      <ul>
+      <% @student.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.fields_for :name do |n| %>
+    <div class="form-inline">
+      <div class="form-group">
+          <%= n.label :family_name %><br>
+          <%= n.text_field :family_name, :class=>"form-control" %>
+      </div>
+      <div class="form-group">
+        <%= n.label :first_name %><br>
+        <%= n.text_field :first_name, :class=>"form-control" %>
+      </div>
+    </div>
+    <div class="form-inline">
+      <div class="form-group">
+        <%= n.label :family_name_kana %><br>
+        <%= n.text_field :family_name_kana, :class=>"form-control" %>
+      </div>
+      <div class="form-group">
+        <%= n.label :first_name_kana %><br>
+        <%= n.text_field :first_name_kana, :class=>"form-control" %>
+      </div>
+    </div>
+    <div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :birthday %><br>
+    <div class="row">
+        <div class="col-md-4">
+          <%= f.date_field :birthday, :class=>"form-control"%>
+        </div>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit :class=>'btn btn-primary' %>
+  </div>
+<% end %>

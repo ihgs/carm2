@@ -14,6 +14,7 @@ module ApplicationHelper
   def sidebar_list_items
     items = [
       {:text => 'Schools',      :path => admin_schools_path},
+      {:text => 'Students',      :path => admin_students_path},
     ]
 
     html = ''

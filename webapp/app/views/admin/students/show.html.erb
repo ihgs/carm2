@@ -1,0 +1,18 @@
+<% provide(:title, 'Studnet Detail') %>
+
+<p id="notice"><%= notice %></p>
+
+<dl class="dl-horizontal">
+  <dt><strong>Name:</strong></dt>
+  <dd>
+    <%= @student.name[:family_name] %> <%= @student.name[:first_name] %><br>
+    <%= @student.name[:family_name_kana] %> <%= @student.name[:first_name_kana] %>
+  </dd>
+  <dt><strong>Birthday:</strong></dt>
+  <dd>
+    <%= @student.birthday %>
+  </dd>
+</dl>
+
+<%= link_to 'Edit', [:edit, :admin, @student] %> |
+<%= link_to 'Back', admin_students_path %>
