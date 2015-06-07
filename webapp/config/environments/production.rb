@@ -73,4 +73,7 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  config.attendance_store_dir = "#{Rails.root}/log/attendance"
+
 end

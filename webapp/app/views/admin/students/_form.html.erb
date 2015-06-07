@@ -41,6 +41,22 @@
         </div>
     </div>
   </div>
+  <div class="form-group">
+    <%= f.label :schools %><br>
+    <div class="row">
+      <div class="col-md-6">
+      <!-- <% school_map = School.all.map{|s| [s.name, s.id.to_s]} %> -->
+      <% @student.schools.each do |school| %>
+        <%= f.fields_for :schools, OpenStruct.new(school), index: "" do |school_form| %>
+        <div class="form-inline">
+          <%= school_form.select :school_id, School.all.map {|sm| [sm.name, sm.id]},{}, :class=>"form-control" %>
+          <%= school_form.text_field :note, :class=>"form-control" %>
+        </div>
+        <% end %>
+      <% end %>
+      </div>
+  </div>
+  </div>
   <div class="actions">
     <%= f.submit :class=>'btn btn-primary' %>
   </div>
