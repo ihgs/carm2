@@ -26,32 +26,7 @@
     <%= f.label :note %><br>
     <%= f.text_area :note, :size=>"x10", :class=>"form-control" %>
   </div>
-  <%= f.fields_for :address, OpenStruct.new(@school.address) do |af| %>
-    <div class="form-group">
-      <%= af.label :post %><br>
-      <%= af.text_field "post" %>
-    </div>
-    <div class="form-group">
-      <%= af.label :prefecture %><br>
-      <div class="row">
-        <div class="col-xs-2">
-        <%= af.select :prefecture, prefectures(), {}, :class=>"form-control" %>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <%= af.label :city %><br>
-      <%= af.text_field :city %>
-    </div>
-    <div class="form-group">
-      <%= af.label :address1 %><br>
-      <%= af.text_field :address1, :class=>"form-control"%>
-    </div>
-    <div class="form-group">
-      <%= af.label :address2 %><br>
-      <%= af.text_field :address2, :class=>"form-control" %>
-    </div>
-  <% end %>
+  <%= render partial: "shared/address", locals: {form: f, address: @school.address} %> 
   <div class="actions">
     <%= f.submit nil, :class=>'btn btn-primary' %>
   </div>
