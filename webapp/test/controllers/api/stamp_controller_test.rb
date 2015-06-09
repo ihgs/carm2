@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Api::AttendanceControllerTest < ActionController::TestCase
+class Api::StampControllerTest < ActionController::TestCase
 
   setup do
     student = Student.new

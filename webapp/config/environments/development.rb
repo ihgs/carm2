@@ -35,6 +35,6 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  config.attendance_store_dir = "#{Rails.root}/log/attendance"
+  config.stamp_store_dir = "#{Rails.root}/log/stamp"
 
 end
