@@ -1,2 +1,2 @@
-module Api::AttendanceHelper
+module Api::StampHelper
 end

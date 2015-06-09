@@ -1,5 +1,5 @@
-require 'attendance'
-class Api::AttendanceController < ApplicationController
+require 'stamp'
+class Api::StampController < ApplicationController
 
   skip_before_filter :verify_authenticity_token
 
@@ -17,7 +17,7 @@ class Api::AttendanceController < ApplicationController
     if student != nil
       device_name = params["device_name"]
       time = Time.at(time_sec.to_i)
-      Attendance::write(time, student.id, device_name, remote_ip)
+      Stamp::write(time, student.id, device_name, remote_ip)
       render :json => {status: "success", name: "#{student.name[:family_name]} #{student.name[:first_name]}" }
     else
       render :json => {status: "error", message: "This card is not registered." }

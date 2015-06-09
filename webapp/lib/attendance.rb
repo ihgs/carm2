@@ -1,13 +1,13 @@
-module Attendance
+module Stamp
 
   class << self
 
 
     def write time, student_id, device_name, device_ip
-      store_dir = Webapp::Application::config.attendance_store_dir
+      store_dir = Webapp::Application::config.stamp_store_dir
       dir = File.join(store_dir, time.year.to_s, time.month.to_s)
       FileUtils.mkdir_p(dir) unless File.exists?(dir)
-      log_file = File.join(dir , "attendance.log")
+      log_file = File.join(dir , "stamp.log")
 
       File.open(log_file, "a") do |f|
         f.puts "#{time},  #{student_id}, #{device_name}, #{device_ip}"
@@ -15,9 +15,9 @@ module Attendance
     end
 
     def read year, month, student_id=nil
-      store_dir = Webapp::Application::config.attendance_store_dir
+      store_dir = Webapp::Application::config.stamp_store_dir
       dir = File.join(store_dir, year.to_s, month.to_s)
-      log_file = File.join(dir , "attendance.log")
+      log_file = File.join(dir , "stamp.log")
 
       return [] unless File.exists?(log_file)
 
