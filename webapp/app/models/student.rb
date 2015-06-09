@@ -13,7 +13,11 @@ class Student
     return (today - birth)/10000
   end
 
+  def fullname
+    "#{name[:family_name]} #{name[:first_name]}"
+  end
   def schools
     @schools = [{school_id: "", note: ""}] unless @schools
   end
+
 end

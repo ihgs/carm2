@@ -1,0 +1,13 @@
+<% provide(:title, "#{@student.fullname} stamp") %>
+
+
+<table class="table">
+<% @stamp_daymap.each do |day, times| %>
+  <tr>
+    <td><%= day%></td>
+    <td>
+      <%= times.map{|time| "#{time.hour}:#{time.min}"}.join(", ") %>
+    </td>
+  </tr>
+<% end %>
+</table>

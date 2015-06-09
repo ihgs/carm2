@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   namespace :api do
     post 'stamp/' => 'stamp#index'
   end
@@ -6,6 +7,9 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :schools
     resources :students
+    
+    get 'stamp/' => 'stamp#index'
+    get 'stamp/:id' => 'stamp#show'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
