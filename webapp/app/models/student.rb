@@ -2,6 +2,7 @@ class Student
   include Mongoid::Document
 
   field :name, type: Hash
+  field :card_id, type: String
   field :birthday, type: Date
   field :schools, type: Array  # [{school_id:, note:}]
 
