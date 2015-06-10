@@ -12,9 +12,8 @@
   <tbody>
     <% @students.each do |student| %>
       <tr>
-        <td><%= student.name[:family_name] %> <%= student.name[:first_name] %></td>
+        <td><%= link_to student.fullname, [:admin, student] %></td>
         <td><%= student.age %></td>
-        <td><%= link_to 'Show', [:admin, student] %></td>
         <td><%= link_to 'Edit', [:edit, :admin, student] %></td>
         <td><%= link_to 'Destroy', [:admin, student], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
