@@ -1,10 +1,18 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
+
+class Util
+  constructor: ->
+  @div: (klass) ->
+    d = $("<div>")
+    d.addClass(klass)
+    return d
+
 class TimeTableRow
 
   constructor: (@start_hour, @end_hour, @hour_width, @hour_height) ->
-    @wrap_div =$("<div>")
+    @wrap_div = Util.div("timetable_stamp_row")
     @wrap_div.css("position", "relative")
     @create_row()
 
@@ -12,10 +20,8 @@ class TimeTableRow
     diff = @end_hour - @start_hour
     @wrap_div.css("height", @hour_height)
     for i in [@start_hour .. @end_hour]
-      div = $("<div>")
-      div.addClass("timetable_row_hour")
-      div.height(@hour_height)
-      div.width(@hour_width)
+      div = Util.div("timetable_row_hour")
+      div.width(@hour_width).height(@hour_height)
       div.css("left", (i-@start_hour)*@hour_width)
       div.text(i)
       @wrap_div.append(div)
@@ -27,8 +33,6 @@ class TimeTableRow
     bar = new Bar(@start_hour, @hour_width)
     for stamp in stamps
       bar.add(stamp)
-
-
 
     @wrap_div.append(bar.bar())
 
@@ -46,56 +50,54 @@ class Bar
     if point > @max
       @max = point
 
-    point_div = $("<div>")
-    point_div.addClass("timetable_event_point")
-    point_div.css("left", point-6)
+    point_div = Util.div("timetable_event_point")
+    point_div.css("left", point-6).css("top",5)
     @point_divs.append(point_div)
 
   bar: ->
-    bar = $("<div>")
-    bar.addClass("timetable_event_bar")
-    bar.css("left", @min)
-    bar.css("top", 15)
-    bar.width(@max-@min)
-    wrap_bar = $("<div>")
+    bar_width = @max-@min
+    bar = Util.div("timetable_event_bar")
+    bar.width(bar_width).height(10).css("left", @min).css("top", 20)
+
+    wrap_bar = Util.div()
     wrap_bar.append(bar)
 
-    wrap = $("<div>")
+    wrap = Util.div()
     wrap.append(wrap_bar)
     wrap.append(@point_divs)
     return wrap
 
 
 class Timetable
-  constructor: (@start_hour, @end_hour, @hour_width, @hour_height) ->
+
+  width_student = 100
+  width_date = 100
+
+  constructor: (@start_hour, @end_hour, table_width, @hour_height) ->
+    @hour_width = table_width/(@end_hour - @start_hour)
 
   set_data: (data)->
-    @table_div = $("<div>")
+    @table_div = Util.div()
     for d in data
-      row = $("<div>")
+      row = Util.div("timetable_row")
       @table_div.append(row)
 
-      date_div = $("<div>")
-      date_div.width(100)
+      date_div = Util.div("timetable_cell").width(width_date)
       date_div.text(d.date)
-      date_div.css("display", "table-cell")
       row.append(date_div)
-      date_data_div = $("<div>")
-      date_data_div.css("display", "table-cell")
+      date_data_div = Util.div("timetable_cell")
       row.append(date_data_div)
       for student_info in d.data
-        student_row_div = $("<div>")
+        student_row_div = Util.div("timetable_row_student")
 
-        student_name_div = $("<div>")
+        student_name_div = Util.div("timetable_cell").width(width_student)
         student_name_div.text(student_info.name)
-        student_name_div.width(100)
-        student_name_div.css("display", "table-cell")
 
         stamp_row = new TimeTableRow(@start_hour, @end_hour, @hour_width, @hour_height)
         stamp_row.set_stamps(student_info.stamps)
 
         stamp_row = stamp_row.row()
-        stamp_row.css("display", "table-cell")
+        stamp_row.addClass("timetable_cell")
         student_row_div.append(student_name_div)
         student_row_div.append(stamp_row)
 
@@ -153,6 +155,6 @@ $ ->
 
 
 
-  table = new Timetable(8, 21, 30, 40)
+  table = new Timetable(8, 21, 500, 40)
   table.set_data(sample)
   target.append(table.table_data())

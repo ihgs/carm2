@@ -1,8 +1,14 @@
 // Place all the styles related to the admin/stamp controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+
 .timetable_row_hour{
-  border: 1px solid #000000;
+  color: #BDBDBD;
+  border-left: 1px solid #BDBDBD;
+  border-bottom: 1px solid #BDBDBD;
   position: absolute;
 }
 
@@ -16,9 +22,12 @@
 }
 
 .timetable_event_bar{
-  height: 15px;
   position: absolute;
   background-color: #87CEEB;
   border-radius: 5px;
   opacity: 0.5;
+}
+
+.timetable_cell{
+  display: table-cell;
 }
