@@ -20,7 +20,7 @@ class Api::StampController < ApplicationController
       Stamp::write(time, student.id, device_name, remote_ip)
       render :json => {status: "success", name: "#{student.name[:family_name]} #{student.name[:first_name]}" }
     else
-      render :json => {status: "error", message: "This card is not registered." }
+      render :json => {status: "error", message: "This card(#{card_id}) is not registered." }
     end
 
   end

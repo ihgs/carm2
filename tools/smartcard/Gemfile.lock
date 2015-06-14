@@ -1,0 +1,28 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    coderay (1.1.0)
+    ffi (1.9.8)
+    method_source (0.8.2)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    rubyzip (0.9.9)
+    slop (3.6.0)
+    smartcard (0.5.5)
+      ffi (>= 1.2.0)
+      rubyzip (>= 0.9.9)
+      zerg_support (>= 0.1.6)
+    zerg_support (0.1.6)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  pry
+  rubyzip (< 1.0.0)
+  smartcard
+
+BUNDLED WITH
+   1.10.2
