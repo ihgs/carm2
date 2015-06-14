@@ -51,16 +51,21 @@ class Bar
       @max = point
 
     point_div = Util.div("timetable_event_point")
-    point_div.css("left", point-6).css("top",5)
+    point_div.attr("title",stamp.hour + ":" + stamp.min)
+    point_div.tooltip()
+    point_div.css("left", point-4).css("top",7)
     @point_divs.append(point_div)
 
   bar: ->
     bar_width = @max-@min
     bar = Util.div("timetable_event_bar")
     bar.width(bar_width).height(10).css("left", @min).css("top", 20)
+    bar.attr("title", Math.floor(bar_width) + " min")
+    bar.tooltip()
 
     wrap_bar = Util.div()
     wrap_bar.append(bar)
+
 
     wrap = Util.div()
     wrap.append(wrap_bar)

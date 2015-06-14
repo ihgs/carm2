@@ -13,11 +13,10 @@
 }
 
 .timetable_event_point{
-  width: 0;
-	height: 0;
-	border-top: 20px solid #000080;
-	border-right: 6px solid transparent;
-	border-left: 6px solid transparent;
+  width: 10px;
+	height: 10px;
+  transform: rotate(-45deg);
+  background-color: #000080;
   position: absolute;
 }
 
