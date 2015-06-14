@@ -47,8 +47,10 @@ class Bar
     point = ((stamp.hour - @base) + stamp.min/60.0)*@hour_width
     if point < @min
       @min = point
+      @min_min = stamp.hour*60 + stamp.min
     if point > @max
       @max = point
+      @max_min = stamp.hour*60 + stamp.min
 
     point_div = Util.div("timetable_event_point")
     point_div.attr("title",stamp.hour + ":" + stamp.min)
@@ -60,7 +62,8 @@ class Bar
     bar_width = @max-@min
     bar = Util.div("timetable_event_bar")
     bar.width(bar_width).height(10).css("left", @min).css("top", 20)
-    bar.attr("title", Math.floor(bar_width) + " min")
+    diff_min = @max_min - @min_min
+    bar.attr("title", diff_min + " min")
     bar.tooltip()
 
     wrap_bar = Util.div()
@@ -147,7 +150,6 @@ $ ->
         {
           name: "鈴木　一郎",
           stamps: [
-            { hour: 12, min: 0 },
             { hour: 14, min: 10 },
             { hour: 14, min: 40 }
             ]
