@@ -17,7 +17,6 @@ class TimeTableRow
     @create_row()
 
   create_row: ->
-    diff = @end_hour - @start_hour
     @wrap_div.css("height", @hour_height)
     for i in [@start_hour .. @end_hour]
       div = Util.div("timetable_row_hour")
@@ -26,6 +25,10 @@ class TimeTableRow
       div.text(i)
       @wrap_div.append(div)
 
+  # <warp_div>
+  #   <timetable_row_hour />...<timetable_row_hour />
+  #   <bar/>
+  # </wrap_div>
   row: ->
     return @wrap_div
 
@@ -58,6 +61,14 @@ class Bar
     point_div.css("left", point-4).css("top",7)
     @point_divs.append(point_div)
 
+  # <wrap>
+  #   <wrap_bar>
+  #      <timetable_evnet_bar />
+  #      <point_divs>
+  #         <point_div/>..<point_div/>
+  #      </point_divs>
+  #   </wrap_bar>
+  # </wrap>
   bar: ->
     bar_width = @max-@min
     bar = Util.div("timetable_event_bar")
@@ -86,16 +97,19 @@ class Timetable
 
   set_data: (data)->
     @table_div = Util.div()
-    for d in data
+    for day of data
+
       row = Util.div("timetable_row")
       @table_div.append(row)
 
       date_div = Util.div("timetable_cell").width(width_date)
-      date_div.text(d.date)
+      date_div.text(day)
       row.append(date_div)
       date_data_div = Util.div("timetable_cell")
       row.append(date_data_div)
-      for student_info in d.data
+
+      for student_id of data[day]
+        student_info = data[day][student_id]
         student_row_div = Util.div("timetable_row_student")
 
         student_name_div = Util.div("timetable_cell").width(width_student)
@@ -111,6 +125,18 @@ class Timetable
 
         date_data_div.append(student_row_div)
 
+  # <table_div>
+  #    <row>
+  #        <date_div/>
+  #        <date_data_div/>
+  #        <student_row_div>
+  #           <student_name_div/>
+  #           <stamp_row />
+  #        </student_row_div>
+  #        <student_row_div>
+  #    </row>
+  #    <row>..</row>
+  # </table_div>
   table_data: ->
     return @table_div
 
@@ -118,9 +144,9 @@ class Timetable
 $ ->
   sample = [
     {
-      date: "20150610",
-      data:[
-        {
+      "20150610":{
+
+        "aaaaaaa": {
           name: "山田　太郎",
           stamps: [
             { hour: 9, min: 0 },
@@ -128,7 +154,8 @@ $ ->
             { hour: 13, min: 40 }
             ]
         },
-        {
+
+        "bbbbbbbb": {
           name: "鈴木　一郎",
           stamps: [
             { hour: 10, min: 0 },
@@ -136,32 +163,32 @@ $ ->
             { hour: 13, min: 40 }
             ]
         }
-      ]
+      }
     },
     {
-      date: "20150611",
-      data: [
-        {
+      "20150611": {
+
+        "aaaaaaa":{
           name: "山田　太郎",
           stamps: [
             { hour: 15, min: 0 }
             ]
         },
-        {
+
+        "bbbbbbbb":{
           name: "鈴木　一郎",
           stamps: [
             { hour: 14, min: 10 },
             { hour: 14, min: 40 }
             ]
         }
-      ]
-    },
-
+      }
+    }
   ]
   target = $("#timestamp_table")
 
 
 
   table = new Timetable(8, 21, 500, 40)
-  table.set_data(sample)
+  table.set_data(window.timestamp_table)
   target.append(table.table_data())

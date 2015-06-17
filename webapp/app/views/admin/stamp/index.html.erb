@@ -2,24 +2,7 @@
 
 
 <div id="timestamp_table"></div>
-<table class="table">
-<% @stamp_daymap.each do |day, v| %>
-  <tr>
-    <td rowspan="<%= v.size %>"><%= day%></td>
-    <td>
-      <table class="table">
-        <% v.each do |id, v2| %>
-          <% v2.each do |name, times | %>
-            <tr>
-              <td><%= name %></td>
-              <td>
-                <%= times.map{|time| "#{time.hour}:#{time.min}"}.join(", ") %>
-              </td>
-            </tr>
-          <% end %>
-        <% end %>
-      </table>
-    </td>
-  </tr>
-<% end %>
-</table>
+<script type="text/javascript">
+  window.timestamp_table = <%= raw @stamp_daymap.to_json %>
+
+</script>
