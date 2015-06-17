@@ -1,13 +1,8 @@
 <% provide(:title, "#{@student.fullname} stamp") %>
 
 
-<table class="table">
-<% @stamp_daymap.each do |day, times| %>
-  <tr>
-    <td><%= day%></td>
-    <td>
-      <%= times.map{|time| "#{time.hour}:#{time.min}"}.join(", ") %>
-    </td>
-  </tr>
-<% end %>
-</table>
+<div id="timestamp_table"></div>
+<script type="text/javascript">
+  timestamp_data = <%= raw @stamp_daymap.to_json %>
+  load_table("timestamp_table", timestamp_data, 8, 21, 500, 35, false)
+</script>

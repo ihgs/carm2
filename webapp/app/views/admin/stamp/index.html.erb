@@ -3,6 +3,6 @@
 
 <div id="timestamp_table"></div>
 <script type="text/javascript">
-  window.timestamp_table = <%= raw @stamp_daymap.to_json %>
-
+  timestamp_data = <%= raw @stamp_daymap.to_json %>
+  load_table("timestamp_table", timestamp_data, 8, 21, 500, 35)
 </script>

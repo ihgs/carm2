@@ -29,7 +29,7 @@ class Admin::StampController < ApplicationController
     stamp_list.each do |stamp|
       time  = Time.parse(stamp[:time])
       day = time.strftime("%Y%m%d")
-      map_push(@stamp_daymap, day, id, {name: @student.fullname, stamps: [hour_min(time)]})
+      map_push(@stamp_daymap, day, @student.id, {name: @student.fullname, stamps: [hour_min(time)]})
     end
 
   end

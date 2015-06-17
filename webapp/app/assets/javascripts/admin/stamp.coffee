@@ -92,7 +92,7 @@ class Timetable
   width_student = 100
   width_date = 100
 
-  constructor: (@start_hour, @end_hour, table_width, @hour_height) ->
+  constructor: (@start_hour, @end_hour, table_width, @hour_height, @show_name=true) ->
     @hour_width = table_width/(@end_hour - @start_hour)
 
   set_data: (data)->
@@ -112,15 +112,16 @@ class Timetable
         student_info = data[day][student_id]
         student_row_div = Util.div("timetable_row_student")
 
-        student_name_div = Util.div("timetable_cell").width(width_student)
-        student_name_div.text(student_info.name)
+        if @show_name
+          student_name_div = Util.div("timetable_cell").width(width_student)
+          student_name_div.text(student_info.name)
+          student_row_div.append(student_name_div)
 
         stamp_row = new TimeTableRow(@start_hour, @end_hour, @hour_width, @hour_height)
         stamp_row.set_stamps(student_info.stamps)
 
         stamp_row = stamp_row.row()
         stamp_row.addClass("timetable_cell")
-        student_row_div.append(student_name_div)
         student_row_div.append(stamp_row)
 
         date_data_div.append(student_row_div)
@@ -141,54 +142,11 @@ class Timetable
     return @table_div
 
 
-$ ->
-  sample = [
-    {
-      "20150610":{
 
-        "aaaaaaa": {
-          name: "山田　太郎",
-          stamps: [
-            { hour: 9, min: 0 },
-            { hour: 10, min: 30 },
-            { hour: 13, min: 40 }
-            ]
-        },
+@load_table= (id, data, start, end, width, cell_height, show_name=true) ->
 
-        "bbbbbbbb": {
-          name: "鈴木　一郎",
-          stamps: [
-            { hour: 10, min: 0 },
-            { hour: 10, min: 10 },
-            { hour: 13, min: 40 }
-            ]
-        }
-      }
-    },
-    {
-      "20150611": {
+  target = $("#"+id)
 
-        "aaaaaaa":{
-          name: "山田　太郎",
-          stamps: [
-            { hour: 15, min: 0 }
-            ]
-        },
-
-        "bbbbbbbb":{
-          name: "鈴木　一郎",
-          stamps: [
-            { hour: 14, min: 10 },
-            { hour: 14, min: 40 }
-            ]
-        }
-      }
-    }
-  ]
-  target = $("#timestamp_table")
-
-
-
-  table = new Timetable(8, 21, 500, 40)
-  table.set_data(window.timestamp_table)
+  table = new Timetable(start, end, width, cell_height, show_name)
+  table.set_data(data)
   target.append(table.table_data())
