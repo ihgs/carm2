@@ -2,6 +2,7 @@ class Admin::StudentsController < ApplicationController
   layout 'admin/dashboard'
 
   before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /admin/students
   # GET /admin/students.json
