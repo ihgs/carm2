@@ -5,7 +5,11 @@ class Admin::StampController < ApplicationController
 
   def index
     t = Time.now
-    stamp_list = Stamp::read(t.year, t.month)
+    @year = params[:year]
+    @year = t.year unless @year
+    @month = params[:month]
+    @month = t.month unless @month
+    stamp_list = Stamp::read(@year, @month)
 
     @stamp_daymap = {}
     stamp_list.each do |stamp|
@@ -23,8 +27,12 @@ class Admin::StampController < ApplicationController
 
   def show
     t = Time.now
+    @year = params[:year]
+    @year = t.year unless @year
+    @month = params[:month]
+    @month = t.month unless @month
     @student = Student.find(params[:id])
-    stamp_list = Stamp::read(t.year, t.month, @student.id.to_s)
+    stamp_list = Stamp::read(@year, @month, @student.id.to_s)
 
     @stamp_daymap = {}
     stamp_list.each do |stamp|

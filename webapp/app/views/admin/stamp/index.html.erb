@@ -1,6 +1,6 @@
 <% provide(:title, 'stamp') %>
 
-
+<%= render 'select_month' %>
 <div id="timestamp_table"></div>
 <script type="text/javascript">
   timestamp_data = <%= raw @stamp_daymap.to_json %>
