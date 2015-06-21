@@ -28,6 +28,7 @@ class TimeTableRow
   # <warp_div>
   #   <timetable_row_hour />...<timetable_row_hour />
   #   <bar/>
+  #   <stap_time_div />
   # </wrap_div>
   row: ->
     return @wrap_div
@@ -38,7 +39,11 @@ class TimeTableRow
       bar.add(stamp)
 
     @wrap_div.append(bar.bar())
-
+    stay_time_div = Util.div("timetable_stay_time")
+    stay_time_div.css("left", (@end_hour-@start_hour+1)*@hour_width)
+    stay_time_div.text(bar.diff_min+" min")
+    stay_time_div.height(@hour_height)
+    @wrap_div.append(stay_time_div)
 
 class Bar
   constructor:(@base, @hour_width) ->
@@ -73,8 +78,8 @@ class Bar
     bar_width = @max-@min
     bar = Util.div("timetable_event_bar")
     bar.width(bar_width).height(10).css("left", @min).css("top", 20)
-    diff_min = @max_min - @min_min
-    bar.attr("title", diff_min + " min")
+    @diff_min = @max_min - @min_min
+    bar.attr("title", @diff_min + " min")
     bar.tooltip()
 
     wrap_bar = Util.div()

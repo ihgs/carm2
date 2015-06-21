@@ -12,6 +12,16 @@
   position: absolute;
 }
 
+.timetable_stay_time{
+  border-left: 1px solid #BDBDBD;
+  border-right: 1px solid #BDBDBD;
+  border-bottom: 1px solid #BDBDBD;
+  position: absolute;
+  text-align: right;
+  padding-right: 5px;
+  width: 70px;
+}
+
 .timetable_event_point{
   width: 10px;
 	height: 10px;
