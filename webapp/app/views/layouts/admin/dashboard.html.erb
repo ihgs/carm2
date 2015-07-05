@@ -21,7 +21,7 @@
         </div>
         <div class="navbar-header pull-right">
           <p class="navbar-text">
-            <b> <%= current_user.email %> </b>
+            <b> <%= current_user.try(:email) || "guest" %> </b>
             <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
           </p>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">

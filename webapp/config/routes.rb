@@ -8,9 +8,12 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :schools
     resources :students
-    
+
     get 'stamp/' => 'stamp#index'
     get 'stamp/:id' => 'stamp#show'
+
+    get 'curriculums/' => 'curriculums#index'
+
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
