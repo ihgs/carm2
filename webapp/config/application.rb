@@ -30,5 +30,6 @@ module Webapp
     # config.i18n.default_locale = :de
     # フォント追加
     config.assets.paths << "#{Rails}/vender/assets/fonts"
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
   end
 end
