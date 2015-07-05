@@ -4,6 +4,6 @@ class Admin::CurriculumsController < ApplicationController
   def index
     @nodes = Network::nodes
     @edges = Network::edges
-    @options ={groups: Network::groups}
+    @options ={}
   end
 end

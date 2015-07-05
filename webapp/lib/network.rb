@@ -10,7 +10,7 @@ module Network
       yaml["nodes"].map do | node |
         id = node.keys[0]
         value = node[id]
-        {id: id, label: value.fetch("label", id), group: value.fetch("group","undefined")}
+        {id: id, label: value.fetch("label", id), shape: "dot",size: rand(25)+1, group: value.fetch("group","undefined")}
       end
     end
 
@@ -21,8 +21,5 @@ module Network
       end
     end
 
-    def groups
-      yaml["groups"]
-    end
   end
 end

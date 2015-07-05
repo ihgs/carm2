@@ -1,11 +1,3 @@
-groups:
-  - 算数:
-      color:
-        background: blue
-  - PG:
-      color:
-        background: red
-
 nodes:
   - 足し算:
       group: 算数
