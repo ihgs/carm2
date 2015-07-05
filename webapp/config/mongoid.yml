@@ -4,7 +4,7 @@ production:
       database: webapp_production
       options:
       hosts:
-        - 192.168.59.103:27017
+        - mongo:27017
 development:
   # Configure available database sessions. (required)
   sessions:

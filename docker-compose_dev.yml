@@ -1,0 +1,6 @@
+mongo:
+  image: mongo:3.1.4
+  ports:
+    - "27017:27017"
+    - "28017:28017"
+  command: mongod --rest --httpinterface
