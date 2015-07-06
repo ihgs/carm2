@@ -1,6 +1,7 @@
 FROM ruby:2.2.0
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
-RUN sudo apt-get install -y nodejs nodejs-legacy
+RUN apt-get install -y nodejs nodejs-legacy npm
+RUN npm install bower -g
 RUN mkdir /webapp
 WORKDIR /webapp
 ADD webapp /webapp
