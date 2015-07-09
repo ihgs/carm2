@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     get 'stamp/:id' => 'stamp#show'
 
     get 'curriculums/' => 'curriculums#index'
+    get 'learning_level_maps/:id' => 'learning_level_maps#show'
+    put 'learning_level_maps/:id' => 'learning_level_maps#update'
 
   end
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,7 +1,7 @@
 class Admin::SchoolsController < ApplicationController
   layout 'admin/dashboard'
   before_action :set_school, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
+  #TODO before_action :authenticate_user!
   # GET /schools
   # GET /schools.json
   def index

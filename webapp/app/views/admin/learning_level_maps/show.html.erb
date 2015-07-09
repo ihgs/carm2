@@ -1,0 +1,27 @@
+<% provide(:title, " Learning Map: #{@student.fullname}" ) %>
+
+<dl class="dl-horizontal">
+<% @learning_level_map.learning_level.each do |tag, level| %>
+  <dt><strong><%= tag %>:</strong></dt>
+  <dd>
+    <%= level %>
+  </dd>
+<% end %>
+</dl>
+
+<div >
+  <%= form_tag("", method: "put") do %>
+    <div class="form-inline">
+      <div class="form-group">
+          <%= text_field_tag :tag, "", :class=>"form-control" %>
+      </div>
+      <div class="form-group">
+          <%= text_field_tag :level, "", :class=>"form-control", :placeholder=>"0-25" %>
+      </div>
+      <%= submit_tag "Go", :name=>nil, :class=>"btn" %>
+    </div>
+  <% end %>
+</div>
+
+
+<%= link_to 'Back Detail', controller: "admin/students", action: "show"  %>
