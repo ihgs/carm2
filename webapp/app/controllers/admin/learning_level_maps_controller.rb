@@ -1,10 +1,19 @@
+require 'network'
 class Admin::LearningLevelMapsController < ApplicationController
   layout 'admin/dashboard'
-  before_action :set_learning_level_map, only: [:show, :update]
+  before_action :set_learning_level_map, only: [:show, :update, :network]
 
   # GET /learning_level_maps/1
   def show
     @student = Student.find(params[:id])
+  end
+
+# GET /learning_level_maps/1/network
+  def network
+    @student = Student.find(params[:id])
+    @nodes = Network::nodes @learning_level_map.learning_level
+    @edges = Network::edges
+    @options ={}
   end
 
   # PUT /learning_level_maps/1
@@ -24,6 +33,7 @@ class Admin::LearningLevelMapsController < ApplicationController
       rescue
         @learning_level_map = LearningLevelMap.new
         @learning_level_map._id = params[:id]
+        @learning_level_map.learning_level = {}
       end
     end
 end

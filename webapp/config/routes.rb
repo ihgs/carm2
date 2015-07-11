@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
     get 'curriculums/' => 'curriculums#index'
     get 'learning_level_maps/:id' => 'learning_level_maps#show'
+    get 'learning_level_maps/:id/network' => 'learning_level_maps#network'
     put 'learning_level_maps/:id' => 'learning_level_maps#update'
 
   end

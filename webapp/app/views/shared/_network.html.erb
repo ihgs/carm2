@@ -1,0 +1,17 @@
+<div id="curriculum_network" class="curriculum_network"></div>
+
+
+<script type="text/javascript">
+// create a network
+    var container = document.getElementById('curriculum_network');
+
+    // provide the data in the vis format
+    var data = {
+        nodes: <%= nodes.to_json.html_safe %>,
+        edges: <%= edges.to_json.html_safe %>
+    };
+    var options = <%= options.to_json.html_safe %>;
+
+    // initialize your network!
+    var network = new vis.Network(container, data, options);
+</script>

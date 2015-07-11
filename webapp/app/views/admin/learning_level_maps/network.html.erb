@@ -1,0 +1,7 @@
+<% provide(:title, "Curriculum Network:#{@student.fullname}") %>
+
+<%= link_to 'Back', controller: "admin/learning_level_maps", action: "show"  %>
+
+  <%= render partial: "shared/network", locals: {nodes: @nodes, edges: @edges, options: @options} %>
+
+<%= link_to 'Back', controller: "admin/learning_level_maps", action: "show"  %>
