@@ -3,12 +3,7 @@ require 'test_helper'
 class Api::StampControllerTest < ActionController::TestCase
 
   setup do
-    student = Student.new
-    student.name = {}
-    student.name[:family_name] = "yamada"
-    student.name[:first_name] = "taro"
-    student.card_id = "aaaaa"
-    student.save()
+    @studnet = create(:student)
   end
 
   test "should post index" do
@@ -26,7 +21,7 @@ class Api::StampControllerTest < ActionController::TestCase
 
     json = JSON.parse(response.body)
     assert_equal(json["status"], "error")
-    assert_equal(json["message"], "This card is not registered.")
+    assert_equal(json["message"], "This card(bbbb) is not registered.")
   end
 
 end
