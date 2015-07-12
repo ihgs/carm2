@@ -20,9 +20,15 @@ class Admin::LearningLevelMapsController < ApplicationController
   def update
     tag = params[:tag]
     level = params[:level]
-    @learning_level_map.push(tag, level)
-    @learning_level_map.save!
-    redirect_to ({action: 'show',id: params[:id]}), notice: 'Yes!! Success'
+    begin
+      @learning_level_map.push(tag, level)
+      @learning_level_map.save!
+      redirect_to ({action: 'show',id: params[:id]}), notice: 'Yes!! Success'
+    rescue => e
+      @student = Student.find(params[:id])
+      flash.now[:error] = e.to_s
+      render :action => :show ,id: params[:id]
+    end
   end
 
   private
