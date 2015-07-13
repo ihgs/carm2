@@ -32,5 +32,5 @@ $ ->
     rex = new RegExp($(this).val(), 'i');
     $('.searchable tr').hide();
     visible = $('.searchable tr').filter ->
-        return rex.test($("th", this).text());
+        return rex.test($(".search", this).text());
     visible.show();
