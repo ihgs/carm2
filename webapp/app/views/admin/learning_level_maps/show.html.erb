@@ -10,7 +10,8 @@
 <% @learning_level_map.learning_level.each do |tag, level| %>
   <tr>
     <th class="search"><%= tag %></th>
-    <td><%= level %></td>
+    <td class="editable"><%= level %></td>
+    <td><a class="edit_level">edit</a></td>
   </tr>
 <% end %>
   </tbody>
