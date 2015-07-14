@@ -16,6 +16,12 @@
   <dd>
     <%= @student.birthday %>
   </dd>
+  <dt><strong>School:</strong></dt>
+  <dd>
+    <% @student["schools"].each do | school | %>
+      <%= School.find(school["school_id"]).name %>
+    <% end %>
+  </dd>
   <dt><strong>Timestamp</strong></dt>
   <dd>
     <%= link_to 'Go', controller: "admin/stamp", action: "show"  %>
