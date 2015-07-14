@@ -2,6 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+show_message = (message, type) ->
+  $("#message").removeClass()
+  $("#message").text(message)
+  $("#message").addClass(type)
 $ ->
   $(".edit_level").click ->
     target = $(this)
@@ -22,9 +26,14 @@ $ ->
         type: "put"
         data: {tag: tag, level: level}
         dataType: "json"
-      #TODO SUCCESS ERROR
-      target.text('edit')
-      editable_td.html(level)
+        success: (data) ->
+          console.log(data)
+          target.text('edit')
+          editable_td.html(level)
+          show_message("update success", "alert alert-info")
+        error: (data) ->
+          console.log(data)
+          show_message(data.responseText, "alert alert-danger")
 
 
 

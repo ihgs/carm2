@@ -21,14 +21,19 @@ class Admin::LearningLevelMapsController < ApplicationController
   def update
     tag = params[:tag]
     level = params[:level]
-    begin
-      @learning_level_map.push(tag, level)
-      @learning_level_map.save!
-      redirect_to ({action: 'show',id: params[:id]}), notice: 'Yes!! Success'
-    rescue => e
-      @student = Student.find(params[:id])
-      flash.now[:error] = e.to_s
-      render :action => :show ,id: params[:id]
+
+    respond_to do |format|
+      begin
+        @learning_level_map.push(tag, level)
+        @learning_level_map.save!
+        format.html { redirect_to ({action: 'show',id: params[:id]}), notice: 'Yes!! Success' }
+        format.json { render json: { tag: params[:tag], level: params[:level], status: :success} }
+      rescue => e
+        @student = Student.find(params[:id])
+        flash.now[:error] = e.to_s
+        format.html { render :action => :show ,id: params[:id] }
+        format.json { render json: e.to_s , status: :unprocessable_entity }
+      end
     end
   end
 
