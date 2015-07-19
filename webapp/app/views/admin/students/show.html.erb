@@ -18,8 +18,8 @@
   </dd>
   <dt><strong>School:</strong></dt>
   <dd>
-    <% @student.schools.each do | school | %>
-      <%= School.find(school["school_id"]).name %>
+    <% @student.school_list.each do | school | %>
+     <%=  school[:name] %>
     <% end %>
   </dd>
   <dt><strong>Timestamp</strong></dt>
