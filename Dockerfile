@@ -9,4 +9,3 @@ ENV RAILS_ENV=production
 RUN bundle install
 RUN bundle exec rake bower:install["--allow-root"]
 RUN bundle exec rake assets:precompile
-RUN bundle exec rake admin:create_user
