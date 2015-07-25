@@ -23,6 +23,7 @@
           <p class="navbar-text">
             <b> <%= current_user.try(:email) || "guest" %> </b>
             <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+            <%= link_to('Edit', edit_user_registration_path) %>
           </p>
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>

@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users, path: "auth",path_names: { sign_in: 'login', sign_out: 'logout' }
+
   namespace :api do
     post 'stamp/' => 'stamp#index'
   end
 
   namespace :admin do
+    root 'curriculums#index'
+
     resources :schools
     resources :students
 
@@ -23,7 +26,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-
+  root 'admin/curriculums#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
