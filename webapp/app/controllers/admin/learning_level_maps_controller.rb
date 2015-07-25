@@ -11,8 +11,7 @@ class Admin::LearningLevelMapsController < ApplicationController
 # GET /learning_level_maps/1/network
   def network
     @student = Student.find(params[:id])
-    @nodes = Network::nodes @learning_level_map.learning_level
-    @edges = Network::edges
+    @nodes, @edges = Network::graph_data @learning_level_map.learning_level
     @options ={}
   end
 

@@ -2,8 +2,7 @@ require 'network'
 class Admin::CurriculumsController < ApplicationController
   layout 'admin/dashboard'
   def index
-    @nodes = Network::nodes
-    @edges = Network::edges
+    @nodes, @edges = Network::graph_data
     @options ={}
   end
 end

@@ -1,0 +1,20 @@
+default:
+  group: PG
+
+nodes:
+  - 基礎PG構文:
+  - rails:
+  - ruby:
+  - html:
+  - docker:
+  - go:
+  - linux:
+
+edges:
+  - ruby -> 基礎PG構文
+  - rails -> ruby
+  - rails -> html
+  - rails -> rake
+  - go -> 基礎PG構文
+  - docker -> go
+  - docker -> linux

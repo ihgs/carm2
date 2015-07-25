@@ -30,5 +30,5 @@ student = Student.create(
     }.dup,
     card_id: "123456789",
     birthday: 1436608979,
-    schools: [ school.id ].dup
+    schools: [ { school_id: school.id, note: ""} ].dup
 )
