@@ -5,7 +5,7 @@ mongo:
     - "28017"
   command: mongod --rest --httpinterface
   volumes:
-    - /data/db:/data/db
+    - ./data/db:/data/db
 web:
   build: .
   environment:
@@ -19,3 +19,12 @@ web:
     - "3000:3000"
   links:
     - mongo
+
+munin:
+  image: ihgs/munin-master:latest
+  ports:
+    - "8090:80"
+  volumes:
+    - ./munin/log:/var/log/munin
+    - ./munin/lib:/var/lib/munin
+    - ./munin/munin-conf.d:/etc/munin/munin-conf.d
