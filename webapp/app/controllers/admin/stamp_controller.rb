@@ -1,7 +1,7 @@
 require 'stamp'
 class Admin::StampController < ApplicationController
   layout 'admin/dashboard'
-  #TODO before_action :authenticate_user!
+  before_action :authenticate_user!
 
   def index
     t = Time.now

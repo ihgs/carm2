@@ -2,6 +2,7 @@ require 'network'
 class Admin::LearningLevelMapsController < ApplicationController
   layout 'admin/dashboard'
   before_action :set_learning_level_map, only: [:show, :update, :network]
+  before_action :authenticate_user!
 
   # GET /learning_level_maps/1
   def show
