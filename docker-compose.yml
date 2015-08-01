@@ -7,7 +7,7 @@ mongo:
   volumes:
     - ./data/db:/data/db
 mongobackup:
-  image: istepanov/mongodump
+  image: ihgs/mongodump:3.1.4
   environment:
     - 'CRON_SCHEDULE=0 1 * * *'
   volumes:
