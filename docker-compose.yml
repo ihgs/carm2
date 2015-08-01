@@ -6,7 +6,7 @@ mongo:
   command: mongod --rest --httpinterface
   volumes:
     - ./data/db:/data/db
-mongo_backup:
+mongobackup:
   image: istepanov/mongodump
   environment:
     - 'CRON_SCHEDULE=0 1 * * *'
