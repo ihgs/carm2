@@ -9,3 +9,8 @@ ENV RAILS_ENV=production
 RUN bundle install
 RUN bundle exec rake bower:install["--allow-root"]
 RUN bundle exec rake assets:precompile
+
+ADD run_app.sh /run_app.sh
+RUN chmod +x /start.sh
+
+ENTRYPOINT ["/run_app.sh"]
