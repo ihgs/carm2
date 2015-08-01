@@ -11,6 +11,6 @@ RUN bundle exec rake bower:install["--allow-root"]
 RUN bundle exec rake assets:precompile
 
 ADD run_app.sh /run_app.sh
-RUN chmod +x /start.sh
+RUN chmod +x /run_app.sh
 
 ENTRYPOINT ["/run_app.sh"]
