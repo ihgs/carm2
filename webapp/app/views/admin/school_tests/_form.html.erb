@@ -24,8 +24,21 @@
   </div>
   <div class="form-group">
     <%= f.label :subjects %><br>
-    <div class="form-inline">
-      <%= f.text_field :subjects, :class=>"form-control", :placeholder=>"科目"%>
+    <div class="repeater">
+      <div data-repeater-list="school_test[subjects]">
+        <% subjects.each do |subject| %>
+        <div data-repeater-item class="list_group">
+          <%= f.fields_for :subjects, OpenStruct.new(subject), index: "" do |subject_form| %>
+            <div class="form-inline">
+            <%= subject_form.text_field :name, :class=>"form-control", :placeholder=>"科目" %>
+            <%= subject_form.text_field :average, :class=>"form-control", :placeholder=>"平均" %>
+            <input data-repeater-delete type="button" value="Delete" class="btn btn-small"/>
+          </div>
+        </div>
+        <% end %>
+      <% end %>
+      </div>
+        <input data-repeater-create type="button" value="Add" class="btn btn-small"/>
     </div>
   </div>
   <div class="actions">
