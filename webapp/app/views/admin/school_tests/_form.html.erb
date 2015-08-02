@@ -1,0 +1,34 @@
+<%= form_for([:admin, @school_test]) do |f| %>
+  <% if @school_test.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@school_test.errors.count, "error") %> prohibited this school_test from being saved:</h2>
+
+      <ul>
+      <% @school_test.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, :class=>"form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :test_date %><br>
+    <div class="row">
+        <div class="col-md-4">
+          <%= f.date_field :test_date, :class=>"form-control"%>
+        </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :subjects %><br>
+    <div class="form-inline">
+      <%= f.text_field :subjects, :class=>"form-control", :placeholder=>"科目"%>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit :class=>'btn btn-primary' %>
+  </div>
+<% end %>

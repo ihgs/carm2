@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_for :users, path: "auth", 
+  devise_for :users, path: "auth",
              :controllers => {:registrations => "users/registrations"}
 
   namespace :api do
@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
     resources :schools
     resources :students
+    resources :school_tests
 
     get 'stamp/' => 'stamp#index'
     get 'stamp/:id' => 'stamp#show'
