@@ -53,8 +53,9 @@
       <% schools.each do |school| %>
         <%= f.fields_for :schools, OpenStruct.new(school), index: "" do |school_form| %>
           <div class="form-inline">
-            <%= school_form.select :school_id, School.all.map {|sm| [sm.name, sm.id]},{}, :class=>"form-control" %>
-            <%= school_form.text_field :note, :class=>"form-control", :placeholder=>"20xx年卒業" %>
+            <%= school_form.select :school_id, School.all.map {|sm| [sm.name, sm.id]},{},:selected=>school[:school_id], :class=>"form-control" %>
+            <%= school_form.text_field :enterance_year, :class=>"form-control", :placeholder=>"入学年度" %>
+            <%= school_form.text_field :note, :class=>"form-control", :placeholder=>"備考" %>
           </div>
         <% end %>
       <% end %>

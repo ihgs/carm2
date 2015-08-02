@@ -18,9 +18,7 @@
   </dd>
   <dt><strong>School:</strong></dt>
   <dd>
-    <% @student.school_list.each do | school | %>
-     <%=  school[:name] %>
-    <% end %>
+    <%= render 'school_list', schools: @student.school_list %>
   </dd>
   <dt><strong>Timestamp</strong></dt>
   <dd>

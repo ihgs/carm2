@@ -4,7 +4,7 @@ class Student
   field :name, type: Hash
   field :card_id, type: String
   field :birthday, type: Date
-  field :schools, type: Array  # [{school_id:, note:}]
+  field :schools, type: Array  # [{school_id:, enterance_year: note:}]
 
   before_save :check_school
 
@@ -25,12 +25,12 @@ class Student
     self.schools.map do | school |
       begin
         school_object = School.find(school[:school_id])
-        name = school_object.name
+        name = school_object.name + school_object.kind
       rescue
         name = "Not Found"
       end
 
-      {name: name, note: school[:note]}
+      {school_id: school[:school_id], name: name, note: school[:note], enterance_year: school[:enterance_year]}
     end
 
   end

@@ -1,5 +1,6 @@
 module Admin::StudentsHelper
   def schools
-    @schools = [{school_id: "", note: ""}] unless @schools
+      @student.schools = [{school_id: "", note: "", enterance_year: ""}] unless @student.schools
+      @student.schools
   end
 end
