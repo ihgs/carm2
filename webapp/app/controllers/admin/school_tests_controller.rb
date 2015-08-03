@@ -26,7 +26,6 @@ class Admin::SchoolTestsController < ApplicationController
   # POST /school_tests.json
   def create
     @school_test = SchoolTest.new(school_test_params)
-
     respond_to do |format|
       if @school_test.save
         format.html { redirect_to [:admin, @school_test], notice: 'School test was successfully created.' }
@@ -70,6 +69,13 @@ class Admin::SchoolTestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def school_test_params
-      params[:school_test]
+      form_params = params.require(:school_test).permit(:name, :test_date,
+      subjects: [:name, :average, :test_range])
+
+      array_subjects = form_params[:subjects].select { |k, v|
+        v["name"]
+      }.values
+      form_params[:subjects] = array_subjects
+      form_params
     end
 end
