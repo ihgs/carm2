@@ -15,11 +15,10 @@
     <%= f.text_field :name, :class=>"form-control" %>
   </div>
   <div class="form-group">
-    <%= f.label :test_date %><br>
-    <div class="row">
-        <div class="col-md-4">
-          <%= f.date_field :test_date, :class=>"form-control"%>
-        </div>
+    <%= f.label "Test Date" %><br>
+    <div class="form-inline">
+          <%= f.date_field :start_date, :class=>"form-control"%>
+          <%= f.date_field :end_date, :class=>"form-control"%>
     </div>
   </div>
   <div class="form-group">
