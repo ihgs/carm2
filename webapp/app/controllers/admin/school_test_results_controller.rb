@@ -4,7 +4,6 @@ class Admin::SchoolTestResultsController < ApplicationController
   def create
     @school_test_result = SchoolTestResult.new(school_test_result_params)
     if @school_test_result.save
-      pry
       redirect_to "/admin/school_tests/#{@school_test_result.school_test_id}"
     else
       @school_test = SchoolTest.find(params[:id])
