@@ -1,29 +1,75 @@
 <p id="notice"><%= notice %></p>
 
 <div class="table-responsive">
-  <dl class="dl-horizontal">
-    <dt><strong>Name:</strong></dt>
-    <dd><%= @school_test.name %></dd>
-    <dt><strong>Date:</strong></dt>
-    <dd><%= @school_test.display_date %></dd>
-    <dt><strong>Subjects:</strong></dt>
-    <dd>
-      <table>
-        <thead>
-          <th>科目</th>
-          <th>平均点</th>
-        </thead>
-        <tbody>
-          <% subjects.each do |subject| %>
-          <tr>
-            <td><%= subject[:name] %></td>
-            <td><%= subject[:average] %></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </dd>
-  </dl>
-  <%= link_to 'Edit', [:edit, :admin, @school_test] %> |
+
+  <div class="inline">
+    <h2><%= @school_test.name %></h2><%= link_to 'Edit', [:edit, :admin, @school_test] %>
+  </div>
+  <%= @school_test.display_date %>
+
+  <h3>Subjects</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>科目</th>
+        <% subjects.each do |subject| %>
+        <th><%= subject[:name] %></th>
+        <% end %>
+      </tr>
+      <tr>
+        <th>平均点</th>
+        <% subjects.each do |subject| %>
+        <th><%= subject[:average] %></th>
+        <% end %>
+      </tr>
+      <% @school_test_results.each do |str| %>
+      <tr>
+        <td><%= Student.find(str[:student_id]).fullname %></td>
+        <% str.results.each do |subject| %>
+          <td><%= subject[:score] %></td>
+        <% end %>
+      </tr>
+      <% end %>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+
+  <h3>Input data</h3>
+
+  <% subject_list = subjects  %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>科目</th>
+        <% subject_list.each do |subject| %>
+        <th><%= subject[:name] %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <%= form_tag("/admin/school_test_results", method: "post") do  %>
+      <%= hidden_field_tag "school_test_result[school_test_id]",  @school_test.id %>
+      <tr>
+        <td>
+            <%= select_tag "school_test_result[student_id]",options_from_collection_for_select(Student.all, :id, :fullname), :class=>"form-control" %>
+        </td>
+        <% subject_list.each do |subject| %>
+        <td>
+          <%= hidden_field_tag "school_test_result[results][][subject]", subject[:name] %>
+          <%= text_field_tag "school_test_result[results][][score]","",:class=>"form-control" %>
+        </td>
+        <% end %>
+        <td>
+          <%= submit_tag "create",:class=>'btn btn-primary' %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<br><br>
+
   <%= link_to 'Back', admin_school_tests_path %>
 </div>

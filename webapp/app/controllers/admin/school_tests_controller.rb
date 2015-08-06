@@ -11,6 +11,7 @@ class Admin::SchoolTestsController < ApplicationController
   # GET /school_tests/1
   # GET /school_tests/1.json
   def show
+    @school_test_results = SchoolTestResult.where(:school_test_id => @school_test.id.to_s )
   end
 
   # GET /school_tests/new

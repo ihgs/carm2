@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   devise_for :users, path: "auth",
              :controllers => {:registrations => "users/registrations"}
 
@@ -21,6 +22,10 @@ Rails.application.routes.draw do
     get 'learning_level_maps/:id' => 'learning_level_maps#show'
     get 'learning_level_maps/:id/network' => 'learning_level_maps#network'
     put 'learning_level_maps/:id' => 'learning_level_maps#update'
+
+    post 'school_test_results/' => 'school_test_results#create'
+    put  'school_test_results/' => 'school_test_results#update'
+
 
   end
   # The priority is based upon order of creation: first created -> highest priority.
