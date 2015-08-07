@@ -18,7 +18,8 @@ class Admin::SchoolTestResultsController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def school_test_result_params
-      params.require(:school_test_result).permit(:student_id, :school_test_id,
-      results: [:subject, :score])
+      params.require(:school_test_result).permit(:student_id, :school_test_id, :results).tap do | whitelisted |
+        whitelisted[:results] = params[:school_test_result][:results] if params[:school_test_result][:results].is_a?(Hash)
+      end
     end
 end

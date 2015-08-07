@@ -25,8 +25,8 @@
       <% @school_test_results.each do |str| %>
       <tr>
         <td><%= Student.find(str[:student_id]).fullname %></td>
-        <% str.results.each do |subject| %>
-          <td><%= subject[:score] %></td>
+        <% subjects.each do |subject| %>
+          <td><%= str.results.nil? ? "" : str.results[subject[:name]] %></td>
         <% end %>
       </tr>
       <% end %>
@@ -57,8 +57,7 @@
         </td>
         <% subject_list.each do |subject| %>
         <td>
-          <%= hidden_field_tag "school_test_result[results][][subject]", subject[:name] %>
-          <%= text_field_tag "school_test_result[results][][score]","",:class=>"form-control" %>
+          <%= text_field_tag "school_test_result[results][#{subject[:name]}]","",:class=>"form-control" %>
         </td>
         <% end %>
         <td>
