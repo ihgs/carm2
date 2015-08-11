@@ -32,3 +32,17 @@ student = Student.create(
     birthday: 1436608979,
     schools: [ { school_id: school.id, note: ""} ].dup
 )
+
+school_test = SchoolTest.create(
+  name: "中間テスト",
+  start_date: Time.now,
+  end_date: Time.now,
+  subjects: [
+    { name: "数学", average: 60.5, test_range: "" },
+    { name: "国語", average: 40.5, test_range: "" },
+    { name: "物理", average: 50.5, test_range: "" },
+    { name: "科学", average: 56.5, test_range: "" },
+    { name: "英語", average: 53.5, test_range: "" }  
+  ].dup
+
+)
