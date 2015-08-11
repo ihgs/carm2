@@ -2,12 +2,24 @@ class Admin::SchoolTestResultsController < ApplicationController
 
   # POST
   def create
-    @school_test_result = SchoolTestResult.new(school_test_result_params)
-    if @school_test_result.save
-      redirect_to "/admin/school_tests/#{@school_test_result.school_test_id}"
+    strm = school_test_result_params
+    result = SchoolTestResult.and(:school_test_id => strm[:school_test_id], :student_id =>  strm[:student_id] )
+    if result.size > 0
+      @school_test_result = result.first
+      if @school_test_result.update(strm)
+        redirect_to "/admin/school_tests/#{@school_test_result.school_test_id}"
+      else
+        @school_test = SchoolTest.find(params[:id])
+        render "admin_school_test_path", @school_test
+      end
     else
-      @school_test = SchoolTest.find(params[:id])
-      render "admin_school_test_path", @school_test
+      @school_test_result = SchoolTestResult.new(school_test_result_params)
+      if @school_test_result.save
+        redirect_to "/admin/school_tests/#{@school_test_result.school_test_id}"
+      else
+        @school_test = SchoolTest.find(params[:id])
+        render "admin_school_test_path", @school_test
+      end
     end
   end
 
