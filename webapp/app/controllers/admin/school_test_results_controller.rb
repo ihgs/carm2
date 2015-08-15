@@ -1,4 +1,5 @@
 class Admin::SchoolTestResultsController < ApplicationController
+  before_action :authenticate_user!
 
   # POST
   def create

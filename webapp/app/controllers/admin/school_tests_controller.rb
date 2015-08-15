@@ -1,6 +1,7 @@
 class Admin::SchoolTestsController < ApplicationController
   layout 'admin/dashboard'
   before_action :set_school_test, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /school_tests
   # GET /school_tests.json
