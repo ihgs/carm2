@@ -8,7 +8,7 @@
 
 school = School.create(
 
-    name: "第一小学校",
+    name: "第一",
     kind: "小学校",
     note: "特になし",
     address: {
@@ -18,6 +18,16 @@ school = School.create(
       address2: ""
     }.dup
 
+)
+
+school1 = School.create(
+    name: "第二",
+    kind: "小学校",
+)
+
+school2 = School.create(
+    name: "第一",
+    kind: "中学校",
 )
 
 student = Student.create(
@@ -30,19 +40,34 @@ student = Student.create(
     }.dup,
     card_id: "123456789",
     birthday: 1436608979,
-    schools: [ { school_id: school.id, note: ""} ].dup
+    schools: [ { school_id: school.id.to_s, note: ""} ].dup
 )
+
+student1 = Student.create(
+
+    name: {
+      family_name: "山田",
+      first_name: "花子",
+      family_name_kana: "ヤマダ",
+      first_name_kana: "ハナコ"
+    }.dup,
+    card_id: "223456789",
+    birthday: 1436708979,
+    schools: [ { school_id: school1.id.to_s, enterance_year: "2012", note: ""} ].dup
+)
+
 
 school_test = SchoolTest.create(
   name: "中間テスト",
   start_date: Time.now,
   end_date: Time.now,
+  school_id: school1.id.to_s,
   subjects: [
     { name: "数学", average: 60.5, test_range: "" },
     { name: "国語", average: 40.5, test_range: "" },
     { name: "物理", average: 50.5, test_range: "" },
     { name: "科学", average: 56.5, test_range: "" },
-    { name: "英語", average: 53.5, test_range: "" }  
+    { name: "英語", average: 53.5, test_range: "" }
   ].dup
 
 )
