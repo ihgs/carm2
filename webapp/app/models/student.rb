@@ -35,6 +35,14 @@ class Student
 
   end
 
+  class << self
+
+    def filter_school school_id
+      Student.where(:schools=>{"$elemMatch":{"school_id"=>school_id}})
+    end
+
+  end
+
   protected
   def check_school
     if self.schools

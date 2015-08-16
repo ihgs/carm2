@@ -5,7 +5,12 @@
   <div class="inline">
     <h2><%= @school_test.name %></h2><%= link_to 'Edit', [:edit, :admin, @school_test] %>
   </div>
-  <%= @school_test.display_date %>
+  <div>
+    <%= @school_test.display_school %>
+  </div>
+  <div>
+    <%= @school_test.display_date %>
+  </div>
 
   <h3>Subjects</h3>
   <table class="table">
@@ -53,7 +58,7 @@
       <%= hidden_field_tag "school_test_result[school_test_id]",  @school_test.id %>
       <tr>
         <td>
-            <%= select_tag "school_test_result[student_id]",options_from_collection_for_select(Student.all, :id, :fullname), :class=>"form-control" %>
+            <%= select_tag "school_test_result[student_id]",options_from_collection_for_select(Student.filter_school(@school_test.school_id), :id, :fullname), :class=>"form-control" %>
         </td>
         <% subject_list.each do |subject| %>
         <td>
