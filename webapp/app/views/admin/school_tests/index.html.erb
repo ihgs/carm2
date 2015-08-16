@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th></th>
       <th>Date</th>
       <th colspan="3"></th>
     </tr>
@@ -15,7 +16,8 @@
     <% @school_tests.each do |school_test| %>
       <tr>
         <td><%= link_to  school_test[:name], [:admin, school_test] %></td>
-        <td><%= school_test.display_date %><td>
+        <td><%= school_test.display_school %></td>
+        <td><%= school_test.display_date %></td>
         <td><%= link_to 'Edit', [:edit, :admin, school_test] %></td>
         <td><%= link_to 'Destroy', [:admin, school_test], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

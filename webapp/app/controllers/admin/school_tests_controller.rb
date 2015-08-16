@@ -72,6 +72,7 @@ class Admin::SchoolTestsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def school_test_params
       form_params = params.require(:school_test).permit(:name, :start_date, :end_date,
+      :school_id, :grade,
       subjects: [:name, :average, :test_range])
 
       array_subjects = form_params[:subjects].select { |k, v|
