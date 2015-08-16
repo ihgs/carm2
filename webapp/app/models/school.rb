@@ -5,4 +5,7 @@ class School
   field :note, type: String
   field :address, type: Hash
 
+  def display_name
+    self.name + self.kind
+  end
 end

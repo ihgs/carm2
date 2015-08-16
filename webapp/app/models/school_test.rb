@@ -19,7 +19,7 @@ class SchoolTest
   def display_school
     school_data = school
     if school_data
-      "#{school_data.name}#{school_data.kind} #{self.grade}年"
+      "#{school_data.display_name} #{self.grade}年"
     else
       ""
     end

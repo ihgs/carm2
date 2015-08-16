@@ -15,7 +15,7 @@
     <tbody>
       <% @schools.each do |school| %>
         <tr>
-          <td><%= link_to school.name , [:admin, school] %></td>
+          <td><%= link_to school.display_name , [:admin, school] %></td>
           <td><%= school.note %></td>
           <td><%= link_to 'Edit', [:edit, :admin, school] %></td>
           <td><%= link_to 'Destroy', [:admin, school], method: :delete, data: { confirm: 'Are you sure?' } %></td>

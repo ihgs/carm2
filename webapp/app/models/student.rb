@@ -25,7 +25,7 @@ class Student
     self.schools.map do | school |
       begin
         school_object = School.find(school[:school_id])
-        name = school_object.name + school_object.kind
+        name = school_object.display_name
       rescue
         name = "Not Found"
       end
