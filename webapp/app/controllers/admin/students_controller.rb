@@ -1,7 +1,9 @@
+require 'set'
+
 class Admin::StudentsController < ApplicationController
   layout 'admin/dashboard'
 
-  before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :set_student, only: [:show, :edit, :update, :destroy, :test_results]
   before_action :authenticate_user!
 
   # GET /admin/students
@@ -52,6 +54,19 @@ class Admin::StudentsController < ApplicationController
         format.json { render json: @admin.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def test_results
+    school_test_results = SchoolTestResult.where(:student_id => @student.id.to_s )
+
+    subjects = Set.new
+    @school_test_map = {}
+    school_test_results.each do |school_test_result|
+      school_test = SchoolTest.find(school_test_result.school_test_id)
+      @school_test_map[school_test] = school_test_result
+      subjects.merge( school_test_result.results.keys)
+    end
+    @subjects = subjects
   end
 
   # DELETE /admin/students/1

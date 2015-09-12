@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>School Test Result <%= @student.fullname %></h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>日程</th>
+      <th>テスト</th>
+    <% @subjects.each do |subject| %>
+      <th><%= subject %></th>
+    <% end %>
+    </tr>
+  </thead>
+  <tbody>
+<% @school_test_map.each do |school_test, result| %>
+    <tr>
+      <td><%= school_test.display_date %></td>
+      <td><%= school_test.name %></td>
+    <% @subjects.each do |subject| %>
+      <td><%= result.results.fetch(subject, "") %></td>
+    <% end %>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Back Detail', controller: "admin/students", action: "show"  %>

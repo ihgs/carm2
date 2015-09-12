@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     root 'curriculums#index'
 
     resources :schools
+    get 'students/test_results/:id' => 'students#test_results'
+    
     resources :students
     resources :school_tests
 
