@@ -9,6 +9,7 @@ nodes:
   - docker:
   - go:
   - linux:
+  - rake:
 
 edges:
   - ruby -> 基礎PG構文
