@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class SchoolTestsControllerTest < ActionController::TestCase
+class Admin::SchoolTestsControllerTest < ActionController::TestCase
   setup do
-    @school_test = school_tests(:one)
+    @school_test = create(:school_test)
   end
 
   test "should get index" do

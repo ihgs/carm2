@@ -7,5 +7,5 @@ FactoryGirl.define do
     card_id "aaaaa"
     birthday 1121339049
   end
-
+  
 end

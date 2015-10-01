@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class Admin::StudentsControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @student = create(:student)
   end

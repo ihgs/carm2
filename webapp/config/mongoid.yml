@@ -100,7 +100,7 @@ test:
     default:
       database: webapp_test
       hosts:
-        - 192.168.59.103:27017
+        - 192.168.33.50:27018
       options:
         read: primary
         # In the test environment we lower the retries and retry interval to

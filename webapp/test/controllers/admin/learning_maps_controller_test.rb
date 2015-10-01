@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class Admin::LearningLevelMapsControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
 
   setup do
     @student = create(:student)
@@ -12,19 +13,27 @@ class Admin::LearningLevelMapsControllerTest < ActionController::TestCase
     @student2 = build(:student)
     @student2[:name][:first_name] = "goro"
     @student2.save
+
+    @admin_user = create :user
   end
 
   test "should get show" do
+    sign_in @admin_user
+
     get :show, id: @student.id
     assert_response :success
   end
 
   test "should get show without level_map" do
+    sign_in @admin_user
+
     get :show, id: @student2.id
     assert_response :success
   end
 
   test "should put update" do
+    sign_in @admin_user
+
     put :update, id: @student.id, tag: "tag1", level: 25
 
     lvm = LearningLevelMap.find(@learning_level_map.id)
@@ -32,6 +41,8 @@ class Admin::LearningLevelMapsControllerTest < ActionController::TestCase
   end
 
   test "should get network" do
+    sign_in @admin_user
+
     get :network, id: @student.id
     assert_response :success
   end
