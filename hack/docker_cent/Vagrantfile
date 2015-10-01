@@ -1,0 +1,45 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  config.vm.box = "centos7"
+  config.vm.network "private_network", ip: "192.168.33.50"
+
+  config.vm.provider "virtualbox" do |vb|
+     vb.memory = "2048"
+     vb.cpus = "2"
+  end
+  
+  config.vm.provision "shell", inline: <<-SHELL
+     setenforce 0
+     sed -i "s/\(^SELINUX=\).*/\1permissive/" /etc/selinux/config
+     yum install -y git
+     yum update
+     curl -sSL https://get.docker.com/ | sh
+     usermod -aG docker vagrant
+     curl -L https://github.com/docker/compose/releases/download/1.4.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+     chmod +x /usr/local/bin/docker-compose
+     chkconfig docker on 
+     service docker start
+  SHELL
+
+  config.vm.provision "shell", privileged: false,  inline: <<-SHELL
+     cd /opt
+     sudo git clone https://github.com/ihgs/cram.git
+     sudo chown -R vagrant:vagrant /opt/cram
+     cat > /home/vagrant/deploy.sh <<EOS
+#!/bin/bash
+cd /opt/cram
+git pull origin
+docker-compose build
+docker-compose stop
+docker-compose up -d
+EOS
+     chmod +x /home/vagrant/deploy.sh
+  SHELL
+
+end
