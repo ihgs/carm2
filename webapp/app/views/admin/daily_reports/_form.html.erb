@@ -1,0 +1,104 @@
+<%= form_for([:admin, @daily_report]) do |f| %>
+  <% if @daily_report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@daily_report.errors.count, "error") %> prohibited this admin_daily_report from being saved:</h2>
+
+      <ul>
+      <% @daily_report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :date %><br>
+    <div class="row">
+        <div class="col-md-4">
+          <%= f.date_field :date, :class=>"form-control"%>
+        </div>
+    </div>
+  </div>
+
+  <div class="form-inline">
+    <div class="form-group">
+      <%= f.label :grade %><br>
+      <%= f.select :grade, grade_list, {}, :class=>"form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :subject %><br>
+      <%= f.select :subject, subject_list, {}, :class=>"form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :students %><br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>出欠</th><th>名前</th><th>確認テスト点数</th><th>テスト結果ファイル</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% student_list.each do |student| %>
+        <tr>
+          <td><%= check_box_tag :attendance %></td>
+          <td><%= student %></td>
+          <td><%= text_field_tag :test_result %></td>
+          <td><%= file_field_tag :test_file %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="form-group">
+    <%= f.label :content %>
+    <div class="form-inline">
+      <div class="form-group">
+        <label>テキスト</label><br>
+        <%= select_tag "page[content][text]", options_for_select(text_list), :class=>"form-control"  %>
+      </div>
+      <div class="form-group">
+        <label>単元</label><br>
+        <%= select_tag "page[content][category]", options_for_select(text_list), :class=>"form-control"  %>
+      </div>
+      <div class="form-group">
+        <label>ページ</label><br>
+        <%= text_field_tag :page%>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>メモ</label><br>
+      <%= text_area_tag :comment%>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :tests %><br>
+    <%= f.file_field :tests%>
+  </div>
+  <div class="form-group">
+    <%= f.label :homework %>
+    <div class="form-inline">
+      <div class="form-group">
+        <label>テキスト</label><br>
+        <%= select_tag "page[content][text]", options_for_select(text_list), :class=>"form-control"  %>
+      </div>
+      <div class="form-group">
+        <label>単元</label><br>
+        <%= select_tag "page[content][category]", options_for_select(text_list), :class=>"form-control"  %>
+      </div>
+      <div class="form-group">
+        <label>ページ</label><br>
+        <%= text_field_tag :page%>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>メモ</label><br>
+      <%= text_area_tag :comment%>
+    </div>
+  </div>
+
+
+<!--  <div class="actions">
+    <%= f.submit %>
+    </div>
+-->
+<% end %>

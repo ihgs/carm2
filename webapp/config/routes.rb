@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
 
+  namespace :admin do
+    resources :daily_reports
+  end
   devise_for :users, path: "auth",
              :controllers => {:registrations => "users/registrations"}
 
