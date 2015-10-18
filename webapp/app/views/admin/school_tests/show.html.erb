@@ -1,3 +1,5 @@
+<span id="token" value="<%= form_authenticity_token %>" />
+<span id="test_id" value="<%= @school_test.id %>" />
 <p id="notice"><%= notice %></p>
 
 <div class="table-responsive">
@@ -29,10 +31,11 @@
       </tr>
       <% @school_test_results.each do |str| %>
       <tr>
-        <td><%= Student.find(str[:student_id]).fullname %></td>
+        <td class="student" student_id="<%=str[:student_id]%>" ><%= Student.fullname(str[:student_id]) %></td>
         <% subjects.each do |subject| %>
-          <td><%= str.results.nil? ? "" : str.results[subject[:name]] %></td>
+          <td class="editable" name="school_test_result[results][<%= subject[:name]%>]" id="school_test_result_results___"><%= str.results.nil? ? "" : str.results[subject[:name]] %></td>
         <% end %>
+        <td><a class="edit_test_result">edit</a></td>
       </tr>
       <% end %>
     </thead>
