@@ -44,7 +44,7 @@ group :development, :test do
   gem "factory_girl_rails"
 end
 
-gem 'mongoid'
+gem 'mongoid', '~>5'
 gem 'therubyracer',  platforms: :ruby
 gem 'devise'
 gem 'devise-bootstrap-views'
