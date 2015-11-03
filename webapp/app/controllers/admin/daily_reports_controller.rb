@@ -1,7 +1,7 @@
 class Admin::DailyReportsController < ApplicationController
   layout 'admin/dashboard'
   before_action :set_admin_daily_report, only: [:show, :edit, :update, :destroy]
-
+protect_from_forgery except: [:create]
   # GET /admin/daily_reports
   # GET /admin/daily_reports.json
   def index
@@ -20,22 +20,24 @@ class Admin::DailyReportsController < ApplicationController
 
   # GET /admin/daily_reports/1/edit
   def edit
+    @students = Student.all
+    @homeworks = []
   end
 
   # POST /admin/daily_reports
   # POST /admin/daily_reports.json
   def create
     @daily_report = DailyReport.new(admin_daily_report_params)
-
-    respond_to do |format|
-      if @daily_report.save
-        format.html { redirect_to @daily_report, notice: 'Daily report was successfully created.' }
-        format.json { render :show, status: :created, location: @daily_report }
-      else
-        format.html { render :new }
-        format.json { render json: @daily_report.errors, status: :unprocessable_entity }
-      end
-    end
+    render json: @daily_report
+    # respond_to do |format|
+    #   if @daily_report.save
+    #     format.html { redirect_to @daily_report, notice: 'Daily report was successfully created.' }
+    #     format.json { render :show, status: :created, location: @daily_report }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @daily_report.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /admin/daily_reports/1
@@ -70,6 +72,14 @@ class Admin::DailyReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_daily_report_params
-      params.require(:admin_daily_report).permit(:date, :grade, :subject, :students, :homework, :tests, :note, :other)
+      form_params = params.require(:daily_report).permit(:date, :grade, :subject, :students,
+          contents:[:textbook, :unit, :page, :due_date, :memo, students:[]],
+          homeworks:[:textbook, :unit, :page, :memo, students:[]])
+
+      form_params[:contents] = form_params[:contents].values
+
+      form_params[:homeworks] = form_params[:homeworks].values
+
+      form_params
     end
 end

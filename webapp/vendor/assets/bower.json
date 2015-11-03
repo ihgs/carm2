@@ -2,6 +2,7 @@
   "name": "dsl-generated dependencies",
   "dependencies": {
     "vis": "latest",
-    "jquery.repeater": "latest"
+    "jquery.repeater": "latest",
+    "multiple-select": "latest"
   }
 }

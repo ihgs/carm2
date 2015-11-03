@@ -19,3 +19,20 @@ docker-compose build
 docker-compose stop
 docker-compose up -d
 ```
+
+
+## 開発
+
+### 準備
+```
+cd hack/docker_cent
+vagrant up
+./up_mongo.sh  # dev mode のmongodb 起動
+```
+
+### アプリ動作確認
+```
+cd webapp
+bundle install
+bundle exec rails s
+```

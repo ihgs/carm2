@@ -39,66 +39,71 @@
       </thead>
       <tbody>
         <% student_list.each do |student| %>
+          <%= f.fields_for :students, OpenStruct.new(student), index: "" do |s_form| %>
         <tr>
-          <td><%= check_box_tag :attendance %></td>
-          <td><%= student %></td>
-          <td><%= text_field_tag :test_result %></td>
-          <td><%= file_field_tag :test_file %></td>
+          <td><%= s_form.check_box :attendance %></td>
+          <td><%= student[:name] %></td>
+          <td><%= s_form.text_field :test_result %></td>
+          <td><%= s_form.file_field :test_file %></td>
         </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>
   </div>
   <div class="form-group">
-    <%= f.label :content %>
-    <div class="form-inline">
-      <div class="form-group">
-        <label>テキスト</label><br>
-        <%= select_tag "page[content][text]", options_for_select(text_list), :class=>"form-control"  %>
+    <%= f.label :contents %>
+    <div class="repeater">
+      <div data-repeater-list="daily_report[contents]">
+        <% contents.each do |content| %>
+          <div data-repeater-item class="list_group">
+            <%= f.fields_for :contents, OpenStruct.new(content), index: "" do |c_form| %>
+            <div class="form-inline">
+              <%= c_form.collection_select(:students, Student.all, :id, :fullname ,{:include_hidden=>false}, {:class=>'form-control vta_top', :multiple=>true} )%>
+              <%= c_form.select :textbook, options_for_select(text_list), {}, :class=>"form-control"  %>
+              <%= c_form.select :unit, options_for_select(text_list), {}, :class=>"form-control"  %>
+              <%= c_form.text_field :page, :placeholder=>"page", :class=>"form-control" %>
+              <%= c_form.text_area :memo, :class=>"form-control vta_top"  %>
+              <input data-repeater-delete type="button" value="Delete" class="btn btn-small"/>
+            </div>
+            <% end %>
+          </div>
+        <% end %>
       </div>
-      <div class="form-group">
-        <label>単元</label><br>
-        <%= select_tag "page[content][category]", options_for_select(text_list), :class=>"form-control"  %>
-      </div>
-      <div class="form-group">
-        <label>ページ</label><br>
-        <%= text_field_tag :page%>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>メモ</label><br>
-      <%= text_area_tag :comment%>
+      <input data-repeater-create type="button" value="Add" class="btn btn-small"/>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :tests %><br>
-    <%= f.file_field :tests%>
+    <%= f.label :blackboard_pics %><br>
+    <%= f.file_field :blackboard_pics %>
   </div>
   <div class="form-group">
-    <%= f.label :homework %>
-    <div class="form-inline">
-      <div class="form-group">
-        <label>テキスト</label><br>
-        <%= select_tag "page[content][text]", options_for_select(text_list), :class=>"form-control"  %>
+    <%= f.label :homeworks %>
+    <div class="repeater">
+      <div data-repeater-list="daily_report[homeworks]">
+        <% homeworks.each do | homework | %>
+          <div data-repeater-item class="list_group">
+            <%= f.fields_for :homeworks, OpenStruct.new(homework), index: "" do |hw_form| %>
+            <div class="form-inline">
+                <%= hw_form.collection_select(:students, Student.all, :id, :fullname ,{:include_hidden=>false}, {:class=>'form-control vta_top', :multiple=>true} )%>
+                <%= hw_form.select :textbook, options_for_select(text_list),{}, :class=>"form-control vta_top"  %>
+                <%= hw_form.select :unit, options_for_select(text_list), {}, :class=>"form-control vta_top"  %>
+                <%= hw_form.text_field :page, :placeholder=>"page", :class=>"form-control vta_top" %>
+                <%= hw_form.date_field :due_date, :class=>"form-control vta_top" %>
+                <%= hw_form.text_area :memo, :class=>"form-control vta_top"  %>
+              <input data-repeater-delete type="button" value="Delete" class="btn btn-small"/>
+            </div>
+            <% end %>
+          </div>
+          <% end %>
       </div>
-      <div class="form-group">
-        <label>単元</label><br>
-        <%= select_tag "page[content][category]", options_for_select(text_list), :class=>"form-control"  %>
-      </div>
-      <div class="form-group">
-        <label>ページ</label><br>
-        <%= text_field_tag :page%>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>メモ</label><br>
-      <%= text_area_tag :comment%>
+      <input data-repeater-create type="button" value="Add" class="btn btn-small"/>
     </div>
   </div>
 
 
-<!--  <div class="actions">
+ <div class="actions">
     <%= f.submit %>
     </div>
--->
+
 <% end %>
