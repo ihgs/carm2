@@ -35,3 +35,15 @@ munin:
     - ./munin/log:/var/log/munin
     - ./munin/lib:/var/lib/munin
     - ./munin/munin-conf.d:/etc/munin/munin-conf.d
+
+swift:
+  image: serverascode/swift-onlyone
+  ports:
+    - "8080"
+  volumes_from:
+    - swift_data
+
+swift_data:
+  image: busybox
+  volumes:
+    - ./swift:/srv

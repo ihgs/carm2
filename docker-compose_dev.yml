@@ -4,3 +4,16 @@ mongo:
     - "27018:27017"
     - "28018:28017"
   command: mongod --rest --httpinterface
+
+swift:
+  image: morrisjobke/docker-swift-onlyone
+  ports:
+    - "12345:8080"
+  volumes_from:
+    - swift_data
+
+swift_data:
+  image: busybox
+  volumes:
+    - ./swift:/srv
+  tty: true
