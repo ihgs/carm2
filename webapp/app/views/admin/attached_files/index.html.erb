@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Attached Files</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <td>file name</td>
+      <td>category</td>
+      <td>size</td>
+      <td>id</td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @attached_files.each do |attached_file| %>
+      <tr>
+        <td><%= attached_file.original_filename %></td>
+        <td><%= attached_file.category %></td>
+        <td><%= attached_file.size %></td>
+        <td><%= attached_file.id %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

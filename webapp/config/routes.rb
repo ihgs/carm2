@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
     resources :schools
     get 'students/test_results/:id' => 'students#test_results'
-    
+
     resources :students
     resources :school_tests
 
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     post 'school_test_results/' => 'school_test_results#create'
     put  'school_test_results/' => 'school_test_results#update'
 
-
+    get 'attached_files/' => 'attached_files#index'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
