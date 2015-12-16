@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     put  'school_test_results/' => 'school_test_results#update'
 
     get 'attached_files/' => 'attached_files#index'
+    get 'attached_files/:id' => 'attached_files#download'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

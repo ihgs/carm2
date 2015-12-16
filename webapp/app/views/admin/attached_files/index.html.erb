@@ -15,7 +15,9 @@
   <tbody>
     <% @attached_files.each do |attached_file| %>
       <tr>
-        <td><%= attached_file.original_filename %></td>
+        <td>
+          <%= link_to(attached_file.original_filename, :controller => "attached_files", :action => :download, :id => attached_file.id) %>
+        </td>
         <td><%= attached_file.category %></td>
         <td><%= attached_file.created_at %></td>
         <td><%= attached_file.size %></td>

@@ -40,6 +40,10 @@ class AttachedFile
     return self.original_filename + " ("+self.size.to_s + ") "
   end
 
+  def with_link
+    return link_to(self.to_s, [:download, :admin, self] )
+  end
+
   class << self
     def build data
       AttachedFile.new(

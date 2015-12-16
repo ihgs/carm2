@@ -30,7 +30,8 @@
       <tr>
         <td><%= Student.find(student[:student_id]).fullname %></td>
         <td><%= student[:test_result] %></td>
-        <td><%= AttachedFile.find(student[:test_file]) %></td>
+        <% file = AttachedFile.find(student[:test_file]) %>
+        <td><%= link_to(file.to_s, :controller => "attached_files", :action => :download, :id => file.id) %></td>
       </tr>
     <% end %>
     </tbody>
