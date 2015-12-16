@@ -15,6 +15,7 @@ module ApplicationHelper
     items = [
       {:text => 'Schools',      :path => admin_schools_path},
       {:text => 'Students',      :path => admin_students_path},
+      {:text => 'DailyReport',      :path => admin_daily_reports_path},
       {:text => 'School tests',      :path => admin_school_tests_path},
       {:text => 'Curriculum Network',      :path => admin_curriculums_path},
     ]

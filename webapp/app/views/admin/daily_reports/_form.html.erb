@@ -42,9 +42,9 @@
           <%= f.fields_for :students, OpenStruct.new(student), index: "" do |s_form| %>
         <tr>
           <td><%= s_form.check_box :attendance %></td>
-          <td><%= student[:name] %></td>
+          <td><%= student[:name] %><%= s_form.hidden_field :student_id,value:student[:student_id] %></td>
           <td><%= s_form.text_field :test_result %></td>
-          <td><%= s_form.file_field :test_file %></td>
+          <td><%= s_form.file_field :test_file_data %></td>
         </tr>
           <% end %>
         <% end %>
@@ -75,7 +75,17 @@
   </div>
   <div class="form-group">
     <%= f.label :blackboard_pics %><br>
-    <%= f.file_field :blackboard_pics %>
+    <div class="repeater">
+      <div data-repeater-list="daily_report[blackboard_pic_data_list]">
+        <div data-repeater-item class="list_group">
+          <div class="form-inline">
+            <%= f.file_field :blackboard_pic_data,:class=>"form-control"  %>
+            <input data-repeater-delete type="button" value="Delete" class="btn btn-small"/>
+          </div>
+        </div>
+      </div>
+      <input data-repeater-create type="button" value="Add" class="btn btn-small"/>
+    </div>
   </div>
   <div class="form-group">
     <%= f.label :homeworks %>

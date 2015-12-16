@@ -2,38 +2,78 @@
 
 <p>
   <strong>Date:</strong>
-  <%= @admin_daily_report.date %>
+  <%= @daily_report.date %>
 </p>
 
 <p>
   <strong>Grade:</strong>
-  <%= @admin_daily_report.grade %>
+  <%= @daily_report.grade %>
 </p>
 
 <p>
   <strong>Subject:</strong>
-  <%= @admin_daily_report.subject %>
+  <%= @daily_report.subject %>
 </p>
 
+<p>
+  <strong>Student:</strong>
+  <table>
+    <thead>
+      <tr>
+        <th>生徒</th>
+        <th>テスト結果</th>
+        <th>テストファイル</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @daily_report.students.each do |student| %>
+      <tr>
+        <td><%= Student.find(student[:student_id]).fullname %></td>
+        <td><%= student[:test_result] %></td>
+        <td><%= AttachedFile.find(student[:test_file]) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</p>
+<p>
+  <strong>Contents:</strong>
+  <table>
+      <thead>
+        <tr>
+          <th>生徒</th>
+          <th>テキスト</th>
+          <th>メモ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @daily_report.contents.each do |content| %>
+        <tr>
+          <td>
+            <%  content[:students].each do |student| %>
+            <div><%= Student.find(student).fullname  %></div>
+            <% end %>
+          </td>
+          <td>
+            <%= "#{content[:textbook]} #{content[:unit]} #{content[:page]}" %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
 <p>
   <strong>Homework:</strong>
-  <%= @admin_daily_report.homework %>
+  <% @daily_report.homeworks.each do |homework| %>
+    <%= homework %>
+  <% end %>
 </p>
 
 <p>
-  <strong>Tests:</strong>
-  <%= @admin_daily_report.tests %>
+  <strong>Blackboard:</strong>
+  <% @daily_report.blackboard_pics.each do |bp| %>
+    <%= AttachedFile.find(bp) %>
+  <% end if @daily_report.blackboard_pics%>
 </p>
 
-<p>
-  <strong>Note:</strong>
-  <%= @admin_daily_report.note %>
-</p>
-
-<p>
-  <strong>Other:</strong>
-  <%= @admin_daily_report.other %>
-</p>
-
-<%= link_to 'Edit', edit_admin_daily_report_path(@admin_daily_report) %> |
+<%= link_to 'Edit', edit_admin_daily_report_path(@daily_report) %> |
 <%= link_to 'Back', admin_daily_reports_path %>

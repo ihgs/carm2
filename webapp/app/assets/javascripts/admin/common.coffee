@@ -29,4 +29,4 @@ $ ->
       )
 
 
-    $(".multiple-select").multipleSelect();
+  

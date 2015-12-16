@@ -16,6 +16,7 @@ protect_from_forgery except: [:create]
   # GET /admin/daily_reports/new
   def new
     @daily_report = DailyReport.new
+    @daily_report.date = Time.now
   end
 
   # GET /admin/daily_reports/1/edit
@@ -28,16 +29,15 @@ protect_from_forgery except: [:create]
   # POST /admin/daily_reports.json
   def create
     @daily_report = DailyReport.new(admin_daily_report_params)
-    render json: @daily_report
-    # respond_to do |format|
-    #   if @daily_report.save
-    #     format.html { redirect_to @daily_report, notice: 'Daily report was successfully created.' }
-    #     format.json { render :show, status: :created, location: @daily_report }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @daily_report.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    respond_to do |format|
+      if @daily_report.save
+        format.html { redirect_to [:admin, @daily_report], notice: 'Daily report was successfully created.' }
+        format.json { render :show, status: :created, location: [:admin, @daily_report] }
+      else
+        format.html { render :new }
+        format.json { render json: @daily_report.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /admin/daily_reports/1
@@ -67,17 +67,32 @@ protect_from_forgery except: [:create]
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_daily_report
-      @daily_report = Admin::DailyReport.find(params[:id])
+      @daily_report = DailyReport.find(params[:id])
+    end
+
+    def remove_data form_params
+      form_params[:students].select! { |student|
+        student[:attendance] == "1"
+      }
+      form_params[:contents].select! { |_, content|
+        content[:students]
+      }
+      form_params[:homeworks].select! { |_, homework|
+        homework[:students]
+      }
+      form_params
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_daily_report_params
-      form_params = params.require(:daily_report).permit(:date, :grade, :subject, :students,
+      form_params = params.require(:daily_report).permit(:date, :grade, :subject,
+          students:[:attendance, :test_result, :test_file_data, :student_id],
+          blackboard_pic_data_list:[:blackboard_pic_data],
           contents:[:textbook, :unit, :page, :due_date, :memo, students:[]],
           homeworks:[:textbook, :unit, :page, :memo, students:[]])
 
+      remove_data form_params
       form_params[:contents] = form_params[:contents].values
-
       form_params[:homeworks] = form_params[:homeworks].values
 
       form_params

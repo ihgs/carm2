@@ -1,5 +1,7 @@
 class AttachedFile
   include Mongoid::Document
+  include Mongoid::Timestamps
+
   field :original_filename, type: String
   field :content_type, type: String
   field :description, type: String
