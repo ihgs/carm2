@@ -30,8 +30,12 @@
       <tr>
         <td><%= Student.find(student[:student_id]).fullname %></td>
         <td><%= student[:test_result] %></td>
-        <% file = AttachedFile.find(student[:test_file]) %>
-        <td><%= link_to(file.to_s, :controller => "attached_files", :action => :download, :id => file.id) %></td>
+        <td>
+          <% if student[:test_file]
+              file = AttachedFile.find(student[:test_file]) %>
+              <%= link_to(file.to_s, :controller => "attached_files", :action => :download, :id => file.id) %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
     </tbody>
@@ -64,15 +68,36 @@
     </table>
 <p>
   <strong>Homework:</strong>
+  <table>
+    <thead>
+      <tr>
+        <th>生徒</th>
+        <th>テキスト</th>
+        <th>メモ</th>
+      </tr>
+    </thead>
+    <tbody>
   <% @daily_report.homeworks.each do |homework| %>
-    <%= homework %>
+    <tr>
+      <td>
+        <%  homework[:students].each do |student| %>
+        <div><%= Student.find(student).fullname  %></div>
+        <% end %>
+      </td>
+      <td>
+        <%= "#{homework[:textbook]} #{homework[:unit]} #{homework[:page]}" %>
+      </td>
+    </tr>
   <% end %>
+  </tbody>
+  </table>
 </p>
 
 <p>
   <strong>Blackboard:</strong>
   <% @daily_report.blackboard_pics.each do |bp| %>
-    <%= AttachedFile.find(bp) %>
+    <% file = AttachedFile.find(bp) %>
+    <%= link_to(file.to_s, :controller => "attached_files", :action => :download, :id => file.id) %>
   <% end if @daily_report.blackboard_pics%>
 </p>
 
