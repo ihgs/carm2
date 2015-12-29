@@ -18,27 +18,28 @@ class DailyReport
 
   def upload_files
     if self.blackboard_pic_data_list
-      self.blackboard_pics =[]
+      self.blackboard_pics = [] unless self.blackboard_pics
       self.blackboard_pic_data_list.values.each do |bbpd|
         af = AttachedFile.build(bbpd["blackboard_pic_data"])
         af.category = "daily_report_blackboard"
         af.save
-        self.blackboard_pics.push(af.id)
+        self.blackboard_pics.push(af.id.to_s)
       end
     end
 
     if self.students
       self.students.each do |student|
-        if student.has_key?(:test_file_data)
-          af = AttachedFile.build(student[:test_file_data])
+        if student.has_key?("test_file_data")
+          af = AttachedFile.build(student["test_file_data"])
           af.category = "daily_report_test_file"
           af.save
 
-          student.delete(:test_file_data)
-          student[:test_file] = af.id
+          student.delete("test_file_data")
+          student["test_file"] = af.id.to_s
         end
       end
     end
+
   end
 
   def check_image

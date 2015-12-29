@@ -1,23 +1,25 @@
+<% provide(:title, 'Daily Reports') %>
+
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Date:</strong>
+  <div class="h4">Date:</div>
   <%= @daily_report.date %>
 </p>
 
 <p>
-  <strong>Grade:</strong>
+  <div class="h4">Grade:</div>
   <%= @daily_report.grade %>
 </p>
 
 <p>
-  <strong>Subject:</strong>
+  <div class="h4">Subject:</div>
   <%= @daily_report.subject %>
 </p>
 
 <p>
-  <strong>Student:</strong>
-  <table>
+  <div class="h4">Student:</div>
+  <table class="table">
     <thead>
       <tr>
         <th>生徒</th>
@@ -42,8 +44,8 @@
   </table>
 </p>
 <p>
-  <strong>Contents:</strong>
-  <table>
+  <div class="h4">Contents:</div>
+  <table class="table">
       <thead>
         <tr>
           <th>生徒</th>
@@ -62,17 +64,21 @@
           <td>
             <%= "#{content[:textbook]} #{content[:unit]} #{content[:page]}" %>
           </td>
+          <td>
+            <%= content[:memo] %>
+          </td>
         </tr>
         <% end %>
       </tbody>
     </table>
 <p>
-  <strong>Homework:</strong>
-  <table>
+  <div class="h4">Homework:</div>
+  <table class="table">
     <thead>
       <tr>
         <th>生徒</th>
         <th>テキスト</th>
+        <th>締切日</th>
         <th>メモ</th>
       </tr>
     </thead>
@@ -87,6 +93,12 @@
       <td>
         <%= "#{homework[:textbook]} #{homework[:unit]} #{homework[:page]}" %>
       </td>
+      <td>
+        <%= homework[:due_date] %>
+      </td>
+      <td>
+        <%= homework[:memo] %>
+      </td>
     </tr>
   <% end %>
   </tbody>
@@ -94,12 +106,15 @@
 </p>
 
 <p>
-  <strong>Blackboard:</strong>
+  <div class="h4">Blackboard:</div>
   <% @daily_report.blackboard_pics.each do |bp| %>
-    <% file = AttachedFile.find(bp) %>
-    <%= link_to(file.to_s, :controller => "attached_files", :action => :download, :id => file.id) %>
+    <div>
+      <% file = AttachedFile.find(bp) %>
+      <%= link_to(file.to_s, :controller => "attached_files", :action => :download, :id => file.id) %>
+    </div>
   <% end if @daily_report.blackboard_pics%>
 </p>
 
+<div></div>
 <%= link_to 'Edit', edit_admin_daily_report_path(@daily_report) %> |
 <%= link_to 'Back', admin_daily_reports_path %>

@@ -1,5 +1,5 @@
 class Array
-    def merge_by_index(other,index1='id',index2=nil)
+    def merge_by_index_to_s(other,index1='id',index2=nil)
         index2 = index1 if index2.nil?
         merge_hash = {}
         self.map {|data| merge_hash[data[index1]] = data}

@@ -45,8 +45,8 @@ protect_from_forgery except: [:create]
   def update
     respond_to do |format|
       if @daily_report.update(admin_daily_report_params)
-        format.html { redirect_to @daily_report, notice: 'Daily report was successfully updated.' }
-        format.json { render :show, status: :ok, location: @daily_report }
+        format.html { redirect_to [:admin, @daily_report], notice: 'Daily report was successfully updated.' }
+        format.json { render :show, status: :ok, location: [:admin, @daily_report] }
       else
         format.html { render :edit }
         format.json { render json: @daily_report.errors, status: :unprocessable_entity }
@@ -86,10 +86,11 @@ protect_from_forgery except: [:create]
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_daily_report_params
       form_params = params.require(:daily_report).permit(:date, :grade, :subject,
+          :blackboard_pics,
           students:[:attendance, :test_result, :test_file_data, :student_id],
           blackboard_pic_data_list:[:blackboard_pic_data],
           contents:[:textbook, :unit, :page, :due_date, :memo, students:[]],
-          homeworks:[:textbook, :unit, :page, :memo, students:[]])
+          homeworks:[:textbook, :unit, :page, :memo, :due_date, students:[]])
 
       remove_data form_params
       form_params[:contents] = form_params[:contents].values
