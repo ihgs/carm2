@@ -18,6 +18,7 @@ module ApplicationHelper
       {:text => 'DailyReport',      :path => admin_daily_reports_path},
       {:text => 'School tests',      :path => admin_school_tests_path},
       {:text => 'Curriculum Network',      :path => admin_curriculums_path},
+      {:text => 'Textbook',      :path => admin_textbooks_path},
     ]
 
     html = ''
@@ -43,5 +44,13 @@ module ApplicationHelper
       "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県",
       "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"
     ]
+  end
+
+  def grade_list
+    %w"小１ 小２ 小３ 少４ 少５ 少６ 中１ 中２ 中３ 高１ 高２ 高３"
+  end
+
+  def subject_list
+    %w"英語 数学 理科 国語"
   end
 end

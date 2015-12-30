@@ -1,12 +1,5 @@
 require 'array'
 module Admin::DailyReportsHelper
-  def grade_list
-    %w"小１ 小2 中１ 中2 中３"
-  end
-
-  def subject_list
-    %w"英語 数学 理科 国語"
-  end
 
   def student_list
 
