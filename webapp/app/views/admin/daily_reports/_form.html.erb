@@ -45,7 +45,7 @@
           <td><%= student["name"] %><%= s_form.hidden_field :student_id,value:student["student_id"] %></td>
           <td><%= s_form.text_field :test_result %></td>
           <td>
-            <% if student["test_file"] %>
+            <% if student["test_file"].present? %>
               <% file = AttachedFile.find(student["test_file"]) %>
               <% if file %>
                 <%= link_to(file.to_s, :controller => "attached_files", :action => :download, :id => file.id) %>
@@ -71,8 +71,8 @@
             <%= f.fields_for :contents, OpenStruct.new(content), index: "" do |c_form| %>
             <div class="form-inline">
               <%= c_form.collection_select(:students, Student.all, :id, :fullname ,{:include_hidden=>false}, {:class=>'form-control vta_top', :multiple=>true} )%>
-              <%= c_form.select :textbook, options_for_select(text_list), {}, :class=>"form-control"  %>
-              <%= c_form.select :unit, options_for_select(text_list), {}, :class=>"form-control"  %>
+              <%= c_form.select :textbook, options_for_select(text_list, :selected=>content["textbook"]), {}, :class=>"form-control"  %>
+              <%= c_form.select :unit, options_for_select(text_list, :selected=>content["unit"]), {}, :class=>"form-control"  %>
               <%= c_form.text_field :page, :placeholder=>"page", :class=>"form-control" %>
               <%= c_form.text_area :memo, :class=>"form-control vta_top"  %>
               <input data-repeater-delete type="button" value="Delete" class="btn btn-small"/>
@@ -114,9 +114,8 @@
             <%= f.fields_for :homeworks, OpenStruct.new(homework), index: "" do |hw_form| %>
             <div class="form-inline">
                 <%= hw_form.collection_select(:students, Student.all, :id, :fullname ,{:include_hidden=>false}, {:class=>'form-control vta_top', :multiple=>true} )%>
-                <%= hw_form.select :textbook, options_for_select(text_list),{}, :selected=>homework["textbook"], :class=>"form-control vta_top"  %>
-                <%=homework["textbook"] %>
-                <%= hw_form.select :unit, options_for_select(text_list), {}, :class=>"form-control vta_top"  %>
+                <%= hw_form.select :textbook, options_for_select(text_list, :selected=>homework["textbook"]),{}, :class=>"form-control vta_top"  %>
+                <%= hw_form.select :unit, options_for_select(text_list, :selected=>homework["unit"]), {}, :class=>"form-control vta_top"  %>
                 <%= hw_form.text_field :page, :placeholder=>"page", :class=>"form-control vta_top" %>
                 <%= hw_form.date_field :due_date, :value=>homework["due_date"], :class=>"form-control vta_top" %>
 
