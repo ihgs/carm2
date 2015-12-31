@@ -47,7 +47,7 @@ module ApplicationHelper
   end
 
   def grade_list
-    %w"小１ 小２ 小３ 少４ 少５ 少６ 中１ 中２ 中３ 高１ 高２ 高３"
+    %w"小１ 小２ 小３ 小４ 小５ 小６ 中１ 中２ 中３ 高１ 高２ 高３"
   end
 
   def subject_list

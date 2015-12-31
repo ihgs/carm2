@@ -5,8 +5,10 @@ Rails.application.routes.draw do
     resources :textbooks
   end
   namespace :admin do
+    get 'daily_reports/new_detail' => 'daily_reports#new_detail'
     resources :daily_reports
   end
+
   devise_for :users, path: "auth",
              :controllers => {:registrations => "users/registrations"}
 

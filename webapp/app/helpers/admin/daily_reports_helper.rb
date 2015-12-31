@@ -1,11 +1,11 @@
 require 'array'
 module Admin::DailyReportsHelper
 
-  def student_list
+  def student_list student_list, attendance=false
 
     students = []
-    Student.all.each do |student|
-      students.push({"student_id"=> student.id.to_s, "name" => student.fullname, "attendance" => false, "test_result"=> "", "test_file" => ""})
+    student_list.each do |student|
+      students.push({"student_id"=> student.id.to_s, "name" => student.fullname, "attendance" => attendance, "test_result"=> "", "test_file" => ""})
     end
     if @daily_report.students and @daily_report.students.length >= 1
       students.merge_by_index_to_s(@daily_report.students,"student_id", "student_id")
@@ -15,7 +15,7 @@ module Admin::DailyReportsHelper
   end
 
   def text_list
-    [["text1","text1"], ["text2","text2"], ["text3","text3" ],["text4","text4"]]
+    Textbook.all
   end
 
   def homeworks

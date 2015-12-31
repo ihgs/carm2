@@ -15,12 +15,41 @@ protect_from_forgery except: [:create]
 
   # GET /admin/daily_reports/new
   def new
-    @daily_report = DailyReport.new
-    @daily_report.date = Time.now
+    @today = Date.today.to_s
+  end
+
+  # GET /admin/daily_reports/new_detail
+  def new_detail
+    opt = {}
+    opt[:subject] = params[:subject] if params[:subject]
+    opt[:grade] = params[:grade] if params[:grade]
+    @textbooks = Textbook.where(opt)
+    if params[:attendance]
+      attendance_list = params[:attendance]
+      @students = Student.all.select do |student|
+        attendance_list.include?(student.id.to_s)
+      end
+      @attendance = true
+    else
+      @students = Student.all
+      @attendance = false
+    end
+
+    if params[:date]
+      opt[:date] = params[:date]
+    else
+      opt[:date] = Date.today.to_s
+    end
+    @daily_report = DailyReport.new(opt)
+
   end
 
   # GET /admin/daily_reports/1/edit
   def edit
+    opt = {}
+    opt[:subject] = @daily_report.subject
+    opt[:grade] = @daily_report.grade
+    @textbooks = Textbook.where(opt)
     @students = Student.all
     @homeworks = []
   end

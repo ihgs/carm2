@@ -1,5 +1,58 @@
 <h1>New Admin Daily Report</h1>
 
-<%= render 'form' %>
+<%= form_tag '/admin/daily_reports/new_detail', :method=>:get do%>
+
+<div class="form-group">
+  Date<br>
+  <div class="row">
+      <div class="col-md-4">
+        <%= date_field_tag :date, @today, :class=>"form-control"%>
+      </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="form-inline">
+    <div class="form-group">
+      Grade<br>
+      <%= select_tag "grade", options_for_select(grade_list), {prompt:"-", :class=>"form-control"} %>
+    </div>
+    <div class="form-group">
+      Subject<br>
+      <%= select_tag "subject", options_for_select(subject_list), {prompt: "-", :class=>"form-control"} %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>出欠</th><th>名前</th><th>学校</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Student.all.each do |student| %>
+      <tr>
+        <td>
+          <%= check_box_tag "attendance[]", student.id %>
+        </td>
+        <td>
+          <%= student.fullname %>
+        </td>
+        <td>
+          <%= render 'shared/school_list', schools: student.school_list %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="actions">
+  <%= submit_tag "Next", :class=>'btn btn-primary' %>
+</div>
+<% end %>
+
 
 <%= link_to 'Back', admin_daily_reports_path %>

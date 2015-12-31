@@ -6,7 +6,8 @@ class Admin::TextbooksController < ApplicationController
   # GET /admin/textbooks
   # GET /admin/textbooks.json
   def index
-    @textbooks = Textbook.all
+    opt = params.permit(:name, :subject, :grade)
+    @textbooks = Textbook.where(opt)
   end
 
   # GET /admin/textbooks/1
