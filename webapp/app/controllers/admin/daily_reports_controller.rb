@@ -118,6 +118,7 @@ protect_from_forgery except: [:create]
           :blackboard_pics,
           students:[:attendance, :test_result, :test_file_data, :student_id],
           blackboard_pic_data_list:[:blackboard_pic_data],
+          test_result_pic_data_list:[:test_result_pic_data],
           contents:[:textbook, :unit, :page, :due_date, :memo, students:[]],
           homeworks:[:textbook, :unit, :page, :memo, :due_date, students:[]])
 

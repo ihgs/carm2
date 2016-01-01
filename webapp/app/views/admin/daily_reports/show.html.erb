@@ -115,6 +115,16 @@
   <% end if @daily_report.blackboard_pics%>
 </p>
 
+<p>
+  <div class="h4">TestResult:</div>
+  <% @daily_report.test_result_pics.each do |tr| %>
+    <div>
+      <% file = AttachedFile.find(tr) %>
+      <%= link_to(file.to_s, :controller => "attached_files", :action => :download, :id => file.id) %>
+    </div>
+  <% end if @daily_report.test_result_pics%>
+</p>
+
 <div></div>
 <%= link_to 'Edit', edit_admin_daily_report_path(@daily_report) %> |
 <%= link_to 'Back', admin_daily_reports_path %>

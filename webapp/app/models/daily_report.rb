@@ -7,9 +7,10 @@ class DailyReport
   field :students, type: Array  #[{"出欠":false, "test_result":}]
   field :contents, type: Array
   field :homeworks, type: Array
+  field :test_result_pics, type: Array
   field :blackboard_pics, type: Array #{{"id":attached_file_id}}
   field :note, type: String
-  attr_accessor :blackboard_pic_data_list
+  attr_accessor :blackboard_pic_data_list, :test_result_pic_data_list
   before_save :upload_files
   #TODO delete attached_file
   # before_delete
@@ -27,16 +28,13 @@ class DailyReport
       end
     end
 
-    if self.students
-      self.students.each do |student|
-        if student.has_key?("test_file_data")
-          af = AttachedFile.build(student["test_file_data"])
-          af.category = "daily_report_test_file"
-          af.save
-
-          student.delete("test_file_data")
-          student["test_file"] = af.id.to_s
-        end
+    if self.test_result_pic_data_list
+      self.test_result_pics = [] unless self.test_result_pics
+      self.test_result_pic_data_list.values.each do |trpd|
+        af = AttachedFile.build(trpd["test_result_pic_data"])
+        af.category = "daily_report_test_file"
+        af.save
+        self.test_result_pics.push(af.id.to_s)
       end
     end
 

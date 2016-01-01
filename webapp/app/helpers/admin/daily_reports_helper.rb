@@ -45,4 +45,12 @@ module Admin::DailyReportsHelper
       []
     end
   end
+
+  def test_results
+    if @daily_report.test_result_pics and @daily_report.test_result_pics.length >= 1
+      @daily_report.test_result_pics
+    else
+      []
+    end
+  end
 end

@@ -34,7 +34,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>出欠</th><th>名前</th><th>確認テスト点数</th><th>テスト結果ファイル</th>
+          <th>出欠</th><th>名前</th><th>確認テスト点数</th>
         </tr>
       </thead>
       <tbody>
@@ -44,18 +44,6 @@
           <td><%= s_form.check_box :attendance %></td>
           <td><%= student["name"] %><%= s_form.hidden_field :student_id,value:student["student_id"] %></td>
           <td><%= s_form.text_field :test_result %></td>
-          <td>
-            <% if student["test_file"].present? %>
-              <% file = AttachedFile.find(student["test_file"]) %>
-              <% if file %>
-                <%= link_to(file.to_s, :controller => "attached_files", :action => :download, :id => file.id) %>
-              <% else %>
-                <%= s_form.file_field :test_file_data %>
-              <% end %>
-            <% else %>
-              <%= s_form.file_field :test_file_data %>
-            <% end %>
-          </td>
         </tr>
           <% end %>
         <% end %>
@@ -105,6 +93,29 @@
       <input data-repeater-create type="button" value="Add" class="btn btn-small"/>
     </div>
   </div>
+
+  <div class="form-group">
+    <%= f.label :test_result_pics %><br>
+    <% test_results.each do |test_result| %>
+    <div>
+      <% file = AttachedFile.find(test_result) %>
+      <%= hidden_field_tag 'daily_report[test_results][]', test_result %>
+      <%= link_to(file.to_s, :controller => "attached_files", :action => :download, :id => file.id) %>
+    </div>
+    <% end %>
+    <div class="repeater">
+      <div data-repeater-list="daily_report[test_result_pic_data_list]">
+        <div data-repeater-item class="list_group">
+          <div class="form-inline">
+            <%= f.file_field :test_result_pic_data,:class=>"form-control"  %>
+            <input data-repeater-delete type="button" value="Delete" class="btn btn-small"/>
+          </div>
+        </div>
+      </div>
+      <input data-repeater-create type="button" value="Add" class="btn btn-small"/>
+    </div>
+  </div>
+
   <div class="form-group">
     <%= f.label :homeworks %>
     <div class="repeater">
