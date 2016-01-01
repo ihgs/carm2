@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @textbook.name %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @textbook.subject %>
+</p>
+
+<p>
+  <strong>Grade:</strong>
+  <%= @textbook.grade %>
+</p>
+
+<p>
+  <strong>Units:</strong>
+  <ul>
+  <% @textbook.units.each do |k, unit| %>
+    <li><%= unit["unit"] %></li>
+  <% end if @textbook.units%>
+</ul>
+</p>
+
+<%= link_to 'Edit', [:edit, :admin, @textbook] %> |
+<%= link_to 'Back', admin_textbooks_path %>

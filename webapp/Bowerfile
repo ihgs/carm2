@@ -1,2 +1,2 @@
 asset 'vis'
-asset 'jquery.repeater'
+asset 'jquery.repeater', "~> 1.1.1"

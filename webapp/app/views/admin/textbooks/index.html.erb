@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Textbooks</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Subject</th>
+      <th>Grade</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @textbooks.each do |textbook| %>
+      <tr>
+        <td><%= link_to textbook.name, [:admin, textbook] %></td>
+        <td><%= textbook.subject %></td>
+        <td><%= textbook.grade %></td>
+        <td><%= link_to 'Edit', [:edit, :admin, textbook ] %></td>
+        <td><%= link_to 'Destroy', [:admin, textbook], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Textbook', new_admin_textbook_path %>

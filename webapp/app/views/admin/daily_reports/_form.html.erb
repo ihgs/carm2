@@ -1,0 +1,149 @@
+<%= form_for([:admin, @daily_report]) do |f| %>
+  <% if @daily_report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@daily_report.errors.count, "error") %> prohibited this admin_daily_report from being saved:</h2>
+
+      <ul>
+      <% @daily_report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :date %><br>
+    <div class="row">
+        <div class="col-md-4">
+          <%= f.date_field :date, :class=>"form-control"%>
+        </div>
+    </div>
+  </div>
+
+  <div class="form-inline">
+    <div class="form-group">
+      <%= f.label :grade %><br>
+      <%= f.select :grade, grade_list, {prompt:"-"}, :class=>"form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :subject %><br>
+      <%= f.select :subject, subject_list, {prompt: "-"}, :class=>"form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :students %><br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>出欠</th><th>名前</th><th>確認テスト点数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% student_list(@students, @attendance).each do |student| %>
+          <%= f.fields_for :students, OpenStruct.new(student), index: "" do |s_form| %>
+        <tr>
+          <td><%= s_form.check_box :attendance %></td>
+          <td><%= student["name"] %><%= s_form.hidden_field :student_id,value:student["student_id"] %></td>
+          <td><%= s_form.text_field :test_result %></td>
+        </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="form-group">
+    <%= f.label :contents %>
+    <div class="repeater">
+      <div data-repeater-list="daily_report[contents]">
+        <% contents.each do |content| %>
+          <div data-repeater-item class="list_group">
+            <%= f.fields_for :contents, OpenStruct.new(content), index: "" do |c_form| %>
+            <div class="form-inline">
+              <%= c_form.collection_select(:students, @students, :id, :fullname ,{:include_hidden=>false}, {:class=>'form-control vta_top', :multiple=>true} )%>
+              <%= c_form.select :textbook, options_for_select(@textbooks, :selected=>content["textbook"]), {:prompt=>"-", :include_blank=>true}, {:class=>"form-control select_textbook",:onChange=>"change_textbook(this)"}  %>
+              <%= c_form.select :unit, options_for_select([]), {:prompt=>"-"}, {:class=>"form-control select_units", :selected_data=>content["unit"]}  %>
+              <%= c_form.text_field :page, :placeholder=>"page", :class=>"form-control" %>
+              <%= c_form.text_area :memo, :class=>"form-control vta_top"  %>
+              <input data-repeater-delete type="button" value="Delete" class="btn btn-small"/>
+            </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <input data-repeater-create type="button" value="Add" class="btn btn-small"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :blackboard_pics %><br>
+    <% blackboards.each do |blackboard| %>
+    <div>
+      <% file = AttachedFile.find(blackboard) %>
+      <%= hidden_field_tag 'daily_report[blackboard_pics][]', blackboard %>
+      <%= link_to(file.to_s, :controller => "attached_files", :action => :download, :id => file.id) %>
+    </div>
+    <% end %>
+    <div class="repeater">
+      <div data-repeater-list="daily_report[blackboard_pic_data_list]">
+        <div data-repeater-item class="list_group">
+          <div class="form-inline">
+            <%= f.file_field :blackboard_pic_data,:class=>"form-control"  %>
+            <input data-repeater-delete type="button" value="Delete" class="btn btn-small"/>
+          </div>
+        </div>
+      </div>
+      <input data-repeater-create type="button" value="Add" class="btn btn-small"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :test_result_pics %><br>
+    <% test_results.each do |test_result| %>
+    <div>
+      <% file = AttachedFile.find(test_result) %>
+      <%= hidden_field_tag 'daily_report[test_results][]', test_result %>
+      <%= link_to(file.to_s, :controller => "attached_files", :action => :download, :id => file.id) %>
+    </div>
+    <% end %>
+    <div class="repeater">
+      <div data-repeater-list="daily_report[test_result_pic_data_list]">
+        <div data-repeater-item class="list_group">
+          <div class="form-inline">
+            <%= f.file_field :test_result_pic_data,:class=>"form-control"  %>
+            <input data-repeater-delete type="button" value="Delete" class="btn btn-small"/>
+          </div>
+        </div>
+      </div>
+      <input data-repeater-create type="button" value="Add" class="btn btn-small"/>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :homeworks %>
+    <div class="repeater">
+      <div data-repeater-list="daily_report[homeworks]">
+        <% homeworks.each do | homework | %>
+          <div data-repeater-item class="list_group">
+            <%= f.fields_for :homeworks, OpenStruct.new(homework), index: "" do |hw_form| %>
+            <div class="form-inline">
+                <%= hw_form.collection_select(:students, @students, :id, :fullname ,{:include_hidden=>false}, {:class=>'form-control vta_top', :multiple=>true} )%>
+                <%= hw_form.select "textbook", options_for_select(@textbooks, :selected=>homework["textbook"]),{:prompt=>"-",:include_blank=>true}, {:class=>"form-control vta_top select_textbook", :onChange=>"change_textbook(this)"}  %>
+                <%= hw_form.select :unit, options_for_select([]), {:prompt=>"-"}, {:class=>"form-control vta_top select_units", :selected_data=>homework["unit"]}  %>
+                <%= hw_form.text_field :page, :placeholder=>"page", :class=>"form-control vta_top" %>
+                <%= hw_form.date_field :due_date, :value=>homework["due_date"], :class=>"form-control vta_top" %>
+
+                <%= hw_form.text_area :memo, :class=>"form-control vta_top"  %>
+              <input data-repeater-delete type="button" value="Delete" class="btn btn-small"/>
+            </div>
+            <% end %>
+          </div>
+          <% end %>
+      </div>
+      <input data-repeater-create type="button" value="Add" class="btn btn-small"/>
+    </div>
+  </div>
+
+
+ <div class="actions">
+    <%= f.submit :class=>'btn btn-primary' %>
+ </div>
+
+<% end %>

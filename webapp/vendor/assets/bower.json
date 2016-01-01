@@ -2,6 +2,6 @@
   "name": "dsl-generated dependencies",
   "dependencies": {
     "vis": "latest",
-    "jquery.repeater": "latest"
+    "jquery.repeater": "~> 1.1.1"
   }
 }

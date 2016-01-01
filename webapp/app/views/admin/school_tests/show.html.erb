@@ -1,3 +1,5 @@
+<span id="token" value="<%= form_authenticity_token %>" />
+<span id="test_id" value="<%= @school_test.id %>" />
 <p id="notice"><%= notice %></p>
 
 <div class="table-responsive">
@@ -20,19 +22,27 @@
         <% subjects.each do |subject| %>
         <th><%= subject[:name] %></th>
         <% end %>
+        <th>合計</th>
       </tr>
       <tr>
         <th>平均点</th>
+        <% total = 0.0 %>
         <% subjects.each do |subject| %>
         <th><%= subject[:average] %></th>
+        <% total += subject[:average].to_f %>
         <% end %>
+        <th><%= total %></th>
       </tr>
       <% @school_test_results.each do |str| %>
       <tr>
-        <td><%= Student.find(str[:student_id]).fullname %></td>
-        <% subjects.each do |subject| %>
-          <td><%= str.results.nil? ? "" : str.results[subject[:name]] %></td>
+        <td class="student" student_id="<%=str[:student_id]%>" ><%= Student.fullname(str[:student_id]) %></td>
+        <% total = 0 %>
+        <% subjects.each do |subject| %>  
+          <td class="editable" name="school_test_result[results][<%= subject[:name]%>]" id="school_test_result_results___"><%= str.results.nil? ? "" : str.results[subject[:name]] %></td>
+          <% total += str.results.nil? ? 0 : str.results[subject[:name]].to_i %>
         <% end %>
+        <td><%= total %></td>
+        <td><a class="edit_test_result">edit</a></td>
       </tr>
       <% end %>
     </thead>
