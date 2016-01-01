@@ -14,10 +14,6 @@ module Admin::DailyReportsHelper
     end
   end
 
-  def text_list
-    Textbook.all
-  end
-
   def homeworks
     if @daily_report.homeworks and @daily_report.homeworks.length >= 1
       @daily_report.homeworks

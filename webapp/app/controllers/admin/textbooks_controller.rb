@@ -1,7 +1,7 @@
 class Admin::TextbooksController < ApplicationController
   layout 'admin/dashboard'
 
-  before_action :set_admin_textbook, only: [:show, :edit, :update, :destroy]
+  before_action :set_admin_textbook, only: [:show, :edit, :update, :destroy, :units]
 
   # GET /admin/textbooks
   # GET /admin/textbooks.json

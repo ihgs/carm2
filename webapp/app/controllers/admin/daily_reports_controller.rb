@@ -23,7 +23,7 @@ protect_from_forgery except: [:create]
     opt = {}
     opt[:subject] = params[:subject] if params[:subject]
     opt[:grade] = params[:grade] if params[:grade]
-    @textbooks = Textbook.where(opt)
+    @textbooks = Textbook.where(opt).map { |tb| [tb.name, tb.name,{data_id:tb.id}]}
     if params[:attendance]
       attendance_list = params[:attendance]
       @students = Student.all.select do |student|
@@ -49,7 +49,7 @@ protect_from_forgery except: [:create]
     opt = {}
     opt[:subject] = @daily_report.subject
     opt[:grade] = @daily_report.grade
-    @textbooks = Textbook.where(opt)
+    @textbooks = Textbook.where(opt).map { |tb| [tb.name, tb.name,{data_id:tb.id}]}
     @students = Student.all
     @homeworks = []
   end

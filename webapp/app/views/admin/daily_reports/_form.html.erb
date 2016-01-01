@@ -59,8 +59,8 @@
             <%= f.fields_for :contents, OpenStruct.new(content), index: "" do |c_form| %>
             <div class="form-inline">
               <%= c_form.collection_select(:students, @students, :id, :fullname ,{:include_hidden=>false}, {:class=>'form-control vta_top', :multiple=>true} )%>
-              <%= c_form.select :textbook, options_for_select(@textbooks, :selected=>content["textbook"]), {}, :class=>"form-control"  %>
-              <%= c_form.select :unit, options_for_select(@textbooks, :selected=>content["unit"]), {}, :class=>"form-control"  %>
+              <%= c_form.select :textbook, options_for_select(@textbooks, :selected=>content["textbook"]), {:prompt=>"-", :include_blank=>true}, {:class=>"form-control select_textbook",:onChange=>"change_textbook(this)"}  %>
+              <%= c_form.select :unit, options_for_select([]), {:prompt=>"-"}, {:class=>"form-control select_units", :selected_data=>content["unit"]}  %>
               <%= c_form.text_field :page, :placeholder=>"page", :class=>"form-control" %>
               <%= c_form.text_area :memo, :class=>"form-control vta_top"  %>
               <input data-repeater-delete type="button" value="Delete" class="btn btn-small"/>
@@ -125,8 +125,8 @@
             <%= f.fields_for :homeworks, OpenStruct.new(homework), index: "" do |hw_form| %>
             <div class="form-inline">
                 <%= hw_form.collection_select(:students, @students, :id, :fullname ,{:include_hidden=>false}, {:class=>'form-control vta_top', :multiple=>true} )%>
-                <%= hw_form.select :textbook, options_for_select(@textbooks, :selected=>homework["textbook"]),{}, :class=>"form-control vta_top"  %>
-                <%= hw_form.select :unit, options_for_select(@textbooks, :selected=>homework["unit"]), {}, :class=>"form-control vta_top"  %>
+                <%= hw_form.select "textbook", options_for_select(@textbooks, :selected=>homework["textbook"]),{:prompt=>"-",:include_blank=>true}, {:class=>"form-control vta_top select_textbook", :onChange=>"change_textbook(this)"}  %>
+                <%= hw_form.select :unit, options_for_select([]), {:prompt=>"-"}, {:class=>"form-control vta_top select_units", :selected_data=>homework["unit"]}  %>
                 <%= hw_form.text_field :page, :placeholder=>"page", :class=>"form-control vta_top" %>
                 <%= hw_form.date_field :due_date, :value=>homework["due_date"], :class=>"form-control vta_top" %>
 
