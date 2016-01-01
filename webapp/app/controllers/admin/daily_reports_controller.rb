@@ -1,5 +1,6 @@
 class Admin::DailyReportsController < ApplicationController
   layout 'admin/dashboard'
+  before_action :authenticate_user!
   before_action :set_admin_daily_report, only: [:show, :edit, :update, :destroy]
 protect_from_forgery except: [:create]
   # GET /admin/daily_reports

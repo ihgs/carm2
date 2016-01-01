@@ -1,5 +1,6 @@
 class Admin::AttachedFilesController < ApplicationController
   layout 'admin/dashboard'
+  before_action :authenticate_user!
 
   # GET /admin/attached_files
   def index

@@ -2,7 +2,8 @@ class Admin::TextbooksController < ApplicationController
   layout 'admin/dashboard'
 
   before_action :set_admin_textbook, only: [:show, :edit, :update, :destroy, :units]
-
+  before_action :authenticate_user!
+  
   # GET /admin/textbooks
   # GET /admin/textbooks.json
   def index
