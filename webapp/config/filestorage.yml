@@ -10,3 +10,10 @@ development:
 
 production:
   type: swift
+  opts:
+    username: test:tester
+    api_key: testing
+    auth_method: password
+    auth_url: http://swift:8080/auth/v1.0
+    service_type: object-store
+    container_name: cram
