@@ -3,7 +3,7 @@ class Admin::TextbooksController < ApplicationController
 
   before_action :set_admin_textbook, only: [:show, :edit, :update, :destroy, :units]
   before_action :authenticate_user!
-  
+
   # GET /admin/textbooks
   # GET /admin/textbooks.json
   def index
@@ -72,6 +72,12 @@ class Admin::TextbooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_textbook_params
-      form_params = params.require(:textbook).permit(:name, :subject, :grade, units:[:unit])
+      form_params = params.require(:textbook).permit(:name, :subject, :grade, units:[:unit,:subunits])
+      if form_params[:units]
+        form_params[:units].each do |k, unit|
+          form_params[:units][k][:subunits] = Textbook.subunits_to_a(unit[:subunits])
+        end
+      end
+      form_params
     end
 end

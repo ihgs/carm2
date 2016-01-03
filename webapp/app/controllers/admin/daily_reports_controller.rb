@@ -24,7 +24,7 @@ protect_from_forgery except: [:create]
     opt = {}
     opt[:subject] = params[:subject] if params[:subject]
     opt[:grade] = params[:grade] if params[:grade]
-    @textbooks = Textbook.where(opt).map { |tb| [tb.name, tb.name,{data_id:tb.id}]}
+    @textbooks = Textbook.where(opt).map { |tb| [tb.name, tb.id]}
     if params[:attendance]
       attendance_list = params[:attendance]
       @students = Student.all.select do |student|
@@ -50,7 +50,7 @@ protect_from_forgery except: [:create]
     opt = {}
     opt[:subject] = @daily_report.subject
     opt[:grade] = @daily_report.grade
-    @textbooks = Textbook.where(opt).map { |tb| [tb.name, tb.name,{data_id:tb.id}]}
+    @textbooks = Textbook.where(opt).map { |tb| [tb.name, tb.id]}
     @students = Student.all
     @homeworks = []
   end
@@ -120,8 +120,8 @@ protect_from_forgery except: [:create]
           students:[:attendance, :test_result, :test_file_data, :student_id],
           blackboard_pic_data_list:[:blackboard_pic_data],
           test_result_pic_data_list:[:test_result_pic_data],
-          contents:[:textbook, :unit, :page, :due_date, :memo, students:[]],
-          homeworks:[:textbook, :unit, :page, :memo, :due_date, students:[]])
+          contents:[:textbook, :unit, :page, :due_date, :memo, students:[], subunits:[]],
+          homeworks:[:textbook, :unit, :page, :memo, :due_date, students:[], subunits:[]])
 
       remove_data form_params
       form_params[:contents] = form_params[:contents].values

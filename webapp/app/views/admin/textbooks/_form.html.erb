@@ -33,6 +33,7 @@
         <div data-repeater-item class="list_group">
           <div class="form-inline">
             <%= text_field_tag :unit, unit["unit"], :class=>"form-control" %>
+            <%= text_area_tag :subunits, Textbook.subunits_to_s(unit), :size=>"20x10", :class=>"form-control vta_top" %>
             <input data-repeater-delete type="button" value="Delete" class="btn btn-small" />
           </div>
         </div>

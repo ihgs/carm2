@@ -51,6 +51,6 @@ module ApplicationHelper
   end
 
   def subject_list
-    %w"英語 数学 理科 国語"
+    %w"英語 数学 算数 理科 国語"
   end
 end

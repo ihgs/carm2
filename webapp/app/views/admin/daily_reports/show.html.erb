@@ -24,7 +24,6 @@
       <tr>
         <th>生徒</th>
         <th>テスト結果</th>
-        <th>テストファイル</th>
       </tr>
     </thead>
     <tbody>
@@ -32,12 +31,6 @@
       <tr>
         <td><%= Student.find(student[:student_id]).fullname %></td>
         <td><%= student[:test_result] %></td>
-        <td>
-          <% if student[:test_file]
-              file = AttachedFile.find(student[:test_file]) %>
-              <%= link_to(file.to_s, :controller => "attached_files", :action => :download, :id => file.id) %>
-          <% end %>
-        </td>
       </tr>
     <% end %>
     </tbody>
@@ -62,7 +55,7 @@
             <% end %>
           </td>
           <td>
-            <%= "#{content[:textbook]} #{content[:unit]} #{content[:page]}" %>
+            <%= "#{Textbook.find(content[:textbook]).name} #{content[:unit]} #{content[:subunits]} #{content[:page]}" %>
           </td>
           <td>
             <%= content[:memo] %>
@@ -91,7 +84,7 @@
         <% end %>
       </td>
       <td>
-        <%= "#{homework[:textbook]} #{homework[:unit]} #{homework[:page]}" %>
+        <%= "#{Textbook.find(homework[:textbook]).name} #{homework[:unit]} #{homework[:subunits]} #{homework[:page]}" %>
       </td>
       <td>
         <%= homework[:due_date] %>

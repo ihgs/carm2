@@ -20,6 +20,11 @@
   <ul>
   <% @textbook.units.each do |k, unit| %>
     <li><%= unit["unit"] %></li>
+      <ul>
+        <% unit[:subunits].each do |subunit| %>
+        <li><%= subunit %></li>
+        <% end %>
+      </ul>
   <% end if @textbook.units%>
 </ul>
 </p>
