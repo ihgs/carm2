@@ -37,7 +37,7 @@ munin:
     - ./munin/munin-conf.d:/etc/munin/munin-conf.d
 
 swift:
-  image: serverascode/swift-onlyone
+  image: morrisjobke/docker-swift-onlyone
   ports:
     - "8080"
   volumes_from:

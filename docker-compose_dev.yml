@@ -15,5 +15,5 @@ swift:
 swift_data:
   image: busybox
   volumes:
-    - ./swift:/srv
+    - ./swift_dev:/srv
   tty: true
