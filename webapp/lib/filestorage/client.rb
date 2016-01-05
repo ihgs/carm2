@@ -1,4 +1,5 @@
 require_relative 'swift/swift'
+require_relative 'file/localfile'
 
 module FileStorage
 
@@ -8,6 +9,12 @@ module FileStorage
       def initialize
         @opts = Rails.application.config.filestorage.opts
         @container_name = Rails.application.config.filestorage.opts[:container_name]
+      end
+    elsif "file" == Rails.application.config.filestorage.type
+      include Storage::Localfile
+
+      def initialize
+        @base_dir = Rails.application.config.filestorage.opts[:base_directory]
       end
     end
   end

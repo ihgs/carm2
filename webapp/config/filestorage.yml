@@ -17,3 +17,8 @@ production:
     auth_url: http://swift:8080/auth/v1.0
     service_type: object-store
     container_name: cram
+
+test:
+  type: file
+  opts:
+    base_directory: filestorage_test
