@@ -12,6 +12,8 @@ class Textbook
 
   class << self
     def subunits_to_s unit
+      return "" unless unit
+      
       subunits = unit["subunits"]
       if subunits
         return subunits.join("\r\n")

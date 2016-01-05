@@ -26,7 +26,7 @@ class Student
       begin
         school_object = School.find(school[:school_id])
         name = school_object.display_name
-      rescue
+      rescue => e
         name = "Not Found"
       end
 
