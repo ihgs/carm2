@@ -23,4 +23,22 @@ namespace :admin do
     user.save!
     puts "!! reset admin password: #{admin_email} : #{rand_pass} !!"
   end
+
+  desc "Set token"
+  task :set_token, ['token'] => :environment do |task, args|
+    token = Token.new token: args["token"],
+              created_at: Time.now
+    token.save!
+  end
+
+  desc "Get tokens"
+  task :get_tokens => :environment do
+    tokens = Token.all
+    puts tokens
+  end
+
+  desc "Delete tokens"
+  task :delete_tokens => :environment do
+    Token.delete_all()
+  end
 end

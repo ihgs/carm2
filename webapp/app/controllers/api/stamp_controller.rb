@@ -7,6 +7,12 @@ class Api::StampController < ApplicationController
   # card_id:string
   # device_name:string
   def index
+    reader_token = request.env["HTTP_ACCESS_TOKEN"]
+    if Token.where(token: reader_token).count == 0
+      render :json=>{status: "error", message: "This reader is not registered"}
+      return
+    end
+
     remote_ip = request.env["HTTP_X_FORWARDED_FOR"] || request.remote_ip
     time_sec = params["time"]
     card_id = params["card_id"]
