@@ -2,6 +2,11 @@
   "name": "dsl-generated dependencies",
   "dependencies": {
     "vis": "latest",
-    "jquery.repeater": "~> 1.1.1"
+    "jquery.repeater": "~> 1.1.1",
+    "angularjs": "~> 1.5.0",
+    "angular-resource": "latest",
+    "angular-ui-router": "latest",
+    "angular-bootstrap": "latest",
+    "lodash": "latest"
   }
 }

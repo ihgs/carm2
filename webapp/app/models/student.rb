@@ -43,7 +43,7 @@ class Student
 
     def fullname student_id
       return "" if !student_id or student_id.empty?
-      puts student_id
+
       student = Student.find(student_id)
       student == nil ? "" : student.fullname
     end

@@ -1,0 +1,27 @@
+'use strict';
+
+angular.module('cramApp')
+  .controller('SettingsController', ['$scope', 'Course', function($scope, Course){
+    $scope.courses = Course.query();
+    $scope.add = function () {
+      Course.save($scope.course, function (_course) {
+        $scope.courses.push(_course);
+        $scope.course.name = null;
+      });
+    };
+
+    $scope.remove = function ($event, course) {
+      Course.delete({id: course.id}, function () {
+        $scope.courses = _.filter($scope.courses, function (_t) {
+          return _t.id != course.id;
+        });
+      });
+    };
+
+    $scope.hover = function (course) {
+       course.showDelete = !course.showDelete;
+       course.showEdit = !course.showEdit;
+    };
+
+  }])
+;

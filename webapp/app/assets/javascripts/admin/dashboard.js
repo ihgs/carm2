@@ -4,4 +4,12 @@
 //= require jquery.jpostal
 //= require vis/dist/vis.min
 //= require jquery.repeater/jquery.repeater.js
+//= require angularjs
+//= require angular-resource
+//= require angular-ui-router
+//= require angular-bootstrap
+//= require lodash/lodash.js
 //= require_tree .
+//= require app/settings/settings
+//= require app/settings/settings.service
+//= require app/settings/settings.controller

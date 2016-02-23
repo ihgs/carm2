@@ -1,2 +1,7 @@
 asset 'vis'
 asset 'jquery.repeater', "~> 1.1.1"
+asset 'angularjs', "~> 1.5.0"
+asset 'angular-resource'
+asset 'angular-ui-router'
+asset 'angular-bootstrap'
+asset 'lodash'

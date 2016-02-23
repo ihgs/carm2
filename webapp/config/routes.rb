@@ -12,8 +12,10 @@ Rails.application.routes.draw do
   devise_for :users, path: "auth",
              :controllers => {:registrations => "users/registrations"}
 
-  namespace :api do
+  namespace :api, {format: 'json'} do
     post 'stamp/' => 'stamp#index'
+    resource :courses, except: [:show]
+    resources :courses
   end
 
   namespace :admin do
@@ -24,6 +26,7 @@ Rails.application.routes.draw do
 
     resources :students
     resources :school_tests
+
 
     get 'stamp/' => 'stamp#index'
     get 'stamp/:id' => 'stamp#show'
@@ -38,6 +41,8 @@ Rails.application.routes.draw do
 
     get 'attached_files/' => 'attached_files#index'
     get 'attached_files/:id' => 'attached_files#download'
+
+    get 'settings' => 'settings#index'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
