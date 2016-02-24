@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('cramApp')
+angular.module('cram.settings')
   .controller('SettingsController', ['$scope', 'Course', function($scope, Course){
     $scope.courses = Course.query();
     $scope.add = function () {
