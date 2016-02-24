@@ -12,9 +12,14 @@
     <div class="panel panel-info">
       <ul class="list-group">
         <li class="list-group-item course-item" ng-mouseenter="hover(course)" ng-repeat="course in courses">
-          <div>{{course.name}}</div>
-          <div ng-show="course.showDelete" style="float: right; margin-top: -25px;">
+          <span editable-text="course.name" e-form="textBtnForm" onaftersave="update(course, $data)">{{course.name || 'empty'}}</span>
+          <div ng-show="course.showDelete" style="float: right; ">
             <button class="btn btn-danger btn-sm" ng-click="remove($event, course)"><i class="fa fa-trash-o">削除</i></button>
+          </div>
+          <div ng-show="course.showEdit" style="float: right; margin-right: 5px;">
+            <button class="btn btn-success btn-sm" ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible">
+              <i class="fa fa-trash-o">編集</i>
+            </button>
           </div>
         </li>
       </ul>

@@ -1,5 +1,6 @@
 /*
 *= require bootstrap
+*= require angular-xeditable
 *= require_tree .
 *= require_self
 */
@@ -7,6 +8,9 @@
 /*
 * Base structure
 */
+$icon-font-path: "bootstrap-sass/assets/fonts/bootstrap/";
+@import "bootstrap-sass/assets/stylesheets/bootstrap-sprockets";
+@import "bootstrap-sass/assets/stylesheets/bootstrap";
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {

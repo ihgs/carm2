@@ -1,6 +1,6 @@
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
+//= require bootstrap-sass/assets/javascripts/bootstrap-sprockets
 //= require jquery.jpostal
 //= require vis/dist/vis.min
 //= require jquery.repeater/jquery.repeater.js
@@ -8,6 +8,7 @@
 //= require angular-resource
 //= require angular-ui-router
 //= require angular-bootstrap
+//= require angular-xeditable
 //= require lodash/lodash.js
 //= require_tree .
 //= require app/settings/settings

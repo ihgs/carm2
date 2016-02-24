@@ -3,7 +3,8 @@
 angular.module('cramApp', [
   'ngResource',
   'ui.router',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'xeditable'
 ])
   .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider) {
     $urlRouterProvider
@@ -19,4 +20,7 @@ angular.module('cramApp', [
 
     $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = $("meta[name=\"csrf-token\"]").attr("content");
   }])
+  .run(function(editableOptions){
+    editableOptions.theme = 'bs3';
+  })
 ;
