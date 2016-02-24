@@ -19,6 +19,7 @@ module ApplicationHelper
       {:text => 'School tests',      :path => admin_school_tests_path},
       {:text => 'Curriculum Network',      :path => admin_curriculums_path},
       {:text => 'Textbook',      :path => admin_textbooks_path},
+      {:text => 'Settings',  :path => admin_settings_path},
     ]
 
     html = ''

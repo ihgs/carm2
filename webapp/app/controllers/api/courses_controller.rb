@@ -1,5 +1,6 @@
 class Api::CoursesController < ApplicationController
   before_action :set_course, only: [:show, :update, :destroy]
+  before_action :authenticate_user!
   def index
     @courses = Course.all
     respond_to do |format|
