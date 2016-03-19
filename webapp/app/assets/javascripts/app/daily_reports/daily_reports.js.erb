@@ -1,0 +1,26 @@
+'use strict';
+
+angular.module('cram.daily_reports', [
+  'ngResource',
+  'ui.router',
+  'ui.bootstrap',
+  'xeditable'
+])
+  .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider) {
+    $urlRouterProvider
+      .otherwise('/');
+
+    $stateProvider
+      .state('daily_reports', {
+        url: '/',
+        templateUrl: '<%= asset_path 'app/daily_reports/daily_reports.html' %>',
+        controller: 'DailyReportsController'
+      })
+    ;
+
+    $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = $("meta[name=\"csrf-token\"]").attr("content");
+  }])
+  .run(function(editableOptions){
+    editableOptions.theme = 'bs3';
+  })
+;

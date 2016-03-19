@@ -98,7 +98,8 @@
   </table>
 </p>
 
-<p>
+<% if false %>
+<!-- <p>
   <div class="h4">Blackboard:</div>
   <% @daily_report.blackboard_pics.each do |bp| %>
     <div>
@@ -116,7 +117,8 @@
       <%= link_to(file.to_s, :controller => "attached_files", :action => :download, :id => file.id) %>
     </div>
   <% end if @daily_report.test_result_pics%>
-</p>
+</p> -->
+<% end %>
 
 <div></div>
 <%= link_to 'Edit', edit_admin_daily_report_path(@daily_report) %> |

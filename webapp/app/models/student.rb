@@ -26,11 +26,12 @@ class Student
       begin
         school_object = School.find(school[:school_id])
         name = school_object.display_name
+        kind = school_object.kind
       rescue
         name = "Not Found"
       end
 
-      {school_id: school[:school_id], name: name, note: school[:note], enterance_year: school[:enterance_year]}
+      {school_id: school[:school_id], name: name, note: school[:note], enterance_year: school[:enterance_year], kind: kind}
     end
 
   end

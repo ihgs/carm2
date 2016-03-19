@@ -14,3 +14,6 @@
 //= require app/settings/settings
 //= require app/settings/settings.service
 //= require app/settings/settings.controller
+//= require app/daily_reports/daily_reports
+//= require app/daily_reports/daily_reports.service
+//= require app/daily_reports/daily_reports.controller

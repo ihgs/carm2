@@ -116,10 +116,10 @@ protect_from_forgery except: [:create]
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_daily_report_params
       form_params = params.require(:daily_report).permit(:date, :grade, :subject,
-          :blackboard_pics,
+          #:blackboard_pics,
           students:[:attendance, :test_result, :test_file_data, :student_id],
-          blackboard_pic_data_list:[:blackboard_pic_data],
-          test_result_pic_data_list:[:test_result_pic_data],
+          #blackboard_pic_data_list:[:blackboard_pic_data],
+          #test_result_pic_data_list:[:test_result_pic_data],
           contents:[:textbook, :unit, :page, :due_date, :memo, students:[], subunits:[]],
           homeworks:[:textbook, :unit, :page, :memo, :due_date, students:[], subunits:[]])
 

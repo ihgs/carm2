@@ -1,0 +1,1 @@
+class NoIdException < StandardError; end

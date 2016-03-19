@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     post 'stamp/' => 'stamp#index'
     resource :courses, except: [:show]
     resources :courses
+    resources :students, only: [:index]
+    resources :daily_reports, only: [:create]
   end
 
   namespace :admin do
