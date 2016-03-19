@@ -3,8 +3,9 @@ class Api::StudentsController < ApplicationController
   def index
     students = Student.all
     schools = School.all
-    grade_num = 100
+
     response = students.map do |student|
+      grade_num = 100
       if student.schools
         student.schools.each do | school |
           schools.each do |sc|

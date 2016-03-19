@@ -48,6 +48,7 @@
       </thead>
       <tbody>
         <% @daily_report.contents.each do |content| %>
+          <% next unless content %>
         <tr>
           <td>
             <%  content[:students].each do |student| %>
@@ -77,6 +78,7 @@
     </thead>
     <tbody>
   <% @daily_report.homeworks.each do |homework| %>
+    <% next unless homework %>
     <tr>
       <td>
         <%  homework[:students].each do |student| %>

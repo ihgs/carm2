@@ -19,7 +19,7 @@ class DailyReport{
 }
 
 angular.module('cram.daily_reports')
-  .controller('DailyReportsController', ['$scope', '$http', '$window', '$filter', 'Student', 'Textbook', function($scope, $http, $window, $filter, Student, Textbook){
+  .controller('DailyReportsController', ['$scope', '$http', '$window', '$filter', '$q', 'Student', 'Textbook', function($scope, $http, $window, $filter, $q, Student, Textbook){
     $scope.daily_report = new DailyReport();
     $scope.students = Student.query();
     $scope.daily_report.students = $scope.students;
@@ -27,9 +27,12 @@ angular.module('cram.daily_reports')
     $scope.grade_list = ["小１", "小２", "小３", "小４", "小５", "小６", "中１", "中２", "中３", "高１", "高２", "高３"];
     $scope.subject_list = ["英語", "数学", "算数", "理科", "国語"]
 
-    $scope.textbooks = Textbook.query();
+    $scope.all_textbooks = Textbook.query();
 
-    $scope.$watch('daily_report.grade', filterStudents);
+    let promiseAll = $q.all([$scope.students, $scope.all_textbooks]);
+
+    $scope.$watch('daily_report.grade', function(){filterStudents();filterTextbooks()});
+    $scope.$watch('daily_report.subject', filterTextbooks);
 
     $scope.add_content = function(){
       $scope.daily_report.contents.push({})
@@ -76,26 +79,47 @@ angular.module('cram.daily_reports')
     }
 
     function filterStudents(){
-      $scope.daily_report.students = $filter('filter')($scope.students, function(element){
-        let current_school = element['current_school']
-        if (current_school == undefined){
-          return false
-        }
-        let selected_grade = $scope.daily_report.grade
-        let selected_grade_kind = selected_grade[0]
-        let selected_grade_num = selected_grade[1].replace(/[０-９]/g, function(s) {
-		        return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
-	      });
+      $scope.students.$promise.then(
+        function(data){
+        $scope.daily_report.students = $filter('filter')(data, function(element){
+          let selected_grade = $scope.daily_report.grade;
+          if (selected_grade == null || selected_grade == ''){
+            return true;
+          }
+          let current_school = element['current_school'];
+          if (current_school == undefined){
+            return false
+          }
 
-        if (current_school.kind.indexOf(selected_grade_kind) == -1 ){
+          let selected_grade_kind = selected_grade[0]
+          let selected_grade_num = selected_grade[1].replace(/[０-９]/g, function(s) {
+  		        return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+  	      });
+
+          if (current_school.kind.indexOf(selected_grade_kind) == -1 ){
+            return false;
+          }
+
+          if (current_school.grade == selected_grade_num ){
+            return true;
+          }
+
           return false;
-        }
+        })
 
-        if (current_school.grade == selected_grade_num ){
-          return true;
-        }
+      });
 
-        return false;
-      })
     }
+
+    function filterTextbooks(){
+      $scope.textbooks = $filter('filter')($scope.all_textbooks, function(element){
+        let subject = $scope.daily_report.subject;
+        let grade = $scope.daily_report.grade;
+
+        return (subject == element['subject'] || subject == null) &&
+          (grade == element['grade'] || grade == null);
+
+      });
+    };
+
   }]);
