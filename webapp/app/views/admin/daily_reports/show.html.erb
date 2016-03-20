@@ -89,7 +89,7 @@
         <%= "#{Textbook.find(homework[:textbook]).name} #{homework[:unit]} #{homework[:subunits]} #{homework[:page]}" %>
       </td>
       <td>
-        <%= homework[:due_date] %>
+        <%= homework[:due_date].to_time.strftime('%Y/%m/%d') %>
       </td>
       <td>
         <%= homework[:memo] %>

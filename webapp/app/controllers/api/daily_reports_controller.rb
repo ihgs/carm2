@@ -32,8 +32,7 @@ class Api::DailyReportsController < ApplicationController
           {
             student_id: student[:id],
             attendance: student[:attendance],
-            test_result: student[:test_result],
-            test_file_data: student[:test_file_data]
+            test_result: student[:test_result]
           }
         end
       end
@@ -68,7 +67,6 @@ class Api::DailyReportsController < ApplicationController
           begin
             homework[:textbook] = get_id(homework[:textbook])
           rescue NoIdException
-            puts homework
             next
           end
           {
@@ -78,7 +76,7 @@ class Api::DailyReportsController < ApplicationController
             subunits: homework[:subunits],
             page: homework[:page],
             memo: homework[:memo],
-            due_date: homework[:due_data]
+            due_date: homework[:due_date].to_time
             }
         end
       end
@@ -113,8 +111,6 @@ class Api::DailyReportsController < ApplicationController
 
 
     def trim_data form_params
-      puts form_params
-      pry
       form_params[:students].select! { |student|
         student[:attendance] == true
       }
