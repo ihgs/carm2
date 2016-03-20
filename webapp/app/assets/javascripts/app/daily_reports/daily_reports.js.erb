@@ -23,4 +23,6 @@ angular.module('cram.daily_reports', [
   .run(function(editableOptions){
     editableOptions.theme = 'bs3';
   })
+  .provider('Student', StudentService)
+  .provider('Textbook', TextbookService)
 ;
