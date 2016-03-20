@@ -26,6 +26,8 @@ class Api::StudentsController < ApplicationController
         end
       end
       student["fullname"] = student.fullname
+      student["age"] = student.age
+      student["link"] = "/admin/students/#{student.id}"
       student
     end
     respond_to do |format|

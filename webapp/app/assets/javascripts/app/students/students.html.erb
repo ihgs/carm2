@@ -1,0 +1,25 @@
+<h1>Listing Students</h1>
+
+<div class="form-inline">
+  <div class="form-group">
+    <input type="text" ng-model="search.fullname" class="form-control">
+  </div>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr  ng-repeat="student in students | filter:search">
+      <td><a href="{{student.link}}">{{student.fullname}}</a></td>
+      <td>{{student.age}}</td>
+      <td>{{student.current_school.name}}{{student.current_school.kind}} {{student.current_school.grade}}年</td>
+      <td><a href="{{student.link}}/edit">Edit</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<br>

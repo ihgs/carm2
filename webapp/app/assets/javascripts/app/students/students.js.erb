@@ -1,0 +1,28 @@
+'use strict';
+
+angular.module('cram.students', [
+  'ngResource',
+  'ui.router',
+  'ui.bootstrap',
+  'xeditable'
+])
+  .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider) {
+    $urlRouterProvider
+      .otherwise('/');
+
+    $stateProvider
+      .state('students', {
+        url: '/',
+        templateUrl: '<%= asset_path 'app/students/students.html' %>',
+        controller: 'StudentsController'
+      })
+    ;
+
+    $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = $("meta[name=\"csrf-token\"]").attr("content");
+  }])
+  .run(function(editableOptions){
+    editableOptions.theme = 'bs3';
+  })
+  .provider('Student', StudentService)
+  .provider('Course', CourseService)
+;
