@@ -6,12 +6,14 @@ mongo:
   command: mongod --rest --httpinterface
   volumes:
     - ./data/db:/data/db
+    - /etc/localtime:/etc/localtime:ro
 mongobackup:
   image: ihgs/mongodump:3.1.4
   environment:
     - 'CRON_SCHEDULE=0 1 * * *'
   volumes:
     - ./backup:/backup
+    - /etc/localtime:/etc/localtime:ro
   links:
     - mongo
 web:
@@ -22,6 +24,7 @@ web:
     - RAILS_SERVE_STATIC_FILES=true
   volumes:
     - ./log:/webapp/log
+    - /etc/localtime:/etc/localtime:ro
   ports:
     - "3000:3000"
   links:
@@ -35,6 +38,7 @@ munin:
     - ./munin/log:/var/log/munin
     - ./munin/lib:/var/lib/munin
     - ./munin/munin-conf.d:/etc/munin/munin-conf.d
+    - /etc/localtime:/etc/localtime:ro
 
 swift:
   image: morrisjobke/docker-swift-onlyone
@@ -42,8 +46,10 @@ swift:
     - "8080"
   volumes_from:
     - swift_data
+    - /etc/localtime:/etc/localtime:ro
 
 swift_data:
   image: busybox
   volumes:
     - ./swift:/srv
+    - /etc/localtime:/etc/localtime:ro
