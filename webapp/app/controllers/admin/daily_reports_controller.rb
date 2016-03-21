@@ -47,10 +47,7 @@ protect_from_forgery except: [:create]
 
   # GET /admin/daily_reports/1/edit
   def edit
-    opt = {}
-    opt[:subject] = @daily_report.subject
-    opt[:grade] = @daily_report.grade
-    @textbooks = Textbook.where(opt).map { |tb| [tb.name, tb.id]}
+    @textbooks = Textbook.all
     @students = Student.all
     @homeworks = []
   end

@@ -40,7 +40,7 @@ class Api::DailyReportsController < ApplicationController
       def contents _contents
         return [{}] unless _contents
 
-        return _contents.map do | content |
+        return _contents.map { | content |
           next unless content[:textbook]
           begin
             content[:textbook] = get_id(content[:textbook])
@@ -56,31 +56,41 @@ class Api::DailyReportsController < ApplicationController
             page: content[:page],
             memo: content[:memo],
             }
-          end
+          }.compact
       end
 
       def homeworks _homeworks
         return [{}] unless _homeworks
 
-        return _homeworks.map do | homework |
+        return _homeworks.map { | homework |
           next unless homework[:textbook]
           begin
             homework[:textbook] = get_id(homework[:textbook])
           rescue NoIdException
             next
           end
-          {
-            students: homework[:students],
-            textbook: homework[:textbook],
-            unit: homework[:unit][:unit],
-            subunits: homework[:subunits],
-            page: homework[:page],
-            memo: homework[:memo],
-            due_date: homework[:due_date].to_time
-            }
-        end
+          hw = {}
+          hw[:students] = homework[:students];
+          hw[:textbook] = homework[:textbook];
+          hw[:unit] = homework[:unit][:unit];
+          hw[:subunits] = homework[:subunits];
+          hw[:page] = homework[:page];
+          hw[:memo] = homework[:memo];
+          hw[:due_date] =  homework[:due_date].to_time if homework[:due_date]
+          hw
+        }.compact
       end
     end
+  end
+
+  def index
+    daily_reports = DailyReport.all
+    render json: daily_reports.to_json
+  end
+
+  def show
+    daily_report = DailyReport.find(params[:id])
+    render json: daily_report.to_json
   end
 
   def create

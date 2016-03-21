@@ -8,11 +8,30 @@ angular.module('cram.daily_reports', [
 ])
   .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider) {
     $urlRouterProvider
-      .otherwise('/');
+      .otherwise('list');
 
     $stateProvider
       .state('daily_reports', {
         url: '/',
+        template: '<div ui-view />'
+      })
+      .state('daily_reports.list',{
+        url: 'list',
+        templateUrl: '<%= asset_path 'app/daily_reports/daily_reports_list.html' %>',
+        controller: 'DailyReportsListController'
+      })
+      .state('daily_reports.new', {
+        url: 'new',
+        templateUrl: '<%= asset_path 'app/daily_reports/daily_reports.html' %>',
+        controller: 'DailyReportsController'
+      })
+      .state('daily_reports.show', {
+        url: '{id}/detail',
+        templateUrl: '<%= asset_path 'app/daily_reports/daily_reports_detail.html' %>',
+        controller: 'DailyReportsDetailController'
+      })
+      .state('daily_reports.edit',{
+        url: '{id}/edit',
         templateUrl: '<%= asset_path 'app/daily_reports/daily_reports.html' %>',
         controller: 'DailyReportsController'
       })
@@ -25,4 +44,5 @@ angular.module('cram.daily_reports', [
   })
   .provider('Student', StudentService)
   .provider('Textbook', TextbookService)
+  .provider('DailyReportService', DailyReportService)
 ;

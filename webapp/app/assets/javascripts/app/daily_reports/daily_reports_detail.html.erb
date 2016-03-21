@@ -1,0 +1,100 @@
+
+<h1>Listing Admin Daily Reports</h1>
+
+
+<p>
+  <div class="h4">Date:</div>
+  {{daily_report.date}}
+</p>
+
+<p>
+  <div class="h4">Grade:</div>
+  {{daily_report.grade}}
+</p>
+
+<p>
+  <div class="h4">Subject:</div>
+  {{daily_report.subject}}
+</p>
+
+<p>
+  <div class="h4">Student:</div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>生徒</th>
+        <th>テスト結果</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="student in daily_report.students">
+        <td>{{studentMap[student.student_id]['fullname']}}</td>
+        <td>{{student.test_result}}</td>
+      </tr>
+    </tbody>
+  </table>
+</p>
+<p>
+  <div class="h4">Contents:</div>
+  <table class="table">
+      <thead>
+        <tr>
+          <th>生徒</th>
+          <th>テキスト</th>
+          <th>メモ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="content in daily_report.contents">
+          <td>
+            <div ng-repeat="student in content.students">
+              {{studentMap[student]['fullname']}}
+            </div>
+          </td>
+          <td>
+            {{textbookMap[content.textbook]['name']}} {{content.unit}} {{content.subunits}} {{content.page}}
+
+          </td>
+          <td>
+            {{content.memo}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+<p>
+  <div class="h4">Homework:</div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>生徒</th>
+        <th>テキスト</th>
+        <th>締切日</th>
+        <th>メモ</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="homework in daily_report.homeworks">
+      <td>
+        <div ng-repeat="student in homework.students">
+          {{studentMap[student]['fullname']}}
+        </div>
+      </td>
+      <td>
+        {{textbookMap[homework.textbook]['name']}} {{homework.unit}} {{homework.subunits}} {{homework.page}}
+      </td>
+      <td>
+        {{homework.due_date}}
+      </td>
+      <td>
+        {{homework.memo}}
+      </td>
+    </tr>
+  </tbody>
+  </table>
+</p>
+
+<a ui-sref="daily_reports.edit({id: daily_report.id})">Edit</a>
+<a ui-sref="daily_reports.list">一覧</a>
+
+
+<div></div>

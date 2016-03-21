@@ -16,5 +16,7 @@
 //= require app/settings/settings.controller
 //= require app/daily_reports/daily_reports
 //= require app/daily_reports/daily_reports.controller
+//= require app/daily_reports/daily_reports_list.controller
+//= require app/daily_reports/daily_reports_detail.controller
 //= require app/students/students
 //= require app/students/students.controller

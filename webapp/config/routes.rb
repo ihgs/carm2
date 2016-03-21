@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   end
   namespace :admin do
     get 'daily_reports/new_detail' => 'daily_reports#new_detail'
+    #get 'daily_reports/' => 'daily_reports#index'
     resources :daily_reports
   end
 
@@ -17,7 +18,7 @@ Rails.application.routes.draw do
     resource :courses, except: [:show]
     resources :courses
     resources :students, only: [:index]
-    resources :daily_reports, only: [:create]
+    resources :daily_reports, only: [:index, :show, :create]
   end
 
   namespace :admin do
