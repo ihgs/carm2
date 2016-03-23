@@ -46,6 +46,7 @@ swift:
     - "8080"
   volumes_from:
     - swift_data
+  volumes:
     - /etc/localtime:/etc/localtime:ro
 
 swift_data:
