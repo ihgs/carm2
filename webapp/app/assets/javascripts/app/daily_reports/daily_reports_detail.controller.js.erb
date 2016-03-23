@@ -7,17 +7,17 @@ angular.module('cram.daily_reports')
       $scope.daily_report = DailyReportService.get({'id': id});
 
       let students = Student.query();
-      $scope.studentMap = {}
+      $scope.studentMap = {};
       students.$promise.then(function(data){
         data.forEach(function(item){
-          $scope.studentMap[item.id] = {'fullname':item.fullname}
+          $scope.studentMap[item.id] = {'fullname':item.fullname};
         });
       });
       let textbooks = Textbook.query();
-      $scope.textbookMap = {}
+      $scope.textbookMap = {};
       textbooks.$promise.then(function(data){
         data.forEach(function(item){
-          $scope.textbookMap[item.id] = {'name': item.name}
+          $scope.textbookMap[item.id] = {'name': item.name};
         });
       });
 

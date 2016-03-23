@@ -21,8 +21,8 @@ angular.module('cram.settings')
     $scope.update = function (course, data) {
       Course.update({id: course.id, name: data}, function () {
 
-      })
-    }
+      });
+    };
 
     $scope.hover = function (course) {
        course.showDelete = !course.showDelete;
