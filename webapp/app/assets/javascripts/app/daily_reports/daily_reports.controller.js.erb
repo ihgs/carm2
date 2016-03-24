@@ -88,13 +88,10 @@ angular.module('cram.daily_reports')
             url : '/api/daily_reports',
             data : {"daily_report" : $scope.daily_report}
           })
-              .success(function(data, status, headers, config) {
-                $window.location.href = `/ admin / daily_reports / $ {
-                  data['id']
-                }
-                `;
+              .success(function(data, status, headers) {
+                $window.location.href = `/admin/daily_reports/${data['id']}`;
               })
-              .error(function(data, status, headers, config) {
+              .error(function(data, status, headers) {
                 console.log(data);
               });
         };
@@ -113,7 +110,7 @@ angular.module('cram.daily_reports')
 
               let selected_grade_kind = selected_grade[0];
               let selected_grade_num =
-                  selected_grade[1].replace(/ [０ - ９] / g, function(s) {
+                  selected_grade[1].replace(/[０-９]/g, function(s) {
                     return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
                   });
 
