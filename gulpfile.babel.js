@@ -6,7 +6,7 @@ import path from 'path';
 const basePath = path.join(__dirname, './');
 const paths = {
     base: basePath,
-    src: path.join(basePath, 'webapp/app/assets/javascripts/app/**/*.js.erb')
+    src: path.join(basePath, 'webapp/app/assets/javascripts/app/**/*.js')
 }
 
 
