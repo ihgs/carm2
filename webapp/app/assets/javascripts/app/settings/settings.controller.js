@@ -19,9 +19,9 @@ angular.module('cram.settings').controller('SettingsController', [
     };
 
     $scope.update = function(course, data) {
-      Course.update({id : course.id, name : data}, function(){
+      Course.update({id : course.id, name : data}, function() {
 
-                                                   });
+      });
     };
 
     $scope.hover = function(course) {
