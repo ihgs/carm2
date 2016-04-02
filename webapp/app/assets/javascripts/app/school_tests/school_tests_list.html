@@ -1,0 +1,22 @@
+<h1>Listing School Tests</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th>Date</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="school_test in ctrl.school_tests">
+      <td><a ui-sref="school_tests.show({id: school_test.id})">{{school_test.name}}</a></td>
+      <td>{{school_test.school.name}}{{school_test.school.kind}}</td>
+      <td>{{school_test.start_date}}〜{{school_test.end_date}}</td>
+      <td><a href="/admin/school_tests/{{school_test.id}}/edit">Edit</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<a href="/admin/school_tests/new">新規作成</a>

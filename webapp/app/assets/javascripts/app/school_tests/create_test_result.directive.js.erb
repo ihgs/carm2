@@ -1,0 +1,18 @@
+'use strict';
+
+function createTestResultDirective(){
+  return {
+    restrict: 'A',
+    scope: {
+      school_test_result: '='
+    },
+    bindToController:{
+      student: '=',
+      subjects: '=',
+      schoolTestId: '='
+    },
+    controller: CreateTestResultController,
+    controllerAs: 'ctrl',
+    templateUrl: '<%= asset_path 'app/school_tests/create_test_result.html' %>'
+  }
+}

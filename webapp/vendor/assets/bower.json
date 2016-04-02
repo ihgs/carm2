@@ -9,6 +9,7 @@
     "angular-bootstrap": "latest",
     "lodash": "latest",
     "angular-xeditable ": "latest",
-    "bootstrap-sass": "latest"
+    "bootstrap-sass": "latest",
+    "angular-confirm-modal": "latest"
   }
 }

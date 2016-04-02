@@ -37,7 +37,7 @@
       <tr>
         <td class="student" student_id="<%=str[:student_id]%>" ><%= Student.fullname(str[:student_id]) %></td>
         <% total = 0 %>
-        <% subjects.each do |subject| %>  
+        <% subjects.each do |subject| %>
           <td class="editable" name="school_test_result[results][<%= subject[:name]%>]" id="school_test_result_results___"><%= str.results.nil? ? "" : str.results[subject[:name]] %></td>
           <% total += str.results.nil? ? 0 : str.results[subject[:name]].to_i %>
         <% end %>

@@ -1,0 +1,9 @@
+<td class="student" student_id="{{ctrl.result.student_id}}" >{{ctrl.result.student.fullname}}</td>
+<td ng-repeat="subject in ctrl.subjects">
+    {{ctrl.result.results[subject['name']]}}
+</td>
+<td>{{ctrl.resultTotal(ctrl.result.results)}}</td>
+<td>
+  <a class="edit_test_result">Edit</a>&nbsp; &nbsp;
+  <a class="" ng-click="ctrl.deleteTestResut(ctrl.result.id)" confirm="Delete it?">Delete</a>
+</td>

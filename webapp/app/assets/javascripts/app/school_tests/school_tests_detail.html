@@ -1,0 +1,58 @@
+<div class="table-responsive">
+
+  <div class="inline">
+    <h2>{{ctrl.school_test.name}}</h2><a href="/admin/school_test/{{ctrl.school_test.id}}/edit">編集</a>
+  </div>
+  <div>
+    {{ctrl.school_test.school.name}}{{ctrl.school_test.school.kind}}
+  </div>
+  <div>
+    {{ctrl.school_test.start_date}}〜{{ctrl.school_test.end_date}}
+  </div>
+
+  <h3>Subjects</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>科目</th>
+        <th ng-repeat="subject in ctrl.school_test.subjects">{{subject['name']}}</th>
+        <th>合計</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>平均点</th>
+        <th ng-repeat="subject in ctrl.school_test.subjects">{{subject['average']}}</th>
+        <th>{{::ctrl.total(ctrl.school_test.subjects)}}</th>
+        <th></th>
+      </tr>
+      <tr ng-repeat="result in ctrl.school_test.results" show-test-result subjects="ctrl.school_test.subjects" result="result">
+
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+  <h3>Input data</h3>
+  <div class="form-inline">
+    <div class="form-group">
+      <input type="text" ng-model="search.fullname" class="form-control">
+    </div>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>科目</th>
+        <th ng-repeat="subject in ctrl.school_test.subjects">{{subject['name']}}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="student in ctrl.school_test.not_input_students | filter:search" create-test-result student="student" subjects="ctrl.school_test.subjects" school-test-id="ctrl.school_test.id">
+      </tr>
+    </tbody>
+  </table>
+
+<br><br>
+  <a ui-sref="school_tests.list()">一覧</a>
+</div>

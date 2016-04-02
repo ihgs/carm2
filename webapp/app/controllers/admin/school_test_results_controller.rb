@@ -27,6 +27,14 @@ class Admin::SchoolTestResultsController < ApplicationController
   def update
   end
 
+  def destroy
+    school_test_result = SchoolTestResult.find(params[:id])
+    school_test_result.destroy
+    respond_to do |format|
+      format.json { head :no_content }
+    end
+  end
+
 
   private
     # Never trust parameters from the scary internet, only allow the white list through.

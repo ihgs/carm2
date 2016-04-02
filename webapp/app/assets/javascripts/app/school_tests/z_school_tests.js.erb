@@ -1,0 +1,52 @@
+'use strict';
+
+angular.module('cram.school_tests', [
+  'ngResource',
+  'ui.router',
+  'ui.bootstrap',
+  'xeditable',
+  'angular-confirm',
+]).config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider) {
+    $urlRouterProvider
+      .otherwise('list');
+
+    $stateProvider
+      .state('school_tests', {
+        url: '/',
+        template: '<div ui-view />'
+      })
+      .state('school_tests.list', {
+        url: 'list',
+        templateUrl: '<%= asset_path 'app/school_tests/school_tests_list.html' %>',
+        controller: SchoolTestsListController,
+        controllerAs: 'ctrl',
+        resolve: {
+          school_tests: function(SchoolTestService){
+            return SchoolTestService.query();
+          },
+        }
+      })
+      .state('school_tests.show',{
+        url: '{id}/detail',
+        templateUrl: '<%= asset_path 'app/school_tests/school_tests_detail.html' %>',
+        controller: SchoolTestsDetailController,
+        controllerAs: 'ctrl',
+        resolve: {
+          school_test: function(SchoolTestService, $stateParams){
+            return SchoolTestService.get({'id': $stateParams.id});
+          },
+        }
+      })
+
+    ;
+
+    $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = $("meta[name=\"csrf-token\"]").attr("content");
+  }])
+  .run(function(editableOptions){
+    editableOptions.theme = 'bs3';
+  })
+  .provider('SchoolTestService', SchoolTestService)
+  .provider('StudentService', StudentService)
+  .provider('SchoolTestResultService', SchoolTestResultService)
+  .directive('createTestResult', createTestResultDirective)
+  .directive('showTestResult', showTestResultDirective)

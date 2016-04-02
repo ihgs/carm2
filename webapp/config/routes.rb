@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :courses
     resources :students, only: [:index]
     resources :daily_reports, only: [:index, :show, :create]
+    resources :school_tests, only: [:index, :show]
   end
 
   namespace :admin do
@@ -41,6 +42,8 @@ Rails.application.routes.draw do
 
     post 'school_test_results/' => 'school_test_results#create'
     put  'school_test_results/' => 'school_test_results#update'
+    delete 'school_test_results/:id',to: 'school_test_results#destroy', defaults: { format: 'json' }
+
 
     get 'attached_files/' => 'attached_files#index'
     get 'attached_files/:id' => 'attached_files#download'

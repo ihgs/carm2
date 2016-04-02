@@ -8,6 +8,7 @@
 //= require angular-resource
 //= require angular-ui-router
 //= require angular-bootstrap
+//= require angular-confirm-modal
 //= require angular-xeditable
 //= require lodash/lodash.js
 //= require_tree .
@@ -20,3 +21,4 @@
 //= require app/daily_reports/daily_reports_detail.controller
 //= require app/students/students
 //= require app/students/students.controller
+//= require_tree ../app/school_tests

@@ -1,0 +1,5 @@
+<td ng-init="ctrl.school_test_result.student_id=ctrl.student.id">{{ctrl.student.fullname}}</td>
+<td ng-repeat="subject in ctrl.subjects">
+  <input type="text" ng-model="ctrl.school_test_result.results[subject.name]" placeholder="{{subject.name}}"/>
+</td>
+<td><button ng-click="ctrl.submitTestResult()" class="btn">追加</button></td>
