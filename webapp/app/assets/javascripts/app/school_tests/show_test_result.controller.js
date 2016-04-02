@@ -1,6 +1,6 @@
-class ShowTestResultController{
+class ShowTestResultController {
 
-  constructor($scope, SchoolTestResultService){
+  constructor($scope, SchoolTestResultService) {
     this.type = "show";
     this.scope_ = $scope;
     this.schoolTestResultService_ = SchoolTestResultService;
@@ -9,35 +9,31 @@ class ShowTestResultController{
     this.subjects;
   }
 
-  resultTotal(results){
+  resultTotal(results) {
     let total = 0;
-    for (let i in results){
-        total = total + Number(results[i]);
+    for (let i in results) {
+      total = total + Number(results[i]);
     }
     return total;
   }
 
-  deleteTestResut(id){
+  deleteTestResut(id) {
     let scope = this.scope_.$parent;
-    new this.schoolTestResultService_().$delete({id: id}).then(function(data){
+    new this.schoolTestResultService_().$delete({id : id}).then(function(data) {
       scope.$parent.ctrl.updateTestResult();
     });
   }
 
-  changeMode(mode){
-    this.type = mode;
-  }
+  changeMode(mode) { this.type = mode; }
 
-  submitTestResult(){
+  submitTestResult() {
     let scope = this.scope_;
     this.result['id'] = null;
     this.result['school_test_id'] = this.schoolTestId;
 
     let result = new this.schoolTestResultService_(this.result);
-    result.$save().then(function(data){
+    result.$save().then(function(data) {
       scope.$parent.ctrl.updateTestResult();
     });
-
   }
-
 }

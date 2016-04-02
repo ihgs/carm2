@@ -1,6 +1,6 @@
-class CreateTestResultController{
+class CreateTestResultController {
 
-  constructor($scope, SchoolTestResultService){
+  constructor($scope, SchoolTestResultService) {
     this.scope_ = $scope;
     this.schoolTestResultService = SchoolTestResultService;
 
@@ -10,14 +10,12 @@ class CreateTestResultController{
     this.school_test_result;
   }
 
-  submitTestResult(){
+  submitTestResult() {
     let scope = this.scope_;
     this.school_test_result['school_test_id'] = this.schoolTestId;
     let result = new this.schoolTestResultService(this.school_test_result);
-    result.$save().then(function(data){
+    result.$save().then(function(data) {
       scope.$parent.ctrl.updateTestResult();
     });
   }
-
-
 }

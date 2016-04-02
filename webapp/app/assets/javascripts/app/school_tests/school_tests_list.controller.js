@@ -1,8 +1,6 @@
 'use strict';
 
-class SchoolTestsListController{
+class SchoolTestsListController {
 
-  constructor(school_tests){
-    this.school_tests = school_tests;
-  }
+  constructor(school_tests) { this.school_tests = school_tests; }
 }

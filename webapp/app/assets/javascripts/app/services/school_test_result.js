@@ -6,12 +6,11 @@ class SchoolTestResultService {
     this.$get = [
       '$resource',
       function($resource) {
-        var SchoolTestResult = $resource('/admin/school_test_results/:id', {id : '@id'},
-          {'update' : {method : 'PUT'}}
-        );
+        var SchoolTestResult =
+            $resource('/admin/school_test_results/:id', {id : '@id'},
+                      {'update' : {method : 'PUT'}});
         return SchoolTestResult;
       }
     ];
-
   }
 }
