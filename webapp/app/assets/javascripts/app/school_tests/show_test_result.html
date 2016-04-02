@@ -1,9 +1,13 @@
 <td class="student" student_id="{{ctrl.result.student_id}}" >{{ctrl.result.student.fullname}}</td>
 <td ng-repeat="subject in ctrl.subjects">
-    {{ctrl.result.results[subject['name']]}}
+    <span ng-if="ctrl.type=='show'">{{ctrl.result.results[subject['name']]}}</span>
+    <input type="text" ng-model="ctrl.result.results[subject.name]" ng-if="ctrl.type=='edit'" />
 </td>
 <td>{{ctrl.resultTotal(ctrl.result.results)}}</td>
 <td>
-  <a class="edit_test_result">Edit</a>&nbsp; &nbsp;
+  <a class="edit_test_result" ng-click="ctrl.changeMode('edit')" ng-if="ctrl.type=='show'">Edit</a>
+  <a class="edit_test_result" ng-click="ctrl.submitTestResult()" ng-if="ctrl.type=='edit'">Update</a>&nbsp;
+  <a class="edit_test_result" ng-click="ctrl.changeMode('show')" ng-if="ctrl.type=='edit'">Cancel</a>
+  &nbsp; &nbsp;
   <a class="" ng-click="ctrl.deleteTestResut(ctrl.result.id)" confirm="Delete it?">Delete</a>
 </td>

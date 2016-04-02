@@ -25,7 +25,7 @@
         <th>{{::ctrl.total(ctrl.school_test.subjects)}}</th>
         <th></th>
       </tr>
-      <tr ng-repeat="result in ctrl.school_test.results" show-test-result subjects="ctrl.school_test.subjects" result="result">
+      <tr ng-repeat="result in ctrl.school_test.results" show-test-result subjects="ctrl.school_test.subjects" result="result" school-test-id="ctrl.school_test.id">
 
       </tr>
     </thead>

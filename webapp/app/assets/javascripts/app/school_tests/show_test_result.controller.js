@@ -1,6 +1,7 @@
 class ShowTestResultController{
 
   constructor($scope, SchoolTestResultService){
+    this.type = "show";
     this.scope_ = $scope;
     this.schoolTestResultService_ = SchoolTestResultService;
     this.schoolTestId;
@@ -23,5 +24,20 @@ class ShowTestResultController{
     });
   }
 
+  changeMode(mode){
+    this.type = mode;
+  }
+
+  submitTestResult(){
+    let scope = this.scope_;
+    this.result['id'] = null;
+    this.result['school_test_id'] = this.schoolTestId;
+
+    let result = new this.schoolTestResultService_(this.result);
+    result.$save().then(function(data){
+      scope.$parent.ctrl.updateTestResult();
+    });
+
+  }
 
 }
