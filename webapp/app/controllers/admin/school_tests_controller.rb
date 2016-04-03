@@ -30,7 +30,7 @@ class Admin::SchoolTestsController < ApplicationController
     @school_test = SchoolTest.new(school_test_params)
     respond_to do |format|
       if @school_test.save
-        format.html { redirect_to [:admin, @school_test], notice: 'School test was successfully created.' }
+        format.html { redirect_to "/admin/school_tests#/#{@school_test.id}/detail" } #TODO
         format.json { render :show, status: :created, location: [:admin, @school_test] }
       else
         format.html { render :new }
@@ -44,7 +44,7 @@ class Admin::SchoolTestsController < ApplicationController
   def update
     respond_to do |format|
       if @school_test.update(school_test_params)
-        format.html { redirect_to [:admin, @school_test], notice: 'School test was successfully updated.' }
+        format.html { redirect_to "/admin/school_tests#/#{@school_test.id}/detail" } #TODO
         format.json { render :show, status: :ok, location: [:admin, @school_test] }
       else
         format.html { render :edit }
