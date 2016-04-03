@@ -19,6 +19,10 @@ class Api::StampController < ApplicationController
     begin
       student = Student.find_by(card_id: card_id)
     rescue
+      begin
+        student = Student.find_by(card_id: card_id.upcase)
+      rescue
+      end
     end
     if student != nil
       device_name = params["device_name"]

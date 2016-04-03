@@ -37,8 +37,8 @@ class Api::StudentsController < ApplicationController
 
   def calc_grade enterance_year, target_date
     grade = target_date.year - enterance_year.to_i
-    if target_date.month < 4
-      grade = grade - 1
+    if target_date.month > 4
+      grade = grade + 1
     end
     return grade
   end
