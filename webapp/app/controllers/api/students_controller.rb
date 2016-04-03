@@ -9,7 +9,7 @@ class Api::StudentsController < ApplicationController
       if student.schools
         student.schools.each do | school |
           schools.each do |sc|
-            if sc.id == school["school_id"]
+            if sc.id.to_s == school["school_id"]
               school["kind"] = sc.kind
               school["name"] = sc.name
               _grade = calc_grade(school["enterance_year"], Date.today)

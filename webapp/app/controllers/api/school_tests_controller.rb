@@ -2,11 +2,13 @@ class Api::SchoolTestsController < ApplicationController
 
   def index
     school_tests = SchoolTest.all
-    schools = School.all
-    schoolMap = schools.group_by(&:id)
+    schools = School.all.map do |school|
+      [school.id.to_s, school]
+    end
+    schoolMap = Hash[schools]
     school_tests = school_tests.map do |school_test|
       school = schoolMap[school_test.school_id]
-      school_test['school'] = school[0]
+      school_test['school'] = school if school
       school_test
     end
     render json: school_tests.to_json

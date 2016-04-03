@@ -8,8 +8,8 @@ ADD webapp /webapp
 ENV RAILS_ENV=production
 RUN bundle install
 RUN bundle exec rake bower:install["--allow-root"]
-RUN bundle exec rake assets:precompile
+RUN RAILS_ENV=development bundle exec rake assets:precompile
 ADD run_app.sh /run_app.sh
 RUN chmod +x /run_app.sh
-
+RUN rm -f /webapp/tmp/pids/server.pid
 ENTRYPOINT ["/run_app.sh"]
