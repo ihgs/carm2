@@ -2,8 +2,15 @@
   "extends": ["eslint:recommended"],
   "env":{
     "es6": true,
+    "browser": true,
   },
   "rules":{
-    "semi":[2, "always"]
+    "semi":[2, "always"],
+    "no-unused-vars": 1,
+    "no-console": 0,
+  },
+  "globals":{
+    "angular": true,
+    "_": true,
   }    
 }

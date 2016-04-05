@@ -7,8 +7,10 @@ const basePath = path.join(__dirname, './');
 const paths = {
     base: basePath,
     src: path.join(basePath, 'webapp/app/assets/javascripts/app/**/*.js')
-}
+};
 
+
+gulp.task('check', ['lint-javascript', 'check-javascript-format']);
 
 /**
  * Lints all projects JavaScript files using ESLint. This includes frontend source code, as well as,

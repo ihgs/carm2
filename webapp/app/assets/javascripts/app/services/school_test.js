@@ -6,9 +6,9 @@ class SchoolTestService {
     this.$get = [
       '$resource',
       function($resource) {
-        var SchoolTest = $resource('/api/school_tests/:id', {id : '@id'}, {
-          'get' : {transformResponse : transformResponse},
-        });
+        var SchoolTest =
+            $resource('/api/school_tests/:id', {id : '@id'},
+                      {'get' : {transformResponse : transformResponse}});
         return SchoolTest;
       }
     ];
