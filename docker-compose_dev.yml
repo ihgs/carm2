@@ -19,6 +19,6 @@ swift:
 swift_data:
   image: busybox
   volumes:
-    - ./swift_dev:/srv
+    - ./swift_dev:/var/srv
     - /etc/localtime:/etc/localtime:ro
   tty: true

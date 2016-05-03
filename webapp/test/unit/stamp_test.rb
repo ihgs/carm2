@@ -7,7 +7,11 @@ class TestStamp < Minitest::Unit::TestCase
 
   def setup
     @store_dir = Webapp::Application::config.stamp_store_dir
-    FileUtils.remove_entry(@store_dir)
+    if File.exists?(@store_dir)
+      FileUtils.remove_entry(@store_dir)
+    else
+      FileUtils.mkdir_p(@store_dir)
+    end
   end
 
   def test_write_read
