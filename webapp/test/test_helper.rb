@@ -4,7 +4,13 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   SimpleCov::Formatter::HTMLFormatter,
   SimpleCov::Formatter::Codecov
 ]
-SimpleCov.start
+SimpleCov.start do
+  add_filter "/test/"
+  add_filter "/config/"
+  add_filter do |source_file|
+    source_file.lines.count < 5
+  end
+end
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
