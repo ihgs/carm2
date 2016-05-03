@@ -41,6 +41,7 @@ group :development, :test do
   gem 'spring'
   gem 'pry-rails'
   gem 'simplecov', :require => false
+  gem 'codecov', :require => false
   gem "factory_girl_rails"
 end
 
