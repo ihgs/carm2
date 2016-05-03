@@ -28,6 +28,13 @@ class Api::StampController < ApplicationController
       device_name = params["device_name"]
       time = Time.at(time_sec.to_i)
       Stamp::write(time, student.id, device_name, remote_ip)
+      # begin
+      if student.mail
+        NoticeMailer.sendmail_enterance_exit(student, time).deliver_now
+      end
+      # rescue Exception => e
+        # logger.fatal e.backtrace.join("\n")
+      # end
       render :json => {status: "success", name: "#{student.name[:family_name]} #{student.name[:first_name]}" }
     else
       render :json => {status: "error", message: "This card(#{card_id}) is not registered." }

@@ -32,6 +32,12 @@
       </div>
     </div>
   <% end %>
+  <%= f.fields_for :contact_information, OpenStruct.new(@student.contact_information) do |ci| %>
+  <div class="form-group">
+    <%= ci.label :mail %><br>
+    <%= ci.text_field :mail, :class=>"form-control" %>
+  </div>
+  <% end %>
   <div class="form-group">
     <%= f.label :card_id %><br>
     <%= f.text_field :card_id, :class=>"form-control" %>

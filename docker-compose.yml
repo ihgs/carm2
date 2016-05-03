@@ -22,6 +22,8 @@ web:
     - RAILS_ENV=production
     - SECRET_KEY_BASE=ghaoi217gbganpgriohg9priahgug0ehhuohqaonv9uaz
     - RAILS_SERVE_STATIC_FILES=true
+  env_file:
+    - ./smtp.env
   volumes:
     - ./log:/webapp/log
     - /etc/localtime:/etc/localtime:ro

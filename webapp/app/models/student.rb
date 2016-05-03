@@ -5,6 +5,7 @@ class Student
   field :card_id, type: String
   field :birthday, type: Date
   field :schools, type: Array  # [{school_id:, enterance_year: note:}]
+  field :contact_information, type: Hash # {mail:}
 
   before_save :check_school
 
@@ -33,7 +34,11 @@ class Student
 
       {school_id: school[:school_id], name: name, note: school[:note], enterance_year: school[:enterance_year], kind: kind}
     end
+  end
 
+  def mail
+    return nil unless self.contact_information
+    return self.contact_information.with_indifferent_access["mail"]
   end
 
   class << self
