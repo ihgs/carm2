@@ -1,2 +1,3 @@
 <% provide(:title, 'Curriculum Network') %>
+//= require vis/dist/vis.min
 <%= render partial: "shared/network", locals: {nodes: @nodes, edges: @edges, options: @options} %>

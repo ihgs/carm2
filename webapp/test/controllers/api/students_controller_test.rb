@@ -10,9 +10,9 @@ class Api::StudentsControllerTest < ActionController::TestCase
 
     course = create(:course)
     course.save!
-    student = create(:student)
-    student.course_id = course.id
-    student.save!
+    @student = create(:student)
+    @student.course_id = course.id
+    @student.save!
   end
 
   test "should not login" do
@@ -38,6 +38,14 @@ class Api::StudentsControllerTest < ActionController::TestCase
     assert_equal("鈴木 1郎", json[1]["fullname"])
     assert_equal("", json[1]["age"])
     sign_out @user
+  end
+
+  test "should get show" do
+    sign_in @user
+    get :show, id: @student.id, :format => "json"
+    assert_response :success
+    json = JSON.parse(response.body)
+    assert_equal("yamada taro", json["fullname"])
   end
 
 end
