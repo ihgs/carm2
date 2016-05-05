@@ -24,6 +24,10 @@
   <dd>
     <%= render 'shared/school_list', schools: @student.school_list %>
   </dd>
+  <dt><strong>Course:</strong></dt>
+  <dd>
+    <%= @student.course_id %>
+  </dd>
   <dt><strong>Timestamp</strong></dt>
   <dd>
     <%= link_to 'Go', controller: "admin/stamp", action: "show"  %>

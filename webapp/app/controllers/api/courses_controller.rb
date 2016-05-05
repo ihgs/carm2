@@ -47,7 +47,6 @@ class Api::CoursesController < ApplicationController
   private
 
     def set_course
-      puts params
       @course = Course.find(params[:id])
     end
 

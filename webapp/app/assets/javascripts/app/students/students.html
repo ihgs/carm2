@@ -2,7 +2,9 @@
 
 <div class="form-inline">
   <div class="form-group">
-    <input type="text" ng-model="search.fullname" class="form-control">
+    フィルター:
+    <input type="text" ng-model="search.fullname" placeholder="氏名" class="form-control">
+    <input type="text" ng-model="search.course" placeholder="コース" class="form-control">
   </div>
 </div>
 <table class="table table-striped">
@@ -16,6 +18,7 @@
     <tr  ng-repeat="student in students | filter:search">
       <td><a href="{{student.link}}">{{student.fullname}}</a></td>
       <td>{{student.age}}</td>
+      <td>{{student.course}}</td>
       <td>{{student.current_school.name}}{{student.current_school.kind}} {{student.current_school.grade}}年</td>
       <td><a href="{{student.link}}/edit">Edit</a></td>
     </tr>

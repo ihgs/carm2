@@ -67,6 +67,9 @@
       <% end %>
       </div>
   </div>
+  <div class="form-group">
+    Course<br>
+    <%= f.select :course_id, Course.all.map {|course| [course.name, course.id]},{:include_blank => true}, :selected=>@student[:course],  :class=>"form-control" %>
   </div>
   <div class="actions">
     <%= f.submit :class=>'btn btn-primary' %>

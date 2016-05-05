@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :course do
-    name "MyString"
+    name "Aコース"
   end
 
 end

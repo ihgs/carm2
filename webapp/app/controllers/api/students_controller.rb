@@ -25,6 +25,9 @@ class Api::StudentsController < ApplicationController
           end
         end
       end
+      if student["course_id"]
+        student["course"] = Course.find(student["course_id"]).name
+      end
       student["fullname"] = student.fullname
       student["age"] = student.age
       student["link"] = "/admin/students/#{student.id}"

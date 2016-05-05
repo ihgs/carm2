@@ -6,6 +6,7 @@ class Student
   field :birthday, type: Date
   field :schools, type: Array  # [{school_id:, enterance_year: note:}]
   field :contact_information, type: Hash # {mail:}
+  field :course_id, type: String
 
   before_save :check_school
 
