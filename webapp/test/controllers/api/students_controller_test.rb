@@ -42,10 +42,53 @@ class Api::StudentsControllerTest < ActionController::TestCase
 
   test "should get show" do
     sign_in @user
-    get :show, id: @student.id, :format => "json"
-    assert_response :success
-    json = JSON.parse(response.body)
+    json = show @student.id
     assert_equal("yamada taro", json["fullname"])
   end
 
+  test "shoud create student" do
+    sign_in @user
+    student = {
+      name: {
+        family_name: "Family",
+        first_name: "First"
+      }
+    }
+    post :create, student: student, :format=> "json"
+    assert_response :success
+    json = JSON.parse(response.body)
+    id = json["id"]
+
+    json = show id
+    assert_equal("Family First", json["fullname"])
+  end
+
+  test "shoud update student" do
+    sign_in @user
+    student = {
+      name: {
+        family_name: "Family",
+        first_name: "First"
+      }
+    }
+    post :create, student: student, :format=> "json"
+    assert_response :success
+    json = JSON.parse(response.body)
+    id = json["id"]
+
+    json = show id
+    assert_equal("Family First", json["fullname"])
+
+    student[:name][:first_name] = "First1"
+    post :update, id: id, student: student, :format=>"json"
+
+    json = show id
+    assert_equal("Family First1", json["fullname"])
+  end
+
+  def show id
+    get :show, id: id, :format => "json"
+    assert_response :success
+    json = JSON.parse(response.body)
+  end
 end
