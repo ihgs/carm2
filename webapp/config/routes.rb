@@ -17,9 +17,10 @@ Rails.application.routes.draw do
     post 'stamp/' => 'stamp#index'
     resource :courses, except: [:show]
     resources :courses
-    resources :students, only: [:index]
+    resources :students, only: [:index, :show, :create, :update]
     resources :daily_reports, only: [:index, :show, :create]
     resources :school_tests, only: [:index, :show]
+    resources :schools, only: [:index]
   end
 
   namespace :admin do

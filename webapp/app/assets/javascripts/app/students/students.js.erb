@@ -8,13 +8,60 @@ angular.module('cram.students', [
 ])
   .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider) {
     $urlRouterProvider
-      .otherwise('/');
+      .otherwise('list');
 
     $stateProvider
       .state('students', {
         url: '/',
-        templateUrl: '<%= asset_path 'app/students/students.html' %>',
-        controller: 'StudentsController'
+        template: '<div ui-view />'
+      })
+      .state('students.list',{
+        url: 'list',
+        templateUrl: '<%= asset_path 'app/students/students_list.html' %>',
+        controller: 'StudentsListController'
+      })
+      .state('students.show', {
+        url: '{id}/detail',
+        templateUrl: '<%= asset_path 'app/students/students_detail.html' %>',
+        controller: 'StudentsDetailController'
+      })
+      .state('students.new', {
+        url: 'new',
+        templateUrl: '<%= asset_path 'app/students/students_form.html' %>',
+        controller: StudentsController,
+        controllerAs: 'ctrl',
+        resolve: {
+          type: function(){
+            return 'new';
+          },
+          student: function(){return new Object},
+          schools: function(SchoolService){
+            return SchoolService.query();
+          },
+          courses: function(CourseService){
+            return CourseService.query();
+          }
+        }
+      })
+      .state('students.edit', {
+        url: '{id}/edit',
+        templateUrl: '<%= asset_path 'app/students/students_form.html' %>',
+        controller: StudentsController,
+        controllerAs: 'ctrl',
+        resolve: {
+          type: function(){
+            return 'update';
+          },
+          student: function(StudentService, $stateParams){
+            return StudentService.get({'id': $stateParams.id});
+          },
+          schools: function(SchoolService){
+            return SchoolService.query();
+          },
+          courses: function(CourseService){
+            return CourseService.query();
+          }
+        }
       })
     ;
 
@@ -23,6 +70,7 @@ angular.module('cram.students', [
   .run(function(editableOptions){
     editableOptions.theme = 'bs3';
   })
-  .provider('Student', StudentService)
-  .provider('Course', CourseService)
+  .provider('StudentService', StudentService)
+  .provider('CourseService', CourseService)
+  .provider('SchoolService', SchoolService)
 ;

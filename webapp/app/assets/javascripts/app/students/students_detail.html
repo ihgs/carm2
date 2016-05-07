@@ -1,0 +1,44 @@
+<h1>Student Detail</h1>
+
+<dl class="dl-horizontal">
+  <dt><strong>Name:</strong></dt>
+  <dd>
+    {{student.fullname}}
+  </dd>
+  <dt><strong>Mail</strong></dt>
+  <dd>
+    {{student.contact_information.mail}}
+  </dd>
+  <dt><strong>Card ID</strong></dt>
+  <dd>
+    {{student.card_id}}
+  </dd>
+  <dt><strong>Birthday:</strong></dt>
+  <dd>
+    {{student.birthday}}
+  </dd>
+  <dt><strong>School:</strong></dt>
+  <dd>
+    {{student.current_school.name}}{{student.current_school.kind}} {{student.current_school.grade}}年
+  </dd>
+  <dt><strong>Course:</strong></dt>
+  <dd>
+    {{student.course}}
+  </dd>
+  <dt><strong>Timestamp</strong></dt>
+  <dd>
+    <a href="{{student.links.timestamp}}">Go</a>
+  </dd>
+  <dt><strong>LearningLevel</strong></dt>
+  <dd>
+    <a href="{{student.links.learning_level}}">Go</a>
+  </dd>
+  <dt><strong>TestResult</strong></dt>
+  <dd>
+     <a href="{{student.links.test_result}}">Go</a>
+  </dd>
+</dl>
+
+
+<a ui-sref="students.edit({id: student.id})">編集</a>
+<a ui-sref="students.list">一覧</a>
