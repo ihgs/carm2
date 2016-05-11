@@ -12,6 +12,13 @@ class Api::StampControllerTest < ActionController::TestCase
     token = Token.new token: @token,
               created_at: Time.now
     token.save!
+
+    @store_dir = Webapp::Application::config.stamp_store_dir
+    if File.exists?(@store_dir)
+      FileUtils.remove_entry(@store_dir)
+    else
+      FileUtils.mkdir_p(@store_dir)
+    end
   end
 
   test "should post index" do
@@ -23,6 +30,36 @@ class Api::StampControllerTest < ActionController::TestCase
     assert_equal("success", json["status"])
     assert_equal("yamada taro", json["name"])
   end
+
+  test "should skip to send email on sencond post" do
+    @request.headers["HTTP_ACCESS_TOKEN"] = @token
+    post :index, {time: Time.now.to_i,card_id: "aaaaa", device_name: "device1"}
+    assert_response :success
+
+    json = JSON.parse(response.body)
+    assert_equal(nil, json["mail"])
+
+    post :index, {time: Time.now.to_i,card_id: "aaaaa", device_name: "device1"}
+    assert_response :success
+    json = JSON.parse(response.body)
+    assert_equal("NOT_SEND", json["mail"])
+  end
+
+  test "should send email on sencond post after 60s" do
+    @request.headers["HTTP_ACCESS_TOKEN"] = @token
+    post :index, {time: Time.now.to_i,card_id: "aaaaa", device_name: "device1"}
+    assert_response :success
+
+    json = JSON.parse(response.body)
+    assert_equal(nil, json["mail"])
+
+    sleep 65
+    post :index, {time: Time.now.to_i,card_id: "aaaaa", device_name: "device1"}
+    assert_response :success
+    json = JSON.parse(response.body)
+    assert_equal(nil, json["mail"])
+  end
+
 
   test "should post index error without student" do
     @request.headers["HTTP_ACCESS_TOKEN"] = @token
