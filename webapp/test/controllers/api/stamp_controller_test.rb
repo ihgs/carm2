@@ -3,6 +3,9 @@ require 'test_helper'
 class Api::StampControllerTest < ActionController::TestCase
 
   setup do
+    DatabaseCleaner.clean
+    smtp_config = create(:smtp_config)
+    smtp_config.save!
     @student = create(:student)
     @student.save!
     @token = "1234567890"

@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('cram.settings').controller('SettingsController', [
-  '$scope', 'Course',
-  function($scope, Course) {
+  '$scope', '$http', 'Course', 'notice_response',
+  function($scope, $http, Course, notice_response) {
     $scope.courses = Course.query();
+    $scope.notice = notice_response.data;
     $scope.add = function() {
       Course.save($scope.course, function(_course) {
         $scope.courses.push(_course);
@@ -29,5 +30,36 @@ angular.module('cram.settings').controller('SettingsController', [
       course.showEdit = !course.showEdit;
     };
 
+    $scope.save_smtp_config =
+        function() {
+      $http({
+        method : 'POST',
+        url : '/api/notice_mailer/save_smtp_config',
+        data : {'notice' : $scope.notice}
+      })
+          .success(function(data, status, headers) {
+            $scope.showSuccessAlert = true;
+          })
+          .error(function(data, status, headers) {
+            // TODO
+          })
+
+    }
+
+        $scope.switchBool = function(value) { $scope[value] = !$scope[value]; };
+
+    $scope.send_test_mail = function() {
+      $http({
+        method : 'POST',
+        url : '/api/notice_mailer/send_test_mail',
+        data : {'to' : $scope.test_to_address}
+      })
+          .success(function(data, status, headers) {
+            $scope.showSuccessAlert = true;
+          })
+          .error(function(data, status, headers) {
+            // TODO
+          })
+    }
   }
 ]);

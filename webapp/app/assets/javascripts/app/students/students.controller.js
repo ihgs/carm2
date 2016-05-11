@@ -7,7 +7,7 @@ class StudentsController {
     this.$window = $window;
     this.type = type;
     if (student.schools == undefined || student.schools.length == 0) {
-      student.schools = [ {} ]
+      student.schools = [ {} ];
     }
     this.student = student;
     this.schools = schools;

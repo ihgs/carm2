@@ -30,7 +30,7 @@ class Api::StampController < ApplicationController
       Stamp::write(time, student.id, device_name, remote_ip)
       # begin
       if student.mail
-        NoticeMailer.sendmail_enterance_exit(student, time).deliver_now
+        NoticeMailer.sendmail_enterance_exit(student.mail, student.fullname, time).deliver_now
       end
       # rescue Exception => e
         # logger.fatal e.backtrace.join("\n")

@@ -21,6 +21,9 @@ Rails.application.routes.draw do
     resources :daily_reports, only: [:index, :show, :create]
     resources :school_tests, only: [:index, :show]
     resources :schools, only: [:index]
+    get 'notice_mailer/get_smtp_config' => 'notice_mailer#get_smtp_config'
+    post 'notice_mailer/save_smtp_config' => 'notice_mailer#save_smtp_config'
+    post 'notice_mailer/send_test_mail' => 'notice_mailer#send_test_mail'
   end
 
   namespace :admin do

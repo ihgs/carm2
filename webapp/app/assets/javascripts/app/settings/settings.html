@@ -8,7 +8,6 @@
       </div>
     </form>
 
-    <!--Todo List -->
     <div class="panel panel-info">
       <ul class="list-group">
         <li class="list-group-item course-item" ng-mouseenter="hover(course)" ng-repeat="course in courses">
@@ -23,6 +22,42 @@
           </div>
         </li>
       </ul>
+    </div>
+  </div>
+</div>
+
+<h3>通知メール設定</h3>
+
+<div class="row">
+  <div class="col-md-8 col-md-offset-0">
+    <dl>
+      <dt>SMTP Address</dt>
+      <dd><input type="text" ng-model="notice.smtp.address" class="form-control"></dd>
+      <dt>SMTP Port</dt>
+      <dd><input type="number" ng-model="notice.smtp.port" class="form-control"></dd>
+      <dt>User name</dt>
+      <dd><input type="text" ng-model="notice.smtp.user_name" class="form-control"></dd>
+      <dt>Password</dt>
+      <dd><input type="password" ng-model="notice.smtp.password" class="form-control"></dd>
+      <dt>メールタイトル</dt>
+      <dd><input type="text" ng-model="notice.subject" class="form-control"></dd>
+      <dt>メール本文</dt>
+      <dd><textarea ng-model="notice.body" class="form-control" ></textarea></dd>
+    </dl>
+
+    <div class="input-group-btn">
+      <input type="button" class="btn btn-default" type="submit" value="作成" ng-click="save_smtp_config()">
+    </div>
+    <div class="alert alert-success" ng-show="showSuccessAlert">
+      <button type="button" class="close" data-ng-click="switchBool('showSuccessAlert')" >×</button>
+      <strong>Updated!</strong>
+    </div>
+    <br>
+    <div class="form-group">
+      <div class="form-inline">
+        <input type="mail" ng-model="test_to_address" class="form-control" placeholder="テスト送信先アドレス">
+        <input type="button" class="btn btn-default" type="submit" value="送信テスト" ng-click="send_test_mail()">
+      </div>
     </div>
   </div>
 </div>

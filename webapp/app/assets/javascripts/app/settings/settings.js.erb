@@ -14,7 +14,15 @@ angular.module('cram.settings', [
       .state('settings', {
         url: '/',
         templateUrl: '<%= asset_path 'app/settings/settings.html' %>',
-        controller: 'SettingsController'
+        controller: 'SettingsController',
+        resolve: {
+          notice_response: function($http){
+            return $http({
+              method: 'GET',
+              url: '/api/notice_mailer/get_smtp_config/',
+            })
+          }
+        }
       })
     ;
 
