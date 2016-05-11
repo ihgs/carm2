@@ -30,8 +30,7 @@ angular.module('cram.settings').controller('SettingsController', [
       course.showEdit = !course.showEdit;
     };
 
-    $scope.save_smtp_config =
-        function() {
+    $scope.save_smtp_config = function() {
       $http({
         method : 'POST',
         url : '/api/notice_mailer/save_smtp_config',
@@ -42,11 +41,11 @@ angular.module('cram.settings').controller('SettingsController', [
           })
           .error(function(data, status, headers) {
             // TODO
-          })
+          });
 
-    }
+    };
 
-        $scope.switchBool = function(value) { $scope[value] = !$scope[value]; };
+    $scope.switchBool = function(value) { $scope[value] = !$scope[value]; };
 
     $scope.send_test_mail = function() {
       $http({
@@ -59,7 +58,7 @@ angular.module('cram.settings').controller('SettingsController', [
           })
           .error(function(data, status, headers) {
             // TODO
-          })
-    }
+          });
+    };
   }
 ]);

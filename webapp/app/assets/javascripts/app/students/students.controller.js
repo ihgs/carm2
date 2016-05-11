@@ -27,7 +27,7 @@ class StudentsController {
         })
         .error(function(data, status, headers) {
 
-        })
+        });
   }
 
   submit_update() {
@@ -43,6 +43,6 @@ class StudentsController {
         })
         .error(function(data, status, headers) {
 
-        })
+        });
   }
 }

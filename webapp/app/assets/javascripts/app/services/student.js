@@ -5,9 +5,9 @@ class StudentService {
     this.$get = [
       '$resource',
       function($resource) {
-        var Student = $resource('/api/students/:id.json', {id : '@id'}, {
-          'get' : {transformResponse : transformResponse},
-        });
+        var Student =
+            $resource('/api/students/:id.json', {id : '@id'},
+                      {'get' : {transformResponse : transformResponse}});
         return Student;
       }
     ];
