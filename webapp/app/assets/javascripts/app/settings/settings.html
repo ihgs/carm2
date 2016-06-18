@@ -31,25 +31,34 @@
 <div class="row">
   <div class="col-md-8 col-md-offset-0">
     <dl>
+      <dt>Ust TLS</dt>
+      <dd><input type="checkbox" ng-model="notice.smtp.enable_starttls_auto" class="form-control"></dd>
       <dt>SMTP Address</dt>
       <dd><input type="text" ng-model="notice.smtp.address" class="form-control"></dd>
       <dt>SMTP Port</dt>
       <dd><input type="number" ng-model="notice.smtp.port" class="form-control"></dd>
+      <dt>Domain</dt>
+      <dd><input type="text" ng-model="notice.smtp.domain" class="form-control"></dd>
+      <dt>Authentication</dt>
+      <dd><input type="text" ng-model="notice.smtp.authentication" class="form-control" placeholder="plain"></dd>
       <dt>User name</dt>
       <dd><input type="text" ng-model="notice.smtp.user_name" class="form-control"></dd>
-      <dt>Password</dt>
+      <dt>Password (パスワードを修正するときだけ入力)</dt>
       <dd><input type="password" ng-model="notice.smtp.password" class="form-control"></dd>
+      <dt>送信元アドレス</dt>
+      <dd><input type="text" ng-model="notice.from" class="form-control" ></dd>
       <dt>メールタイトル</dt>
       <dd><input type="text" ng-model="notice.subject" class="form-control"></dd>
       <dt>メール本文</dt>
       <dd><textarea ng-model="notice.body" class="form-control" ></textarea></dd>
+
     </dl>
 
     <div class="input-group-btn">
       <input type="button" class="btn btn-default" type="submit" value="作成" ng-click="save_smtp_config()">
     </div>
-    <div class="alert alert-success" ng-show="showSuccessAlert">
-      <button type="button" class="close" data-ng-click="switchBool('showSuccessAlert')" >×</button>
+    <div class="alert alert-success" ng-show="showSuccessAlert.save_smtp_config">
+      <button type="button" class="close" data-ng-click="hidden_alert('save_smtp_config')" >×</button>
       <strong>Updated!</strong>
     </div>
     <br>
@@ -58,6 +67,10 @@
         <input type="mail" ng-model="test_to_address" class="form-control" placeholder="テスト送信先アドレス">
         <input type="button" class="btn btn-default" type="submit" value="送信テスト" ng-click="send_test_mail()">
       </div>
+    </div>
+    <div class="alert alert-success" ng-show="showSuccessAlert.send_test_mail">
+      <button type="button" class="close" data-ng-click="hidden_alert('send_test_mail')" >×</button>
+      <strong>送信しました</strong>
     </div>
   </div>
 </div>

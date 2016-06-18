@@ -5,6 +5,7 @@ angular.module('cram.settings').controller('SettingsController', [
   function($scope, $http, Course, notice_response) {
     $scope.courses = Course.query();
     $scope.notice = notice_response.data;
+    $scope.showSuccessAlert = {};
     $scope.add = function() {
       Course.save($scope.course, function(_course) {
         $scope.courses.push(_course);
@@ -37,7 +38,7 @@ angular.module('cram.settings').controller('SettingsController', [
         data : {'notice' : $scope.notice}
       })
           .success(function(data, status, headers) {
-            $scope.showSuccessAlert = true;
+            $scope.showSuccessAlert.save_smtp_config = true;
           })
           .error(function(data, status, headers) {
             // TODO
@@ -45,7 +46,9 @@ angular.module('cram.settings').controller('SettingsController', [
 
     };
 
-    $scope.switchBool = function(value) { $scope[value] = !$scope[value]; };
+    $scope.hidden_alert = function(value) {
+      $scope.showSuccessAlert[value] = false;
+    };
 
     $scope.send_test_mail = function() {
       $http({
@@ -54,7 +57,7 @@ angular.module('cram.settings').controller('SettingsController', [
         data : {'to' : $scope.test_to_address}
       })
           .success(function(data, status, headers) {
-            $scope.showSuccessAlert = true;
+            $scope.showSuccessAlert.send_test_mail = true;
           })
           .error(function(data, status, headers) {
             // TODO

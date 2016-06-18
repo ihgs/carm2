@@ -39,13 +39,5 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address:              ENV['DOCKER_HOST_IP'],
-    port:                 1025,
-    domain:               'example.com',
-    user_name:            nil,
-    password:             nil,
-    authentication:       nil,
-    enable_starttls_auto: true
-  }
+
 end

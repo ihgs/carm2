@@ -10,18 +10,24 @@ class NoticeMailer < ApplicationMailer
     unless config.smtp
       //# TODO:
       raise "Not set smtp config"
+    else
+      unless config.smtp["address"]
+        raise "Not set smtp config"
+      end
     end
     timestr = timestamp.strftime('%H:%M')
     if config.body
       body = config.body.gsub(/{{student_name}}/, student_name)
       body = body.gsub(/{{timestamp}}/, timestr)
     end
+    options = config.smtp.symbolize_keys
     mail(
       to: mail,
+      from: config.from,
       subject: config.subject,
       body: body,
       content_type: "text/plain",
-      delivery_method_options:  config.smtp
+      delivery_method_options: options,
     )
   end
 end
