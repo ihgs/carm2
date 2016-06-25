@@ -1,5 +1,6 @@
 class Api::SchoolTestsController < ApplicationController
-
+  before_action :authenticate_user!
+  
   def index
     school_tests = SchoolTest.all
     schools = School.all.map do |school|
