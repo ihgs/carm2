@@ -61,7 +61,7 @@ class Student
   def check_school
     if self.schools
       self.schools = self.schools.select do |school|
-        school[:school_id] and school[:note]
+        school[:school_id]
       end
     end
   end
