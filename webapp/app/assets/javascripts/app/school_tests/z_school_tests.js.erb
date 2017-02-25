@@ -8,7 +8,7 @@ angular.module('cram.school_tests', [
   'angular-confirm',
 ]).config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider) {
     $urlRouterProvider
-      .otherwise('list');
+      .otherwise('list/');
 
     $stateProvider
       .state('school_tests', {
@@ -16,20 +16,25 @@ angular.module('cram.school_tests', [
         template: '<div ui-view />'
       })
       .state('school_tests.list', {
-        url: 'list',
+        url: 'list/{year}',
         templateUrl: '<%= asset_path 'app/school_tests/school_tests_list.html' %>',
         controller: SchoolTestsListController,
         controllerAs: 'ctrl',
         resolve: {
-          school_tests: function(SchoolTestService){
-            let today = new Date();
-            let year = today.getFullYear();
-            let params = {
-              from: String(year)+"-04-01",
-              to: String(year+1)+"-03-31"
+          year: function($stateParams){
+            let year;
+            if ($stateParams.year){
+              year = Number($stateParams.year);
+            } else {
+              let today = new Date();
+              year = today.getFullYear();
+              let month = today.getMonth();
+              if (month < 3){
+                year = year - 1;
+              }
             }
-            return SchoolTestService.query(params);
-          },
+            return year;
+          }
         }
       })
       .state('school_tests.show',{
