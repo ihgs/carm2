@@ -14,6 +14,10 @@ class Api::SchoolTestsControllerTest < ActionController::TestCase
     @school_test = create(:school_test)
     @school_test.school_id = @school1.id
     @school_test.save!
+    @school_test2 = create(:school_test, :one)
+    @school_test2.save!
+    @school_test3 = create(:school_test, :two)
+    @school_test3.save!
   end
 
   test "should not login" do
@@ -27,9 +31,47 @@ class Api::SchoolTestsControllerTest < ActionController::TestCase
       get :index, format: "json"
       assert_response :success
       json = JSON.parse(response.body)
-      assert_equal 1, json.length
+      assert_equal 3, json.length
       assert_equal "中間テスト", json[0]["name"]
       assert_equal "school1", json[0]["school"]["name"]
+  end
+
+  test "should get list from to" do
+      sign_in @user
+      get :index, :from=>"2010-09-1", :to=>"2010-09-30", format: "json"
+      assert_response :success
+      json = JSON.parse(response.body)
+      assert_equal 0, json.length
+
+      get :index, :from=>"2010-09-01", format: "json"
+      assert_response :success
+      json = JSON.parse(response.body)
+      assert_equal 3, json.length
+
+      get :index, :from=>"2010-10-03", format: "json"
+      assert_response :success
+      json = JSON.parse(response.body)
+      assert_equal 1, json.length
+
+      get :index, :to=>"2010-10-02", format: "json"
+      assert_response :success
+      json = JSON.parse(response.body)
+      assert_equal 2, json.length
+
+      get :index, :from=>"2010-09-01", :to=>"2010-11-01", format: "json"
+      assert_response :success
+      json = JSON.parse(response.body)
+      assert_equal 3, json.length
+
+      get :index, :from=>"2010-09-01", :to=>"2010-10-01", format: "json"
+      assert_response :success
+      json = JSON.parse(response.body)
+      assert_equal 1, json.length
+
+      get :index, :from=>"2010-10-02", :to=>"2010-10-02", format: "json"
+      assert_response :success
+      json = JSON.parse(response.body)
+      assert_equal 1, json.length
   end
 
   test "should get detail" do

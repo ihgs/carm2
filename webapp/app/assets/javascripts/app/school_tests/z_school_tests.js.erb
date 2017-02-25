@@ -22,7 +22,13 @@ angular.module('cram.school_tests', [
         controllerAs: 'ctrl',
         resolve: {
           school_tests: function(SchoolTestService){
-            return SchoolTestService.query();
+            let today = new Date();
+            let year = today.getFullYear();
+            let params = {
+              from: String(year)+"-04-01",
+              to: String(year+1)+"-03-31"
+            }
+            return SchoolTestService.query(params);
           },
         }
       })

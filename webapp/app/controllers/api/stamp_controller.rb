@@ -40,6 +40,8 @@ class Api::StampController < ApplicationController
         return
       rescue => e
         logger.info(e.message)
+        render :json => {status: "error", name: "#{student.name[:family_name]} #{student.name[:first_name]}", mail: "NOT_SEND"  }
+        return
       end
     end
     render :json => {status: "success", name: "#{student.name[:family_name]} #{student.name[:first_name]}", mail: "NOT_SEND" }

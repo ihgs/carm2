@@ -1,8 +1,19 @@
 class Api::SchoolTestsController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
-    school_tests = SchoolTest.all
+    from = toTime(params[:from])
+    to = toTime(params[:to])
+    if from && to then
+      school_tests = SchoolTest.where(start_date: {'$gte' => from, '$lte' => to})
+    elsif from then
+      school_tests = SchoolTest.where(start_date: {'$gte' => from})
+    elsif to then
+      school_tests = SchoolTest.where(start_date: {'$lte' => to})
+    else
+      school_tests = SchoolTest.all
+    end
+
     schools = School.all.map do |school|
       [school.id.to_s, school]
     end
@@ -35,4 +46,12 @@ class Api::SchoolTestsController < ApplicationController
     end
     render json: school_test.to_json
   end
+
+  private
+    def toTime(date_str)
+      if date_str
+        return Time.parse(date_str)
+      end
+      return nil
+    end
 end
