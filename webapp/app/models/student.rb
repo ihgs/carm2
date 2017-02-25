@@ -7,6 +7,7 @@ class Student
   field :schools, type: Array  # [{school_id:, enterance_year: note:}]
   field :contact_information, type: Hash # {mail:}
   field :course_id, type: String
+  field :graduated, type: Boolean, default: false
 
   before_save :check_school
 
@@ -18,7 +19,11 @@ class Student
   end
 
   def fullname
-    "#{name[:family_name]} #{name[:first_name]}"
+    if name
+      "#{name[:family_name]} #{name[:first_name]}"
+    else
+      ""
+    end
   end
 
   def school_list
