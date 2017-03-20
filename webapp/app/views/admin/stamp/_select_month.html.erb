@@ -1,7 +1,8 @@
 <div class="stamp_select_month">
   <%= form_tag("", method: "get") do %>
     <div class="form-inline">
-      <%= select_tag :year, options_for_select([2014,2015,2016], @year),  :class=>"form-control"%>
+      <% years = (2014..Time.current.year) %>
+      <%= select_tag :year, options_for_select(years.reverse_each, @year),  :class=>"form-control"%>
       <%= select_tag :month, options_for_select( 1..12, @month),  :class=>"form-control" %>
       <%= submit_tag "Go", :name=>nil, :class=>"btn" %>
     </div>

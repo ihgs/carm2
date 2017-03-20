@@ -25,6 +25,11 @@
   <dd>
     {{student.course}}
   </dd>
+  <dt><strong>Graduated:</strong></dt>
+  <dd>
+    <span ng-if="!!student.graduated">true</span>
+    <span ng-if="!student.graduated">false</span>
+  </dd>
   <dt><strong>Timestamp</strong></dt>
   <dd>
     <a href="{{student.links.timestamp}}">Go</a>

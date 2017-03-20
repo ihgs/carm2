@@ -1,7 +1,12 @@
 class Api::StudentsController < ApplicationController
   before_action :authenticate_user!
   def index
-    students = Student.all
+    puts params
+    if params[:scope] == 'all'
+      students = Student.all
+    else
+      students = Student.where(:graduated.in => [nil, false])
+    end
     schools = School.all
 
     response = students.map do |student|
@@ -88,7 +93,7 @@ private
   end
 
   def student_params
-    params.require(:student).permit(:birthday, :card_id, :course_id, schools: [:note, :school_id, :enterance_year],
+    params.require(:student).permit(:birthday, :card_id, :course_id, :graduated, schools: [:note, :school_id, :enterance_year],
       name:[:first_name, :family_name, :first_name_kana, :family_name_kana], contact_information:[:mail],
       )
   end

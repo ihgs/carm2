@@ -8,7 +8,7 @@ angular.module('cram.students', [
 ])
   .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $httpProvider) {
     $urlRouterProvider
-      .otherwise('list');
+      .otherwise('list/');
 
     $stateProvider
       .state('students', {
@@ -16,7 +16,7 @@ angular.module('cram.students', [
         template: '<div ui-view />'
       })
       .state('students.list',{
-        url: 'list',
+        url: 'list/{scope}',
         templateUrl: '<%= asset_path 'app/students/students_list.html' %>',
         controller: 'StudentsListController'
       })
